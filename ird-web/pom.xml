@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <parent>
+        <artifactId>ird-parent</artifactId>
+        <groupId>com.ird.portal</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../ird-parent/pom.xml</relativePath>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>ird-web</artifactId>
+
+    <name>ird-web</name>
+    <description>ird WEB</description>
+
+    <packaging>war</packaging>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>com.ird.portal</groupId>
+            <artifactId>ird-common-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ird.portal</groupId>
+            <artifactId>ird-common-web</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ird.portal</groupId>
+            <artifactId>ird-sys-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ird.portal</groupId>
+            <artifactId>ird-rpt-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ird.portal</groupId>
+            <artifactId>ird-sch-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <!-- ird-user-core -->
+        <dependency>
+            <groupId>com.ird.portal</groupId>
+            <artifactId>ird-user-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+
+        
+        <!-- ird-api-core -->
+        <dependency>
+            <groupId>com.ird.portal</groupId>
+            <artifactId>ird-api-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.4</version>
+                <executions>
+                    <execution>
+                        <id>artifact-package</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>war</goal>
+                        </goals>
+                        <configuration>
+                            <warName>${name}-${sysVersion}</warName>
+                            <webResources>
+                                <resource>
+                                    <directory>src/main/webapp/WEB-INF</directory>
+                                    <!-- 開啟過濾 -->
+                                    <filtering>true</filtering>
+                                    <!-- 相對於根目錄下 -->
+                                    <targetPath>WEB-INF</targetPath>
+                                    <includes>
+                                        <include>**/*.xml</include>
+                                    </includes>
+                                </resource>
+                            </webResources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>default-resources</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>target/classes</outputDirectory>
+                            <useDefaultDelimiters>false</useDefaultDelimiters>
+                            <delimiters>
+                                <delimiter>@</delimiter>
+                            </delimiters>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/resources/</directory>
+                                    <filtering>true</filtering>
+                                    <includes>
+                                        <include>**/*.yml</include>
+                                        <include>**/*.properties</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

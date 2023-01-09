@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<div th:replace="fragments/head">head</div>
+		<title>DSAT SP</title>
+	</head>
+
+	<body>
+		<div class="container-fluid" id="app">
+			<!-- screen id -->
+			<div th:replace="fragments/layout :: content_header(|#{sys.auditLog}|, 'IRD-SYS-AUDITLOG')">SCREEN-ID</div>
+			<form id="queryForm" class="form-horizontal margin-top-10">
+					<div class="form-group">
+						<label class="control-label col-sm-1" for="sysFuncCode" th:text="#{audit.funcCode}">功能名稱</label>
+						<div class="col-sm-2">
+							<v-select name=sysFuncCode id="funcId" v-model="func.funcId" lazy="true" :url="funcIdUrl" :options="funcIdOptions" placeholder="請選擇..."></v-select>
+						</div>
+						<label class="control-label col-sm-1" for="sysOperatorId" th:text="#{audit.operatorId}">創建用戶 </label>
+						<div class="col-sm-3">
+							<v-select name="sysOperatorId" id="userId" v-model="func.userId" lazy="true" :url="userIdUrl" :options="userIdOptions" placeholder="請選擇..."></v-select>
+						</div>
+						<label class="control-label col-sm-1" for="sysOperationTime" th:text="#{audit.operationTime}">創建時間</label>
+						<div class="col-sm-3_5">
+							<div class="input-group">
+								<input id="sysOperationTimeStart" name="sysOperationTimeStart" value="" class="input-sm form-control" th:placeholder="#{global.dateFormat}" placeholder="DD/MM/YYYY" style="padding-right: 18px">
+								<span class="input-group-addon">-</span>
+								<input id="sysOperationTimeEnd" name="sysOperationTimeEnd" value="" class="input-sm form-control" th:placeholder="#{global.dateFormat}" placeholder="DD/MM/YYYY">
+							</div>
+						</div>
+
+					</div>
+
+					<div class="form-group">
+						<div class="col-sm-12" style="text-align: right;">
+							<button sec:authorize="hasPermission('SYS-AUDITLOG-QUERY')" id="examListSearch" type="button" class="btn btn-primary">
+                            <i class="glyphicon glyphicon-search"></i> <span th:text="#{global.search}">查詢</span>
+                        </button>
+							<button sec:authorize="hasPermission('SYS-AUDITLOG-EXPORT')" id="examListDerive" type="button" class="btn btn-default" data-toggle="popover" data-placement="top" data-content="導出當前數據前請先選擇經辦時間" >
+                            <i class="glyphicon glyphicon-edit"></i> 
+                            <span th:text="#{global.export}" >導出</span>
+                        </button>
+							<button sec:authorize="hasPermission('SYS-AUDITLOG-QUERY')" id="examListRefresh" type="button" class="btn btn-default">
+                            <i class="glyphicon glyphicon-refresh"></i> <span th:text="#{global.reset}">重置</span>
+                        </button>
+						</div>
+					</div>
+                    <div sec:authorize="hasPermission('SYS-AUDITLOG-VIEW')" id="detail-div" style="display:none;">
+    <a href="auditDetailList.html?auditMasterId={0}" class="btn btn-sm btn-default fancybox fancybox.iframe" data-fancybox-width="100%" data-fancybox-height="100%">
+    <i class="glyphicon glyphicon-detail"></i><span th:text="#{global.detail}">詳情</span></a>
+</div>
+					<div class="form-group">
+						<div class="col-sm-12">
+							<table id="examListTable" class="table table-bordered table-hover table-condensed dataTable no-footer" role="grid" style="width: 100%;" width="100%" cellspacing="0">
+								<thead>
+									<tr role="row">
+										<th th:text="#{audit.funcCode}">功能名稱</th>
+										<th th:text="#{audit.operatorId}">創建用戶</th>
+										<th th:text="#{audit.operationTime}">創建日期</th>
+										<th th:text="#{audit.remark}">備注</th>
+										<th th:text="#{audit.process}">操作</th>
+										<th th:text="#{audit.hostIP}">主機IP</th>
+										<th th:text="#{audit.process}">操作終端</th>
+									</tr>
+								</thead>
+							</table>
+						</div>
+					</div>
+			</form>
+		</div>
+		<!-- 注入系統默認javaScript腳本 -->
+		<div th:replace="fragments/script">Script JS</div>
+		<!-- 自己系統的腳本請在下面引入 -->
+
+		<script type="text/javascript" th:inline="javascript">
+			/*<![CDATA[*/
+			//此處為將國際化傳值到JS
+			/*var i18n = {
+				detail: [
+					[#{global.detail}]
+				],
+				examUpdateExamResult: [
+					[#{exam.btn.updateExamResult}]
+				],
+				learnLic: [
+					[#{learnLic.learnLic}]
+				]
+			};*/
+			/*]]>*/
+		</script>
+
+		<script type="text/javascript" src="static/js/sys/auditLogListController.js" th:src="@{/static/js/sys/auditLogListController.js}"></script>
+
+	</body>
+
+</html>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<fontFamilies>
+
+	<fontFamily name="EUDC">
+		<!--<normal>/mnt/udcfont/EUDC.TTF</normal>-->
+		<normal>fonts/EUDC/EUDC.TTF</normal>
+        <pdfEncoding>Identity-H</pdfEncoding>
+        <pdfEmbedded>true</pdfEmbedded>
+    </fontFamily>
+
+</fontFamilies>

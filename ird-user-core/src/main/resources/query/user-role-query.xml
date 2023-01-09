@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+
+	<!-- ==========================role======================= -->
+	<getRoleByIds type="hql">
+		FROM RoleEntity
+		WHERE roleId IN(:ids)
+	</getRoleByIds>
+
+	<getRoleList type="hql">
+		<![CDATA[
+	        FROM
+	        RoleEntity
+	        WHERE 1 = 1
+		        <#if lastUpdDate_start?? && lastUpdDate_start!!= ''>
+		               AND lastUpdDate>= :lastUpdDate_start
+		        </#if>
+		        <#if lastUpdDate_end?? && lastUpdDate_end!!= ''>
+		               AND lastUpdDate <= :lastUpdDate_end
+		        </#if>
+		        <#if createDate_start?? && createDate_start!!= ''>
+		               AND createDate>= :createDate_start
+		        </#if>
+		        <#if createDate_end?? && createDate_end!!= ''>
+		               AND createDate <= :createDate_end
+		        </#if>
+              <#if role?? && role!!= ''>
+               AND upper(role) LIKE upper(concat('%', :role, '%'))
+              </#if>
+              <#if status?? && status!!= ''>
+               AND status = :status
+              </#if>
+              <#if roleId?? >
+               AND roleId = :roleId
+              </#if>
+              
+              ORDER BY lastUpdDate DESC
+        ]]>
+	</getRoleList>
+
+	<getRoleByCode type="hql">
+		FROM RoleEntity WHERE role = :roleCode
+	</getRoleByCode>
+</queries>
+

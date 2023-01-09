@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>DASHBOARD</title>
+    <div th:replace="fragments/head">head</div>
+    <style>
+        th{
+            text-align: center;
+        }
+        tr{
+            text-align: center;
+
+        }
+        td{
+            vertical-align: middle;
+        }
+    </style>
+
+</head>
+<body style="background: #f5f5f5;">
+<div id="app" v-cloak>
+    <div style="height: 20px">
+    </div>
+    <div class="col-sm-12">
+        <div class="container-fluid">
+            <div ></div>
+        </div>
+        <form class="form-horizontal bv-form">
+            <fieldset>
+                <div class="form-group">
+                    <label class="control-label col-sm-1" th:text="#{que.center}">驗車中心</label>
+                    <div class="col-sm-2">
+                        <v-select :url="centerUrl" id="centerCode" v-model="centerCode" @change="initData" name="centerCode" th:placeholder="#{que.center}" placeholder="請選擇"></v-select>
+                    </div>
+                    <label class="control-label col-sm-1" th:text="#{que.inspectionDate}">驗車日期</label>
+                    <div class="col-sm-2">
+                        <input id="inspectionDate" name="inspectionDate" class="form-control form_datetime" type="text" placeholder="dd/MM/yyyy" v-model="inspectionDate" @change="initData">
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+
+        <div class="col-sm-12">
+            <div class="col-sm-6" >
+                <div style="width: 100%;height:200px;background: #ffffff">
+                    <fieldset>
+                        <label class="h4" style="color: #000000"><b>市民平均等待時間 (有效記錄:{{citizenAvgMinCount}})</b></label>
+                    </fieldset>
+                    <div style="width: 100%;text-align: center;font-size: 80px;">
+                        {{citizenAvgMin}}<span style="font-size: 60px;">min</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div style="width: 100%;height:200px;background: #ffffff">
+                    <fieldset>
+                        <label class="h4" style="color: #000000"><b >車輛平均檢驗時間 (有效記錄:{{carAvgMinCount}})</b></label>
+                    </fieldset>
+                    <div style="width: 100%;text-align: center;font-size: 80px;">
+                        {{carAvgMin}}<span style="font-size: 60px;">min</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12" v-if="!isUseOldIndustrialControl">
+            <div class="col-sm-0_5">
+                &nbsp;
+            </div>
+        </div>
+        <div class="col-sm-12" v-if="!isUseOldIndustrialControl">
+            <div class="col-sm-6">
+                <div id="main" style="width: 100%;height:384px;background: #ffffff"></div>
+            </div>
+            <div class="col-sm-6" style="float:right;" >
+                <div style="background: #ffffff;height:384px;">
+                    <fieldset>
+                        <label class="h4" style="color: #000000"><b th:text="#{sys.detect.title}">檢測結果統計合格率</b></label>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>
+                            <div class="col-sm-4">
+                                <label class="h5"><span th:text="#{sys.detect.total}">總檢測</span>：{{detectTotal[0] === undefined ? 0:detectTotal[0].total}}</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="h5"><span th:text="#{sys.detect.totalPassSum}">總檢測合格數</span>：{{detectTotal[0] === undefined ? 0:detectTotal[0].pass}}</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="h5"><span th:text="#{sys.detect.passRate}">總檢測合格率</span>：<b>{{detectTotal[0] === undefined ? 0:(detectTotal[0].passRate*100).toFixed(2)}}%</b></label>
+                            </div>
+                        </legend>
+                    </fieldset>
+                    <fieldset>
+                        <legend>
+                            <div class="col-sm-4">
+                                <label class="h5"><span th:text="#{sys.detect.newCarSum}">新車檢驗架次</span>：{{detectTotal[1] === undefined ? 0:detectTotal[1].total}}</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="h5"><span th:text="#{sys.detect.newCarPassSum}">新車檢驗合格數</span>：{{detectTotal[1] === undefined ? 0:detectTotal[1].pass}}</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="h5"><span th:text="#{sys.detect.newCarRate}">新車檢驗合格率</span>：<b>{{detectTotal[1] === undefined ? 0:(detectTotal[1].passRate*100).toFixed(2)}}%</b></label>
+                            </div>
+                        </legend>
+                    </fieldset>
+                    <fieldset>
+                        <legend>
+                            <div class="col-sm-4">
+                                <label class="h5"><span th:text="#{sys.detect.specialSum}">特別檢驗車輛數</span>：{{detectTotal[2] === undefined ? 0:detectTotal[2].total}}</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="h5"><span th:text="#{sys.detect.specialPassSum}">特別檢驗合格數</span>：{{detectTotal[2] === undefined ? 0:detectTotal[2].pass}}</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="h5"><span th:text="#{sys.detect.specialRate}">特別檢驗合格率</span>：<b>{{detectTotal[2] === undefined ? 0:(detectTotal[2].passRate*100).toFixed(2)}}%</b></label>
+                            </div>
+                        </legend>
+                    </fieldset>
+                    <fieldset>
+                        <legend>
+                            <div class="col-sm-4">
+                                <label class="h5"><span th:text="#{sys.detect.outSum}">外出檢驗車輛數</span>：{{detectTotal[3] === undefined ? 0:detectTotal[3].total}}</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="h5"><span th:text="#{sys.detect.outPassSum}">外出檢驗合格數</span>：{{detectTotal[3] === undefined ? 0:detectTotal[3].pass}}</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="h5"><span th:text="#{sys.detect.outRate}">外出檢驗合格率</span>：<b>{{detectTotal[3] === undefined ? 0:(detectTotal[3].passRate*100).toFixed(2)}}%</b></label>
+                            </div>
+                        </legend>
+                    </fieldset>
+                    <fieldset>
+                        <legend>
+                            <div class="col-sm-4">
+                                <label class="h5"><span th:text="#{sys.detect.regularSum}">定期檢驗架次</span>：{{detectTotal[4] === undefined ? 0:detectTotal[4].total}}</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="h5"><span th:text="#{sys.detect.regularPassSum}">定期檢驗合格數</span>：{{detectTotal[4] === undefined ? 0:detectTotal[4].pass}}</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="h5"><span th:text="#{sys.detect.regularRate}">定期檢驗合格率</span>：<b>{{detectTotal[4] === undefined ? 0:(detectTotal[4].passRate*100).toFixed(2)}}%</b></label>
+                            </div>
+                        </legend>
+                    </fieldset>
+                    <fieldset>
+                        <legend>
+                            <div class="col-sm-4">
+                                <label class="h5"><span th:text="#{sys.detect.carSum}">定期檢驗車輛數</span>：{{detectTotal[5] === undefined ? 0:detectTotal[5].total}}</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="h5"><span th:text="#{sys.detect.carPassSum}">定期檢驗車輛合格數</span>：{{detectTotal[5] === undefined ? 0:detectTotal[5].pass}}</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="h5"><span th:text="#{sys.detect.carRate}">定期檢驗車輛合格率</span>：<b>{{detectTotal[5] === undefined ? 0:(detectTotal[5].passRate*100).toFixed(2)}}%</b></label>
+                            </div>
+                        </legend>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="col-sm-0_5">
+                &nbsp;
+            </div>
+        </div>
+        <div class="col-sm-12" >
+            <div class="col-sm-12">
+                <div id="main2" style="width: 100%;height:384px;background: #ffffff"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div th:replace="fragments/script">Script JS</div>
+<!-- 自己系統的腳本請在下面引入 -->
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    //此處為將國際化傳值到JS
+    var vModel = {
+        isUseOldIndustrialControl: [[${isUseOldIndustrialControl}]]
+    };
+    /*]]>*/
+</script>
+<script type="text/javascript" src="static/js/sys/dashboard.js" th:src="@{/static/js/sys/dashboard.js}"></script>
+
+</body>
+
+</html>

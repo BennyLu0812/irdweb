@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <div class="container-fluid">
+    
+        <!-- SCREEN ID
+            <div th:replace="fragments/layout :: content_header(|#{header.title}|, 'DLS-SYS-001')">SCREEN ID</div>
+         -->
+        <div class="content-header" th:fragment="content_header(funcName,screenId)">
+            <legend>
+                <label class="h3" th:text="${funcName}">功能名稱</label>
+
+                <div class="screen-id pull-right">
+                    <small th:text="${screenId}">screen ID</small>
+                </div>
+            </legend>
+        </div>
+    
+        
+        <div class="txn-content-header" th:fragment="txn_content_header(funcName,screenId, spNo)">
+            <div v-cloak>
+            <legend>
+                <label class="h3">
+                    <span th:text="${funcName}">申請人資料</span> (<span th:text="${spNo}">申請編號</span>)
+                </label>
+                <div class="screen-id pull-right">
+                    <small th:text="${screenId}">screen ID</small>
+                </div>
+            </legend>
+            </div>
+        </div>
+        
+
+        <div class="dialog-title" th:fragment="dialog_title(funcName,screenId)">
+                <label class="h4" th:text="${funcName}">功能名稱</label>
+
+                <div class="screen-id pull-right">
+                    <small th:text="${screenId}" style="font-size:12px">screen ID</small>
+                </div>
+        </div>
+
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/head">head</div>
+    <title>Config Detail</title>
+</head>
+
+<body>
+<div class="container-fluid" id="app">
+    <!-- screen id -->
+    <div th:replace="fragments/layout :: content_header(|#{sys.config}|, 'IRD-SYS-CONFIG-VIEW')">SCREEN-ID</div>
+    <form id="queryForm" class="form-horizontal margin-top-10">
+        <div class="form-group">
+            <div class="col-sm-12">
+                <table id="configListTable" class="table table-bordered table-hover table-condensed dataTable no-footer" role="grid" style="width: 100%;" width="100%" cellspacing="0">
+                    <thead>
+                    <tr role="row">
+                        <th th:text="#{sys.configName}">文件配置名</th>
+                        <th th:text="#{sys.configValue}">配置屬性</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </form>
+</body>
+<!-- 注入系統默認javaScript腳本 -->
+<div th:replace="fragments/script">Script JS</div>
+<!-- 自己系統的腳本請在下面引入 -->
+
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    //此處為將國際化傳值到JS
+    /*var i18n = {
+        detail: [
+            [#{global.detail}]
+        ],
+        examUpdateExamResult: [
+            [#{exam.btn.updateExamResult}]
+        ],
+        learnLic: [
+            [#{learnLic.learnLic}]
+        ]
+    };*/
+    /*]]>*/
+</script>
+
+<script type="text/javascript" src="static/js/sys/configListController.js" th:src="@{/static/js/sys/configListController.js}"></script>
+
+</html>

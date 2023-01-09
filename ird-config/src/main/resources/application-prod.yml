@@ -1,0 +1,189 @@
+# DSAT鐨刄AT鐠板
+
+server:
+  error:
+    path: /error
+  tomcat:
+    max-http-post-size: -1
+  session:
+    #設置session時間為8小時
+    timeout: 28800
+
+# 缍茬珯閬嬭妯″紡 dev=闁嬬櫦,DEV=DEV鐠板閬嬭,UAT=UAT鐠板閬嬭,PROD=鐢熺敘鐠板
+website:
+  model: prod
+
+#jasypt鍔犲瘑鐨勫瘑鍖�
+jasypt:
+  encryptor:
+    password: EbfYkitulv73I2p0mXI50JMXoaxZTKJ7
+
+# jdbc
+# 椹卞姩閰嶇疆淇℃伅
+spring:
+  #AOP閰嶇疆
+  aop:
+    auto: true
+    proxy-target-class: true
+
+  # jdbc 椹卞姩閰嶇疆淇℃伅
+  # JDBC DataSource config
+  datasource:
+    #閺堟帴鏂瑰紡 JDBC,JNDI
+    mode: JDBC
+
+    #JDBC
+    type: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://172.23.97.11:1433;SelectMethod=cursor;DatabaseName=IRD_PROD
+    username: IRD
+    password: ENC(P8wUNgOCQz0Dnjyyx/bZ1bedl1uwEVu2)
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+    initialSize: 10
+    minIdle: 10
+    maxActive: 50
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    filters: stat,log4j
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      # 是否一直执行。ALWAYS表示总是执行，NEVER表示不执行
+    initialization-mode: ALWAYS
+      # 遇到错误是否继续
+    continue-on-error: true
+      # SQL语句的建表语句位置
+    schema:  classpath:/data/schema.sql
+      # 初始化数据的文件所在位置
+    data: classpath:/data/data.sql
+
+
+    # Spring JNDI  spring.datasource.jndi.name
+    jndi:
+      name: IRD_PROD_DS
+  # JPA Configuration:
+  jpa:
+
+    # Hibernate ddl auto (create, create-drop, update, validate)
+    hibernate:
+      ddl-auto:
+      naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    properties:
+      hibernate:
+        dialect: com.ird.portal.dao.hibernate.SqlServer2012Dialect
+        show_sql: false
+        format_sql: false
+        query:
+          substitutions: true 'Y', false 'N'
+      javax:
+        persistence:
+          validation:
+            mode: none
+
+    #ehcache configuration
+    cache:
+      ehcache:
+        config: ehcache.xml
+
+  #BaseServiceWS Configuration
+#  baseServiceWS:
+#    sms:
+#      wsdl: https://doivsrvsms/sms/SMSWebService.asmx?op=SendSmsBatchByAppType
+#      username: ird_sms_prod
+#      password: ENC(+huUKXKEzyQm9BFO/orufhrM32hkkOQE)
+#      domain: dsat.gov.mo
+
+  # Use Thymeleaf 3
+  thymeleaf:
+    mode: HTML
+    prefix: /WEB-INF/templates/
+    suffix: .html
+    encoding: UTF-8
+    # 闁嬬櫦妯″紡涓� 灏囩珐瀛橀棞闁�
+    cache: false
+
+  # 澶氳瑷�鍥介檯鍖�
+  messages:
+    encoding: UTF-8
+
+  #  jackson 閰嶇疆
+  jackson:
+    time-zone: GMT+8
+    date-format: dd/MM/yyyy
+
+  # http 缁熶竴UTF-8锛岄伩鍏嶄腑鏂囦贡鐮�
+  http:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+    # spring.http.multipart 鏂囦欢涓婂偝閰嶇疆铏曠悊
+    multipart:
+      enabled: true
+      resolveLazily: true
+      max-file-size: 20MB
+      max-request-size: 200MB
+filter:
+  excludeUrls:  /login/login.html,/login/login,/pda/,/pda,/pda/api/login,/api/v1/login,/api/v1/logout,/api/v1/mobile/**,/auto/print/**,/ctr/center/select2/centerList,/inp/inpLine/select2/lineList,/inp/realTimeExamineController/**,/inp/protonRealtimeStatus/**,/equ/RealTime/**,/sys/service/getSysDateTime,/que/enroll/**,/sys/i18n/getByModules,/equ/queue/**,/inp/task/getCenterVehicle/**,/equ/monitor/**,/que/process/getWaitTime/**,/equ/led/**,/equ/led/**
+#CAS config
+cas:
+  casEnabled: false
+  # 鏄惁鐐篧eblogic
+  isWeblogic: false
+#sch config
+sch:
+  quartzProperties:
+    quartz:
+      scheduler:
+        instanceName: scheduler
+        instanceId: AUTO
+      #缍▼閰嶇疆
+      threadPool:
+        class: org.quartz.simpl.SimpleThreadPool
+        threadCount: 10
+        threadPriority: 5
+
+      #JobStore閰嶇疆
+      jobStore:
+        class: org.quartz.impl.jdbcjobstore.JobStoreTX
+        #闆嗙兢閰嶇疆
+        isClustered: true
+        clusterCheckinInterval: 15000
+        maxMisfiresToHandleAtATime: 1
+
+        misfireThreshold: 120000
+        tablePrefix: IRD_QRTZ_
+        driverDelegateClass: org.quartz.impl.jdbcjobstore.MSSQLDelegate
+  schedulerName: COSscheduler
+  #蹇呴』鐨勶紝QuartzScheduler 寤舵椂鍚姩锛屽簲鐢ㄥ惎鍔ㄥ畬鍚� QuartzScheduler 鍐嶅惎鍔� 鍏╁垎閳″悗鍟撳嫊鎵�鏈塻cheduler
+  startupDelay: 120
+  applicationContextSchedulerContextKey: applicationContext
+  #鍙��,QuartzScheduler 鍚姩鏃舵洿鏂板繁瀛樺湪鐨凧ob锛岃繖鏍峰氨涓嶇敤姣忔淇敼targetObject鍚庡垹闄rtz_job_details琛ㄥ搴旇褰曚簡
+  overwriteExistingJobs: true
+  autoStartup: true
+
+# 閰嶇疆logback
+logging:
+  config: classpath:ird-logback-prod.xml
+
+# 鍫辫〃妯℃澘鍩虹璺緫
+report:
+  basepath: @web-prefix@/report
+  # 鍫辫〃妯℃澘璺緫
+  templates: /template/
+  isRelativePath: true
+
+# ENQ SP Transaction 瑷畾
+enq:
+  callbackBaseUrl: https://dsatwlstst@web-prefix@/web
+#weblogic update webPrefix
+weblogic:
+  webPrefix: @web-prefix@
+
+
+

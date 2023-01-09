@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="fragments/head">head</div>
+    <title></title>
+</head>
+<style>
+    .table-condensed>thead>tr>th {
+        padding-right: 5px!important;
+    }
+    .table-bordered > tfoot > tr > th{
+        border-top-width: 2px;
+        border-top-color: gray;
+    }
+    .table-condensed > thead > tr > .weekTh {
+        border-right-width: 2px;
+        color: #333;
+        font-size:18px
+    }
+
+    .table-condensed  > tbody > tr > td:nth-child(odd){
+        border-right-width: 2px;
+    }
+    .tableGrid-right tr td:nth-child(8){
+        border-right-width: 2px;
+        border-right-color: gray;
+    }
+    .tableGrid-right thead > tr:first-child th:nth-child(8){
+        border-right-width: 2px;
+        border-right-color: gray;
+    }
+    .tableGrid-right thead > tr:last-child th:nth-child(7){
+        border-right-width: 2px;
+        border-right-color: gray;
+    }
+    .tableGrid-right thead > tr:last-child th:nth-child(10){
+        border: 1px solid #ddd;
+    }
+    #handTable-div{
+        border-style: solid;
+        border-width: 1px;
+    }
+    #handTable-div2{
+        border-style: solid;
+        border-width: 1px;
+    }
+</style>
+<body>
+<div id="app">
+    <div class="col-sm-12">
+        <div class="container-fluid">
+            <!-- screen id -->
+            <div th:replace="fragments/layout :: content_header(|驗車中心|, 'IRD-DEMO-001')">SCREEN-ID</div>
+            <form id="fm-search" class="form-horizontal margin-top-10">
+                <fieldset>
+                    <div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-1 control-label-required" th:text="驗車中心">驗車中心</label>
+                            <div class="col-sm-1_5">
+                                <v-select id="quotaType" name="quotaType"  :options="quotaTypeOptions" placeholder="請選擇"></v-select>
+                            </div>
+                            <label class="control-label col-sm-1" th:text="統計方式">統計方式</label>
+                            <div class="col-sm-1_5">
+                                <v-select id="quotaType2" name="quotaType"  :options="examSessionOptions" placeholder="請選擇"></v-select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-6" style="text-align:left;">
+                            </div>
+                            <div class="col-sm-6" style="text-align:right;">
+                                <button id="btn-search" type="button" class="btn btn-sm btn-primary">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                    <span th:text="#{global.search}"></span>
+                                </button>
+                                <button id="btn-reset" type="button" class="btn btn-sm btn-default">
+                                    <i class="glyphicon glyphicon-refresh"></i>
+                                    <span th:text="#{global.reset}"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="content-div3">
+                        <div class="panel-group">
+                            <div class="">
+                                <div id="handTable-div" class="panel-heading">
+                                    <h3 id="t-right" data-toggle="collapse" href="#handTable-collapse" name="lower-side-handTable" class="panel-title">
+                                        區域統計
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </h3>
+
+                                    <h3 id="t-down" data-toggle="collapse" style="display:none" href="#handTable-collapse" name="lower-side-handTable" class="panel-title">
+                                        區域統計
+                                        <a class="" href="">
+                                            <i class="fa fa-angle-down pull-right" ></i>
+                                        </a>
+                                    </h3>
+                                    <table id="handDataTable1" class="table table-bordered table-hover table-condensed dataTable no-footer text-center HandTableGrid" role="grid" style="width: 100%;" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2">報到統計:5</th>
+                                                <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2">入場統計:10</th>
+                                                <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2">上綫統計:4</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="content-div4">
+                        <div class="panel-group">
+                            <div class="">
+                                <div id="handTable-div2" class="panel-heading">
+                                    <h3 id="t-right2" data-toggle="collapse" href="#handTable-collapse" name="lower-side-handTable" class="panel-title">
+                                        狀態統計
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </h3>
+
+                                    <h3 id="t-down2" data-toggle="collapse" style="display:none" href="#handTable-collapse" name="lower-side-handTable" class="panel-title">
+                                        狀態統計
+                                        <a class="" href="">
+                                            <i class="fa fa-angle-down pull-right" ></i>
+                                        </a>
+                                    </h3>
+                                    <table id="handDataTable2" class="table table-bordered table-hover table-condensed dataTable no-footer text-center HandTableGrid" role="grid" style="width: 100%;" width="100%" cellspacing="0">
+                                        <thead>
+                                        <tr role="row">
+                                            <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2">未報到:5</th>
+                                            <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2">已報到:10</th>
+                                            <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2">已入場:4</th>
+                                            <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2">待目視:4</th>
+                                            <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2">目視中:4</th>
+                                            <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2">待上線:4</th>
+                                            <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2">上線中:4</th>
+                                            <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2">已出場:4</th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="content-div" style="display:none">
+                        <div class="panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3>
+                                        報到統計:
+                                    </h3>
+                                    <table i="table-lic-outside-1" class="table table-bordered table-hover table-condensed dataTable no-footer text-center tableGrid" role="grid" style="width: 100%;" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr role="row" >
+                                                <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2" style="width: 180px;">車輛類型</th>
+                                                <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2" style="width: 180px;">車輛編號</th>
+                                            </tr>
+                                            <tbody>
+                                            <tr role="row" class="odd">
+                                                <td>0/50</td>
+                                                <td>0/50</td>
+                                            </tr>
+                                            </tbody>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3>
+                                        入場統計:
+                                    </h3>
+                                    <table i="table-lic-outside-1" class="table table-bordered table-hover table-condensed dataTable no-footer text-center tableGrid" role="grid" style="width: 100%;" width="100%" cellspacing="0">
+                                        <thead>
+                                        <tr role="row" >
+                                            <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2" style="width: 180px;">車輛類型</th>
+                                            <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2" style="width: 180px;">車輛編號</th>
+                                            <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2" style="width: 180px;">隊列</th>
+                                        </tr>
+                                        <tbody>
+                                        <tr role="row" class="odd">
+                                            <td>0/50</td>
+                                            <td>0/50</td>
+                                            <td>0/50</td>
+                                        </tr>
+                                        </tbody>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3>
+                                        上線統計:
+                                    </h3>
+                                    <table i="table-lic-outside-1" class="table table-bordered table-hover table-condensed dataTable no-footer text-center tableGrid" role="grid" style="width: 100%;" width="100%" cellspacing="0">
+                                        <thead>
+                                        <tr role="row" >
+                                            <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2" style="width: 180px;">車輛類型</th>
+                                            <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2" style="width: 180px;">車輛編號</th>
+                                            <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2" style="width: 180px;">驗車綫</th>
+                                        </tr>
+                                        <tbody>
+                                        <tr role="row" class="odd">
+                                            <td>0/50</td>
+                                            <td>0/50</td>
+                                            <td>0/50</td>
+                                        </tr>
+                                        </tbody>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div id="content-div2" style="display:none">
+                        <div class="panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3>
+                                        未報到:
+                                    </h3>
+                                    <table i="table-lic-outside-1" class="table table-bordered table-hover table-condensed dataTable no-footer text-center tableGrid" role="grid" style="width: 100%;" width="100%" cellspacing="0">
+                                        <thead>
+                                        <tr role="row" >
+                                            <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2" style="width: 180px;">車輛類型</th>
+                                            <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2" style="width: 180px;">車輛編號</th>
+                                        </tr>
+                                        <tbody>
+                                        <tr role="row" class="odd">
+                                            <td>0/50</td>
+                                            <td>0/50</td>
+                                        </tr>
+                                        </tbody>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3>
+                                        已報到:
+                                    </h3>
+                                    <table i="table-lic-outside-1" class="table table-bordered table-hover table-condensed dataTable no-footer text-center tableGrid" role="grid" style="width: 100%;" width="100%" cellspacing="0">
+                                        <thead>
+                                        <tr role="row" >
+                                            <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2" style="width: 180px;">車輛類型</th>
+                                            <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2" style="width: 180px;">車輛編號</th>
+                                        </tr>
+                                        <tbody>
+                                        <tr role="row" class="odd">
+                                            <td>0/50</td>
+                                            <td>0/50</td>
+                                        </tr>
+                                        </tbody>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3>
+                                        待目視:
+                                    </h3>
+                                    <table i="table-lic-outside-1" class="table table-bordered table-hover table-condensed dataTable no-footer text-center tableGrid" role="grid" style="width: 100%;" width="100%" cellspacing="0">
+                                        <thead>
+                                        <tr role="row" >
+                                            <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2" style="width: 180px;">車輛類型</th>
+                                            <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2" style="width: 180px;">車輛編號</th>
+                                            <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2" style="width: 180px;">隊列</th>
+                                        </tr>
+                                        <tbody>
+                                        <tr role="row" class="odd">
+                                            <td>0/50</td>
+                                            <td>0/50</td>
+                                            <td>0/50</td>
+                                        </tr>
+                                        </tbody>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3>
+                                        目視中:
+                                    </h3>
+                                    <table i="table-lic-outside-1" class="table table-bordered table-hover table-condensed dataTable no-footer text-center tableGrid" role="grid" style="width: 100%;" width="100%" cellspacing="0">
+                                        <thead>
+                                        <tr role="row" >
+                                            <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2" style="width: 180px;">車輛類型</th>
+                                            <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2" style="width: 180px;">車輛編號</th>
+                                            <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2" style="width: 180px;">隊列</th>
+                                        </tr>
+                                        <tbody>
+                                        <tr role="row" class="odd">
+                                            <td>0/50</td>
+                                            <td>0/50</td>
+                                            <td>0/50</td>
+                                        </tr>
+                                        </tbody>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3>
+                                        待上線:
+                                    </h3>
+                                    <table i="table-lic-outside-1" class="table table-bordered table-hover table-condensed dataTable no-footer text-center tableGrid" role="grid" style="width: 100%;" width="100%" cellspacing="0">
+                                        <thead>
+                                        <tr role="row" >
+                                            <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2" style="width: 180px;">車輛類型</th>
+                                            <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2" style="width: 180px;">車輛編號</th>
+                                        </tr>
+                                        <tbody>
+                                        <tr role="row" class="odd">
+                                            <td>0/50</td>
+                                            <td>0/50</td>
+                                        </tr>
+                                        </tbody>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3>
+                                        上線中:
+                                    </h3>
+                                    <table i="table-lic-outside-1" class="table table-bordered table-hover table-condensed dataTable no-footer text-center tableGrid" role="grid" style="width: 100%;" width="100%" cellspacing="0">
+                                        <thead>
+                                        <tr role="row" >
+                                            <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2" style="width: 180px;">車輛類型</th>
+                                            <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2" style="width: 180px;">車輛編號</th>
+                                            <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2" style="width: 180px;">驗車綫</th>
+                                        </tr>
+                                        <tbody>
+                                        <tr role="row" class="odd">
+                                            <td>0/50</td>
+                                            <td>0/50</td>
+                                            <td>0/50</td>
+                                        </tr>
+                                        </tbody>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3>
+                                        已出場:
+                                    </h3>
+                                    <table i="table-lic-outside-1" class="table table-bordered table-hover table-condensed dataTable no-footer text-center tableGrid" role="grid" style="width: 100%;" width="100%" cellspacing="0">
+                                        <thead>
+                                        <tr role="row" >
+                                            <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2" style="width: 180px;">車輛類型</th>
+                                            <th class="dataTables_empty sorting_disabled dt-nowrap weekTh" rowspan="2" style="width: 180px;">車輛編號</th>
+                                        </tr>
+                                        <tbody>
+                                        <tr role="row" class="odd">
+                                            <td>0/50</td>
+                                            <td>0/50</td>
+                                        </tr>
+                                        </tbody>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </fieldset>
+            </form>
+            <!-- Table -->
+        </div>
+    </div>
+    <!-- 注入系統默認javaScript腳本 -->
+    <div th:replace="fragments/script">Script JS</div>
+
+    <!-- 自己系統的腳本請在下面引入 -->
+    <script type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/
+        //此處為將國際化傳值到JS
+        var i18n = {
+            update: [[#{ global.update }]],
+            active: [[#{ global.active }]],
+            save: [[#{ global.save }]],
+            close: [[#{ global.close }]],
+            cancelled: [[#{ global.cancelled }]],
+            remark: [[#{ global.remark }]],
+            statusA: [[#{ global.statusA }]],
+            statusT: [[#{ global.statusT }]],
+            statusP: [[#{ global.statusP }]],
+            statusC: [[#{ global.statusC }]]
+        };
+        var vModel = {
+
+        };
+        /*]]>*/
+    </script>
+    <style>
+        .restrictionRemarkDialog .modal-dialog {
+            width: 60%;
+            height: 80%;
+        }
+        .restrictionRemarkDialog .bootstrap-dialog-title{
+            width:100%
+        }
+    </style>
+    <script type="text/javascript" src="static/js/sys/demoVicsController.js" th:src="@{/static/js/sys/demoVicsController.js}"></script>
+</div>
+</body>
+</html>

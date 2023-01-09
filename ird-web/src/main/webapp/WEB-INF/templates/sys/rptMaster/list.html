@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://atos.net/dls-security">
+<head>
+<div th:replace="fragments/head">head</div>
+<title>master List</title>
+
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- 權限test start -->
+        <!-- <div sec:authorize="isAuthenticated()">用戶登陸認證成功</div>
+        <div sec:authorize="isAnonymous()">isAnonymous</div>
+        <div sec:authorize="hasRole('TEST')">hasRole('TEST')</div>
+        <div sec:authorize="hasAnyRole('TEST','Admin')">hasAnyRole('ADMIN','TEST','ROLE2')</div>
+        <div sec:authorize="hasPermission('VEM-REG-VIEW')">hasPermission('VEM-REG-VIEW')</div> -->
+        <!-- 權限test end -->
+
+        <!-- screen id -->
+        <div th:replace="fragments/layout :: content_header(|#{master.header.title}|, 'IRD-SYS-019')">SCREEN-ID</div>
+
+        <form id="fm-search" class="form-horizontal margin-top-10 a1">
+            <div class="row form-group">
+                <label class="control-label col-sm-1" for="cname" th:text="#{master.cname}">報表中文名</label>
+                <div class="col-sm-5">
+                    <input id="cname" name="cname" value="" class="form-control" th:placeholder="#{master.cname}" placeholder="報表中文名">
+                </div>
+                
+                <label class="control-label col-sm-1" for="status" th:text="#{user.status}">用戶狀態</label>
+                <div class="col-sm-2">
+                    <select id="status" name="status" class="form-control simpleselect">
+                        <option value="">--<label  th:text="#{global.selectPlaceholder}"--/></option>
+                        <option value="A" selected="selected">A - <label  th:text="#{global.activeStatus}"/></option>
+                        <option value="C">C - <label  th:text="#{global.cancelStatus}"/></option>                           
+                    </select>
+                </div>
+            </div>
+            <div class="row form-group">
+                <label class="control-label col-sm-1" for="pname" th:text="#{master.pname}">報表葡文名</label>
+                <div class="col-sm-5">
+                    <input id="pname" name="pname" value="" class="form-control" th:placeholder="#{master.pname}" placeholder="報表葡文名">
+                </div>
+                
+                <label class="control-label col-sm-1" for="status" th:text="#{master.rptType}">類型</label>
+                <div class="col-sm-2">
+                    <input id="rptType" name="rptType" value="" class="form-control" th:placeholder="#{master.rptType}" placeholder="類型">
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-sm-9">
+                    <div class="pull-right">
+                        <button id="btn-search" type="button" class="btn btn-sm tes orangeb">
+                            <i class="iconfont icon-web-search"></i> <span th:text="#{global.search}">查詢</span>
+                        </button>
+                        <button id="btn-create" type="button" class="btn btn-sm tes blueb">
+                            <i class="iconfont icon-xinzeng"></i> <span th:text="#{global.create}">新增</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- Table -->
+        <table id="table" class="table table-bordered table-hover table-condensed" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th th:text="#{master.id}">報表編號</th>
+                    <th>
+                       <div th:text="#{master.cname}">報表中文名</div>
+                       <div class="text text-muted" th:text="#{master.pname}">報表葡文名</div>
+                    </th>
+                    <th th:text="#{master.descCn}">報表描述中文</br><span class='text text-muted' th:text="#{master.descPt}">報表描述葡文</span></th>
+                    <th th:text="#{master.status}">報表狀態</th>
+                    <th th:text="#{master.rptType}">報表類型</th>
+                    <th th:text="#{master.url}">報表鏈接</th>
+                    <th th:text="#{master.lastUpdUser}">最後更新用戶</th>
+                    <th th:text="#{master.lastUpdDate}">最後更新日期</th>
+                    <th th:text="#{global.action}">操作</th>
+                </tr>
+            </thead>
+        </table>
+
+    </div>
+
+    <!-- 注入系統默認javaScript腳本 -->
+    <div th:replace="fragments/script">Script JS</div>
+    <!-- 自己系統的腳本請在下面引入 -->
+
+    <script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+        //此處為將國際化傳值到JS
+        var i18n= {
+                update: [[#{global.update}]],
+                delete: [[#{global.delete}]]
+        };
+    /*]]>*/ 
+    </script>
+
+    <script type="text/javascript" src="static/js/sys/rptMasterController.js" th:src="@{/static/js/sys/rptMasterController.js}"></script>
+
+</body>
+</html>

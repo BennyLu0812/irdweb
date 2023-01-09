@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://atos.net/dls-security">
+<head>
+<div th:replace="fragments/head">head</div>
+<title>Params List</title>
+
+</head>
+<body>
+    <div class="container-fluid">
+
+        <!-- screen id -->
+        <div th:replace="fragments/layout :: content_header(|#{params.header.title}|, 'IRD-SYS-022')">SCREEN-ID</div>
+
+		
+		<div class="row">
+	        <div class="col-sm-12">
+                <a id="reloadSysParam" class="btn btn-primary" >重載系統參數</a>
+            </div>
+	    </div>
+    
+        <form id="fm-search" class="form-horizontal margin-top-10 a1">
+            <div class="row">
+                <div class="col-sm-5">
+                    <input id="keyword" name="keyword" value="" class="form-control input-field">
+                </div>
+
+                <div class="col-sm-4">
+                    <button id="btn-search" type="button" class="btn btn-sm btn-primary">
+                        <i class="glyphicon glyphicon-search"></i><span th:text="#{global.search}">查詢</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+        <!-- Table -->
+        <table id="table" class="table table-bordered table-hover table-condensed" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th th:text="#{params.name}">參數名</th>
+                    <th th:text="#{params.value}">系統參數值</th>
+                    <th th:text="#{params.desc}">參數描述</th>
+                    <th th:text="#{global.lastUpdUser}">最後更新用戶</th>
+                    <th th:text="#{global.lastUpdDate}">最後更新日期</th>
+                    <th th:text="#{global.action}">操作</th>
+                </tr>
+            </thead>
+        </table>
+
+    </div>
+    <div sec:authorize="hasPermission('SYS-PARAMS-UPDATE')" id="param-edit" style="display:none;">
+       <a href="edit.html?paramName={0}"  class="btn btn-sm btn-default fancybox fancybox.iframe " 
+            data-fancybox-width="80%" data-fancybox-height="60%" th:text="#{global.update}">
+            <i class="iconfont icon-bianji" ></i></a>
+    </div>
+                                
+    <!-- 注入系統默認javaScript腳本 -->
+    <div th:replace="fragments/script">Script JS</div>
+    <!-- 自己系統的腳本請在下面引入 -->
+
+    <script type="text/javascript" th:inline="javascript">
+    </script>
+
+    <script type="text/javascript" src="static/js/sys/paramsController.js" th:src="@{/static/js/sys/paramsController.js}"></script>
+
+</body>
+</html>

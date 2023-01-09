@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<div th:replace="fragments/head">head</div>
+<title>系統代碼管理</title>
+
+</head>
+<body>
+    <div class="container-fluid">
+
+        <!-- screen id -->
+        <div th:replace="fragments/layout :: content_header(|#{codeMaster.header.title}|, 'IRD-SYS-024')">SCREEN-ID</div>
+
+        <!-- Table -->
+        <table id="table" class="table table-bordered table-hover table-condensed" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th th:text="#{codeMaster.codeMasterType}">系統代碼類型</th>
+                    <th th:text="#{codeMaster.codeMasterCname}">中文描述</th>
+                    <th th:text="#{codeMaster.codeMasterPname}">葡文描述</th>
+                    <th th:text="#{global.action}">操作</th>
+                </tr>
+            </thead>
+        </table>
+
+    </div>
+    <div sec:authorize="hasPermission('SYS-CODE-VIEW')" id="code-edit" style="display:none;">
+       <a th:href="@{'~'+${webPrefix}+'/web/sys/code/list.html?codeType={0}&codeCname={1}&codePname={2}'}" class="btn btn-sm btn-default" th:text=#{global.detail}></a>
+    </div>
+
+    <!-- 注入系統默認javaScript腳本 -->
+    <div th:replace="fragments/script">Script JS</div>
+    <!-- 自己系統的腳本請在下面引入 -->
+
+    <script type="text/javascript" th:inline="javascript">
+    
+    </script>
+
+    <script type="text/javascript" src="static/js/sys/codeMasterController.js" th:src="@{/static/js/sys/codeMasterController.js}"></script>
+
+</body>
+</html>

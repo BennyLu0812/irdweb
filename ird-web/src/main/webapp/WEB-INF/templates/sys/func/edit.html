@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:dls="http://dls.atos.net/security">
+<head>
+<div th:replace="fragments/head">head</div>
+<title>func Edit</title>
+
+</head>
+<body>
+    <div class="container" id="app">
+        
+        <!-- screen id -->
+        <div v-if="!func.funcId">
+            <div th:replace="fragments/layout :: content_header(|#{func.header.add}|, 'IRD-SYS-017')">SCREEN-ID</div>
+        </div>
+        <div v-if="func.funcId" >
+            <div th:replace="fragments/layout :: content_header(|#{func.header.update}|, 'IRD-SYS-018')">SCREEN-ID</div>
+        </div>
+        
+        <!-- form -->
+        <form id="param-form" class="form-horizontal margin-top-10">
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="module" th:text="#{func.module}">模块</label>
+               <!--  <div class="col-sm-6">
+                    <input id="moduleDesc" name="moduleDesc" v-model="func.module.moduleName" class="form-control" th:placeholder="#{func.module}" placeholder="模块">
+                </div> -->
+                <div class="col-sm-6">
+                    <select id="moduleId" name="moduleId" v-model="func.module.moduleId" class="simpleselect form-control">
+                       <option value="">--<label  th:text="#{global.selectPlaceholder}"--/></option>
+                       <option v-for="item of moduleItems" v-if="item.id == func.module.moduleId" selected  v-bind:value="item.moduleId" >{{ item.moduleName }}</option>
+                       <option v-for="item in moduleItems" v-if="item.id!=func.module.moduleId" v-bind:value="item.moduleId">{{ item.moduleName }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="funcType" th:text="#{func.funcType}">功能類型</label>
+                <div class="col-sm-6">
+                    <select id="funcType" name="funcType" v-model="func.funcType" class="simpleselect form-control">
+                        <option th:text="#{func.funcTypePermission}" value="F">功能權限</option>
+                        <option th:text="#{func.menu}" value="M">菜單</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group" v-if="func.funcType == 'F'">
+                <label class="control-label col-sm-4" for="parentId" th:text="#{func.funcTypeOwnMenu}">菜單</label>
+                <div class="col-sm-6">
+                    <select id="parentId" key="parentId" name="parentId" v-model="func.parent.funcId" class="simpleselect form-control">
+                        <option value="" key="selectPlaceholder">--<label  th:text="#{global.selectPlaceholder}"--/></option>
+                        <option v-for="menu of menuList" :value="menu.funcId" :key="menu.funcId">{{ menu.funcDesc }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="funcCode" th:text="#{func.funcCode}">功能編號</label>
+                <div class="col-sm-6">
+                    <input id="funcCode" name="funcCode" v-model="func.funcCode" class="form-control" th:placeholder="#{func.funcCode}" placeholder="功能編號">
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="control-label col-sm-4" for="funcDesc" th:text="#{func.funcDesc}">功能描述</label>
+                <div class="col-sm-6">
+                    <input id="funcDesc" name="funcDesc" v-model="func.funcDesc" class="form-control" th:placeholder="#{func.funcDesc}" placeholder="功能描述">
+                </div>
+
+            </div>
+            <div class="form-group" v-if="func.funcType == 'M'">
+                <label class="control-label col-sm-4" for="funcResource" th:text="#{func.funcResource}">資源URL</label>
+                <div class="col-sm-6">
+                    <input key="funcResource" id="funcResource" name="funcResource" v-model="func.funcResource" class="form-control" th:placeholder="#{func.funcResource}" placeholder="資源URL">
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                <div class="col-sm-10">
+                    <div class="pull-right">
+                        <button  id="btnSave" type="button" @click="doSave" class="btn btn-sm btn-primary" v-if="!func.funcId">
+                            <i class="iconfont icon-dui"></i> <span th:text="#{global.save}"></span>
+                        </button>
+                        
+                        <button id="btnUpdate" type="button" @click="doUpdate" class="btn btn-sm btn-primary" v-if="func.funcId">
+                            <i class="iconfont icon-dui"></i> <span th:text="#{global.save}"></span>
+                        </button>
+                      
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+    <!-- 注入系統默認javaScript腳本 -->
+    <div th:replace="fragments/script">Script JS</div>
+    <!-- 自己系統的腳本請在下面引入 -->
+    <script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+        //此處為將表單的值傳值到JS
+        var vModel = {
+                funcId: [[${funcId}]]
+            };
+    /*]]>*/ 
+    </script>
+        <script type="text/javascript" src="static/js/sys/funcEditController.js" th:src="@{/static/js/sys/funcEditController.js}"></script>
+    
+</body>
+</html>

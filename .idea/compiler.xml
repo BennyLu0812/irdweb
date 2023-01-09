@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ird-api-core" />
+        <module name="ird-assets-web" />
+        <module name="ird-common-api" />
+        <module name="ird-common-api-test" />
+        <module name="ird-common-base" />
+        <module name="ird-common-web" />
+        <module name="ird-config" />
+        <module name="ird-rpt-core" />
+        <module name="ird-sch-api" />
+        <module name="ird-sch-core" />
+        <module name="ird-sys-core" />
+        <module name="ird-user-core" />
+        <module name="ird-web" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="vics-assets-web" target="1.8" />
+      <module name="vics-assets-web (1)" target="1.8" />
+      <module name="vics-assets-web (2)" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

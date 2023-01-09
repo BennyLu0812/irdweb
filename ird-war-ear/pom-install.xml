@@ -1,0 +1,27 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.ird.portal</groupId>
+    <artifactId>ird-war-ear-install</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+
+    <name>ird-war-ear-install</name>
+    <url>http://maven.apache.org</url>
+    <modules>
+        <module>../ird-parent</module>
+        <module>../ird-assets-web</module>
+        <module>../ird-config</module>
+        <module>../ird-common-api-test</module>
+        <module>../ird-common-api</module>
+        <module>../ird-common-base</module>
+        <module>../ird-common-web</module>
+        <module>../ird-rpt-core</module>
+        <module>../ird-user-core</module>
+        <module>../ird-sys-core</module>
+        <module>../ird-sch-api</module>
+        <module>../ird-sch-core</module>   
+        <module>../ird-api-core</module>           
+        <module>../ird-web</module>
+    </modules>
+</project>

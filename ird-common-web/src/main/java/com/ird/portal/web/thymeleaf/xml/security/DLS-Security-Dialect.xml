@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dialect xmlns="http://atos.net/extras/dialect"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://atos.net/extras/dialect
+                        http://atos.net/xsd/thymeleaf-extras-dialect-1.0.xsd"
+    prefix="sec" namespace-uri="http://atos.net/dls-security"
+    namespace-strict="false"
+    class="com.ird.portal.web.thymeleaf.security.dialect.DLSSecurityDialect">
+
+    <attribute-processor name="authorize"
+        class="com.ird.portal.web.thymeleaf.security.dialect.processor.AuthorizeAttrProcessor">
+        <documentation
+            reference="Thymeleaf Spring Security 4 integration module readme" />
+    </attribute-processor>
+
+</dialect>

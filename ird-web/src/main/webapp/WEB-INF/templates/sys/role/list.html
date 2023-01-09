@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<div th:replace="fragments/head">head</div>
+<title>Params List</title>
+
+</head>
+<body>
+    <div class="container-fluid" id="app">
+
+        <!-- screen id -->
+        <div th:replace="fragments/layout :: content_header(|#{role.header.title}|, 'IRD-SYS-013')">SCREEN-ID</div>
+
+        <form id="fm-search" class="form-horizontal margin-top-10">
+            <div class="row form-group">
+                <!-- <label class="control-label col-sm-1" for="roleId" th:text="#{role.roleId}">角色編號</label>
+                <div class="col-sm-2">
+                    <input id="roleId" name="roleId" value="" class="form-control" th:placeholder="#{role.roleId}" placeholder="角色編號">
+                </div>    -->
+                
+                <label class="control-label col-sm-1" for="role" th:text="#{role.role}">角色名</label>
+                <div class="col-sm-3">
+                    <input id="role" name="role" value="" class="form-control" th:placeholder="#{role.role}" placeholder="角色名">
+                </div>
+                     
+                <label class="control-label col-sm-1" for="status" th:text="#{role.status}">角色狀態</label>
+                <div class="col-sm-3">
+                    <v-select name="status" v-model="role.status" :options="statusOptions"></v-select> 
+                </div>
+                <div class="col-sm-3">
+                    <div class="pull-right">
+                        <button id="btn-search" type="button" class="btn btn-sm btn-primary">
+                            <i class="glyphicon glyphicon-search"></i> <span th:text="#{global.search}"></span>
+                        </button>
+                        <button sec:authorize="hasPermission('USER-ROLE-ADD')" id="btn-create" type="button" class="btn btn-sm btn-default">
+                            <i class="glyphicon glyphicon-plus"></i> <span th:text="#{global.create}"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+        </form>
+        <!-- Table -->
+        <table id="table" class="table table-bordered table-hover table-condensed" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                   <!--  <th th:text="#{role.roleId}">角色編號</th> -->
+                    <th th:text="#{role.role}">角色名</th>
+                    <th width="80" th:text="#{role.status}">角色狀態</th>
+                    <th width="80" th:text="#{global.createUser}">創建用戶</th>
+                    <th width="80" th:text="#{global.createDate}">創建日期</th>
+                    <th width="90" th:text="#{global.lastUpdUser}">最後更新用戶</th>
+                    <th width="90" th:text="#{global.lastUpdDate}">最後更新用戶</th>
+                    <th th:text="#{role.roleDesc}">角色說明</th>
+                    <th width="115" th:text="#{global.action}">操作</th>
+                </tr>
+            </thead>
+        </table>
+
+    </div>
+<div sec:authorize="hasPermission('USER-ROLE-MODIFY')" id="role-update-div" style="display:none;">
+    <a href="edit.html?roleId={0}" class="btn btn-sm btn-default fancybox fancybox.iframe" data-fancybox-width="100%" data-fancybox-height="100%">
+    <i class="glyphicon glyphicon-edit"></i><span th:text="#{global.update}">修改</span></a>
+</div>
+
+    <!-- 注入系統默認javaScript腳本 -->
+    <div th:replace="fragments/script">Script JS</div>
+    <!-- 自己系統的腳本請在下面引入 -->
+
+    <script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+        //此處為將國際化傳值到JS
+        var i18n= {
+                update: [[#{global.update}]],
+                delete: [[#{global.delete}]],
+                detail: [[#{global.detail}]]
+        };
+    /*]]>*/ 
+    </script>
+
+    <script type="text/javascript" src="static/js/sys/roleController.js" th:src="@{/static/js/sys/roleController.js}"></script>
+
+</body>
+</html>

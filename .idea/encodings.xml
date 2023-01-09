@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/../DEVvics/vics/vics-assets-web" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ird-api-core" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ird-assets-web" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ird-common-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ird-common-api-test" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ird-common-base" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ird-common-web" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ird-config" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ird-parent" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ird-rpt-core" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ird-sch-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ird-sch-core" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ird-sys-core" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ird-user-core" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ird-web" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ird-web" charset="UTF-8" />
+  </component>
+</project>

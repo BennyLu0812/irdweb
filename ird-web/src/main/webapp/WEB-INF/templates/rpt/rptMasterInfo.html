@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<div th:replace="fragments/head">head</div>
+<title>報表管理界面</title>
+</head>
+
+<body>
+    <div class="container-fluid" id="app">
+        <div th:replace="fragments/layout :: content_header(|#{rptMaster.info.title}|, 'IRD-RPT-002')">SCREEN-ID</div>
+
+        <form  class="form-horizontal bv-form">
+            <fieldset>
+                <div class="form-group">
+                    <label class="control-label col-sm-1_5" for="cname" th:text="#{rptMaster.cname}">報表中文名 </label>
+                    <div class="col-sm-4">
+                        <span class="text-readonly" v-text="rptMaster.cname"></span>
+                    </div>
+                    <label class="control-label col-sm-1_5" for="status" th:text="#{rptMaster.status}">狀態</label>
+                    <div class="col-sm-4" v-cloak>
+                        <span v-if="rptMaster.status == 'A'" class="text-readonly green-highlight">A - Active - 有效</span>
+                        <span v-if="rptMaster.status == 'C'" class="text-readonly orange-highlight">C - Cancelado - 失效</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-1_5" for="pname" th:text="#{rptMaster.pname}">報表葡文名稱 </label>
+                    <div class="col-sm-4">
+                        <span class="text-readonly" v-text="rptMaster.pname"></span>
+                    </div>
+                    <label class="control-label col-sm-1_5" for="status" th:text="#{rptMaster.rptType}">類型</label>
+                    <div class="col-sm-4">
+                    	<span v-if="rptMaster.rptType == 'P'" class="text-readonly">P - 製件</span>
+                        <span v-if="rptMaster.rptType == 'R'" class="text-readonly">R - 報表</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-1_5" for="pname" th:text="#{rptMaster.descCn}">中文説明 </label>
+                    <div class="col-sm-4">
+                        <span class="text-readonly" v-text="rptMaster.descCn"></span>
+                    </div>
+                    
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-1_5" for="pname" th:text="#{rptMaster.descPt}">葡文説明 </label>
+                    <div class="col-sm-4">
+                        <span class="text-readonly" v-text="rptMaster.descPt"></span>
+                    </div>
+                </div>
+                <div class="form-group" style="text-align: center;">
+					<a v-bind:href="rptMaster.url" th:text="#{rptMaster.url}" class="btn btn-primary">
+                                                      報表鏈接
+                    </a>
+                    <a v-bind:href="[webPrefix]+'/web/rpt/master/list.html'" th:text="#{global.back}" class="btn btn-default">
+                                                      返回
+                	</a>
+				</div>
+            </fieldset>
+        </form>
+    </div>
+
+    <!-- 注入系統默認javaScript腳本 -->
+    <div th:replace="fragments/script">Script JS</div>
+
+    <!-- 自己系統的腳本請在下面引入 -->
+
+    <script type="text/javascript" th:inline="javascript">
+          var vModel = {rptId: [[${ rptId }]]};
+          var webPrefix = [[${webPrefix}]];
+    </script>
+
+    <script type="text/javascript" src="static/js/rpt/rptMasterInfoController.js" th:src="@{/static/js/rpt/rptMasterInfoController.js}"></script>
+
+
+</body>
+
+</html>

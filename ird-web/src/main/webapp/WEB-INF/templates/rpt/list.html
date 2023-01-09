@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<div th:replace="fragments/head">head</div>
+<title>報表管理界面</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div th:replace="fragments/layout :: content_header(|#{rptMaster.header.title}|, 'IRD-RPT-001')">SCREEN-ID</div>
+
+        <form class="form-horizontal bv-form" id="fm-search">
+                <div class="form-group">
+                    <label class="control-label col-sm-1_5" for="cname" th:text="#{rptMaster.cname}">報表中文名 </label>
+                    <div class="col-sm-4">
+                        <input id="cname" name="cname" value="" class="form-control" th:placeholder="#{rptMaster.cname}" placeholder="報表中文名 ">
+                    </div>
+                    <label class="control-label col-sm-1_5" for="status" th:text="#{rptMaster.status}">狀態</label>
+                    <div class="col-sm-4">
+                        <select class="form-control simpleselect" id="status" name="status">
+                            <option value=""></option>
+                            <option value="A" th:text="#{rptMaster.statusA}">A - Activo - 有效</option>
+                            <option value="C" th:text="#{rptMaster.statusC}">C - Cancelado - 失效</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-1_5" for="pname" th:text="#{rptMaster.pname}">報表葡文名 </label>
+                    <div class="col-sm-4">
+                        <input id="pname" name="pname" value="" class="form-control" th:placeholder="#{rptMaster.pname}" placeholder="報表葡文名 ">
+                    </div>
+                    <label class="control-label col-sm-1_5" for="rptType" th:text="#{rptMaster.rptType}">類型</label>
+                    <div class="col-sm-4">
+                       <select class="form-control simpleselect" id="rptType" name="rptType">
+                            <option value=""></option>
+                            <option value="R" th:text="#{rptMaster.report}">R - 報表</option>
+                            <option value="P" th:text="#{rptMaster.part}">P - 製件</option>
+                        </select>
+                    </div>
+                </div>
+                 <div class="form-group">
+                        <div class="col-sm-offset-5_5 col-sm-4">
+                            <button type="button" class="btn btn-sm btn-primary" id="btn-search">
+                                <i class="glyphicon glyphicon-search" th:text="#{global.search}">查詢</i>
+                            </button>
+                            <button type="reset"  class="btn btn-sm btn-default reset" >
+                                <i class="glyphicon glyphicon-refresh" th:text="#{global.reset}">重置</i>
+                            </button>
+                        </div>
+                    </div>
+        </form>
+    </div>
+    <div class="col-sm-12">
+        <table id="table-rptMaster" class="table table-bordered table-hover table-condensed dataTable no-footer" role="grid" style="width: 100%;" width="100%"
+            cellspacing="0">
+            <thead>
+                <tr>
+                    <th>
+                        <text th:text="#{rptMaster.cname}">報表中文名</text><br/>
+                        <span class='text text-muted'><text th:text="#{rptMaster.pname}">報表葡文名</text></span>
+                    </th>
+                     <th>
+                        <text th:text="#{rptMaster.descCn}">報表描述中文</text><br/>
+                        <span class='text text-muted'><text th:text="#{rptMaster.descPt}">報表描述葡文</text></span>
+                    </th>
+                    <th th:text="#{rptMaster.status}">報表狀態</th>
+                    <th th:text="#{rptMaster.rptType}">報表類型</th>
+                    <th th:text="#{rptMaster.url}">報表鏈接</th>
+                    <th th:text="#{global.action}">操作</th>
+                </tr>
+            </thead>
+
+        </table>
+    </div>
+    <!-- 注入系統默認javaScript腳本 -->
+    <div th:replace="fragments/script">Script JS</div>
+
+    <!-- 自己系統的腳本請在下面引入 -->
+
+    <script type="text/javascript" th:inline="javascript">
+    
+    </script>
+
+   <script type="text/javascript" src="static/js/rpt/rptMasterController.js" th:src="@{/static/js/rpt/rptMasterController.js}"></script>
+    
+    
+</body>
+
+</html>
