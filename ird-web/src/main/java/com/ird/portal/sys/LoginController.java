@@ -137,7 +137,6 @@ public class LoginController {
 	@GetMapping(path = "/i18n/changeLangage")
 	public String changeLangage(HttpServletRequest request, HttpServletResponse response, @RequestParam String langage) {
 		System.out.println(langage);
-		Locale userLocale = UserContext.getUserLocale();
 		User user = UserContext.getUser();
 		if (user != null) {
 			if(Locale.ENGLISH.getLanguage().equals(langage)){
@@ -147,9 +146,6 @@ public class LoginController {
 				user.setLocale(Locale.TRADITIONAL_CHINESE);
 			}
 		}
-
 		return "redirect:/index.html";
-
-
 	}
 }
