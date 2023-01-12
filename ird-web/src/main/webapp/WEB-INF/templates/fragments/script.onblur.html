@@ -15,7 +15,12 @@ sessionStorage.setItem("userId",sessionUserId);
 //locale
 var _LOCALE = [[${#locale}]];
 //ç³»çµ±åœ‹éš›åŒ–å¤šèªžè¨€
-var _LANGUAGE = 'en';
+var _LANGUAGE;
+if (_LOCALE == 'en') {
+    _LANGUAGE = 'en';
+} else{
+    _LANGUAGE = 'zh_TW';
+}
 
 //ç¶²ç«™æ‰€è™•æ¨¡å¼� dev æ˜¯é–‹ç™¼è€…æ¨¡å¼�.
 var websiteModel = [[${#request.getAttribute('$websiteModel$')}]];

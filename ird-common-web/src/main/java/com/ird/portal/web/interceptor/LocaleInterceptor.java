@@ -44,20 +44,20 @@ public class LocaleInterceptor extends LocaleChangeInterceptor {
 	}
 
 	/**
-	 * null -> zh_TW en or pt -> pt_PT other -> zh_TW
+	 * null -> en , zh_TW -> zh_TW , other -> en
 	 *
 	 * @param locale
 	 * @return
 	 */
 	private Locale processLocale(Locale locale) {
 		if (locale != null) {
-			if (Locale.ENGLISH.getLanguage().equals(locale.getLanguage()) || "pt".equals(locale.getLanguage())) {
-				return new Locale("pt", "PT");
+			if (Locale.ENGLISH.getLanguage().equals(locale.getLanguage())) {
+				return Locale.ENGLISH;
 			} else {
 				return Locale.TRADITIONAL_CHINESE;
 			}
 		} else {
-			return Locale.TRADITIONAL_CHINESE;
+			return Locale.ENGLISH;
 		}
 	}
 

@@ -22,6 +22,7 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -130,5 +131,25 @@ public class LoginController {
 
 	public void setRedirectUrl(String redirectUrl) {
 		this.redirectUrl = redirectUrl;
+	}
+
+
+	@GetMapping(path = "/i18n/changeLangage")
+	public String changeLangage(HttpServletRequest request, HttpServletResponse response, @RequestParam String langage) {
+		System.out.println(langage);
+		Locale userLocale = UserContext.getUserLocale();
+		User user = UserContext.getUser();
+		if (user != null) {
+			if(Locale.ENGLISH.getLanguage().equals(langage)){
+				//代码中即可通过以下方法进行语言设置
+				user.setLocale(Locale.ENGLISH);
+			} else {
+				user.setLocale(Locale.TRADITIONAL_CHINESE);
+			}
+		}
+
+		return "redirect:/index.html";
+
+
 	}
 }

@@ -1,21 +1,11 @@
 package com.ird.portal.tools.message;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.text.MessageFormat;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.*;
+import java.text.MessageFormat;
+import java.util.*;
 
 /**
  * 
@@ -32,7 +22,7 @@ public class TraditionalValidate {
     private static Logger log = LoggerFactory.getLogger(TraditionalValidate.class);
 
     private static String I18N_DIRECTORY = "/i18n";
-    private static String MESSAGE_SOURCE_DIRECTORY = I18N_DIRECTORY + "/{0}/messages.properties";
+    private static String MESSAGE_SOURCE_DIRECTORY = I18N_DIRECTORY + "/{0}/messages_zh_TW.properties";
     
     /**
      * 運行檢測本項目的國際化(中文繁體)中存在的繁體字.

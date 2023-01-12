@@ -17,7 +17,12 @@
 //locale
 var _LOCALE = [[${#locale}]];
 //系統國際化多語言
-var _LANGUAGE = 'en';
+var _LANGUAGE;
+if (_LOCALE == 'en') {
+    _LANGUAGE = 'en';
+} else{
+    _LANGUAGE = 'zh_TW';
+}
 
 
 //網站所處模式 dev 是開發者模式.
