@@ -1,7 +1,6 @@
 /**
  * @Project Name: dls-admin-web
  * @File Name: package-info.java
- * @Package Name: mo.gov.dsat.vics.admin
  * @Date: 14/11/2017 15:42:17
  * @Copyright: Copyright (c) 2017 Atos Information Technology HK Limited. All Rights Reserved.
  */

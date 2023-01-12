@@ -136,7 +136,12 @@ require([
                         targets: 5
                     }, {
                         render: function (data, type, row) {
-                            var html = atosUtil.formatHtml('detail-div', [row.auditMasterId]);
+                            if (atosUtil.isNotEmpty(row.sysFuncCode)
+                                && (row.sysFuncCode =="USER-LOGIN" || row.sysFuncCode =="USER-LOGOUT")) {
+                                var html = "";
+                            } else {
+                                var html = atosUtil.formatHtml('detail-div', [row.auditMasterId]);
+                            }
                             return html;
                         },
                         targets: 6

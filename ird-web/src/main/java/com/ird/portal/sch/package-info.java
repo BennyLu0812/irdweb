@@ -1,7 +1,6 @@
 /**
  * @Project Name: ird-web
  * @File Name: package-info.java
- * @Package Name: mo.gov.dsat.vics.sch
  * @Date: 06/12/2017 11:40:56
  * @Copyright: Copyright (c) 2017 Atos Information Technology HK Limited. All Rights Reserved.
  */

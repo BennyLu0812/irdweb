@@ -1,7 +1,6 @@
 /**
  * @Project Name: ird-web
  * @File Name: package-info.java
- * @Package Name: mo.gov.dsat.vics.sch.controller
  * @Date: 2017年10月27日 下午4:30:47
  * @Copyright: Copyright (c) 2017 Atos Information Technology HK Limited. All Rights Reserved.
  */

@@ -1,7 +1,6 @@
 /**
  * @Project Name: ird-web
  * @File Name: JobCtrlLogController.java
- * @Package Name: mo.gov.dsat.vics.sch.controller
  * @Date: Nov 17, 2017
  * @Copyright: Copyright (c) 2017 Atos Information Technology HK Limited. All Rights Reserved.
  */

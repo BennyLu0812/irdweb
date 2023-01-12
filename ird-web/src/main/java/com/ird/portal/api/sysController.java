@@ -29,7 +29,7 @@ public class sysController {
     @GetMapping("/getSysParameters")
     @ResponseBody
     public String getSysParameters(){
-        return SysParamsConstant.getParamValue("VICS_WAITING_PARAMETERS");
+        return SysParamsConstant.getParamValue("IRD_WAITING_PARAMETERS");
     }
 
 

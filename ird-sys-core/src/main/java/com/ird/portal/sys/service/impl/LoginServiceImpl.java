@@ -1,5 +1,7 @@
 package com.ird.portal.sys.service.impl;
 
+import com.ird.portal.audit.annotation.LoginAudit;
+import com.ird.portal.audit.annotation.LogoutAudit;
 import com.ird.portal.common.user.enums.UserTypeEnum;
 import com.ird.portal.sys.entity.ParamsEntity;
 import com.ird.portal.sys.service.LoginService;
@@ -50,6 +52,7 @@ public class LoginServiceImpl implements LoginService {
      * @param request
      * @return
      */
+    @LoginAudit(funcCode = "USER-LOGIN")
     @Override
     public int login(User loginUser, HttpServletRequest request) {
         int checkFlag = -1;
@@ -111,6 +114,7 @@ public class LoginServiceImpl implements LoginService {
      　　* @author Vincent
      　　* @date 2021/9/22 16:11
      　　*/
+     @LogoutAudit(funcCode = "USER-LOGOUT")
      @Override
     public Boolean logout(HttpServletRequest request){
         HttpSession session = request.getSession();

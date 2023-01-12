@@ -124,6 +124,24 @@ spring:
       #spdev123
       password: ENC(MtATBGnnUaj9IL40uynAiinMxQA0mpAN)
       domain: dsat.gov.mo
+
+  mail:
+    # 邮件服务地址
+    host: smtp.qq.com
+    # 编码格式
+    default-encoding: utf-8
+    # 用户名
+    username: 2780023361@qq.com
+    prot: 465
+    # 授权码，就是我们刚才准备工作获取的代码
+    password: iwurjibumbngddbi
+    properties:
+        mail:
+            smtp:
+                auth: true
+                starttls:
+                    enable: true
+                    required: true
 filter:
   excludeUrls:  /login/login.html,/login/login
 

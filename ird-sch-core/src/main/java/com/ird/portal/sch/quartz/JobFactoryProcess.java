@@ -37,7 +37,7 @@ import java.util.Date;
  */
 public class JobFactoryProcess {
     
-    public static final String USER_ID = "VICSJOB";
+    public static final String USER_ID = "IRDJOB";
 
 	private static final Logger LOG = LoggerFactory.getLogger(JobFactoryProcess.class);
     

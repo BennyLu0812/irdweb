@@ -122,8 +122,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver slr = new SessionLocaleResolver();
-        //設置默認區域 zh_TW
-        Locale.setDefault(Locale.TRADITIONAL_CHINESE);
+        //設置默認區域 EN
+        Locale.setDefault(Locale.ENGLISH);
         return slr;
     }
 
@@ -131,7 +131,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Bean
     public HttpSessionListener httpSessionListener() {
         return new HttpSessionListener() {
-            private Logger logger = LoggerFactory.getLogger("mo.gov.dsat.vics.web.cas.HttpSessionListener");
+
+            private Logger logger = LoggerFactory.getLogger("com.ird.portal.web.cas.HttpSessionListener");
             @Override
             public void sessionCreated(HttpSessionEvent se) {
                 if (logger.isTraceEnabled()) {

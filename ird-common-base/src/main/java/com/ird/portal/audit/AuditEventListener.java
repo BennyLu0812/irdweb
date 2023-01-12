@@ -55,7 +55,7 @@ public class AuditEventListener implements PostInsertEventListener, PostUpdateEv
     private static final String ROLE_FUNC_TABLE_NAME = "IRD_SYS_ROLE_FUNC";
 
     private static final String USER_ROLE_TABLE_NAME = "" +
-            "VICS_SYS_USER_ROLE";
+            "IRD_SYS_USER_ROLE";
 
     private static final String PROPERTY_ROLE_ID = "roleId";
 
@@ -153,7 +153,7 @@ public class AuditEventListener implements PostInsertEventListener, PostUpdateEv
     }
 
     /**
-     * 特殊處理SYS_ROLE_FUNC和DVICS_SYS_USER_ROLE兩張表
+     * 特殊處理SYS_ROLE_FUNC和IRD_SYS_USER_ROLE兩張表
      * @param auditEntry
      * @param oldState
      * @param newState

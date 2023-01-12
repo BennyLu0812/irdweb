@@ -1,7 +1,6 @@
 /**
  * @Project Name: ird-web
  * @File Name: DLSApp.java
- * @Package Name: mo.gov.dsat.vics
  * @Date: 2017年10月27日 下午4:08:02
  * @Copyright: Copyright (c) 2017 Atos Information Technology HK Limited. All Rights Reserved.
  */

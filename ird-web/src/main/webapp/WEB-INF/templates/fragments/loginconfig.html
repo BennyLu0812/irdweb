@@ -17,15 +17,8 @@
 //locale
 var _LOCALE = [[${#locale}]];
 //系統國際化多語言
-var _LANGUAGE;
-if (_LOCALE == 'pt' || _LOCALE == 'pt_PT') {
-    _LANGUAGE = 'pt';
-} else if (_LOCALE == 'en' || _LOCALE == 'en_US') {
-    _LANGUAGE = 'en';
-} else {
-    // 如果沒有 默認zh_TW.
-    _LANGUAGE = 'zh_TW';
-}
+var _LANGUAGE = 'en';
+
 
 //網站所處模式 dev 是開發者模式.
 var websiteModel = [[${#request.getAttribute('$websiteModel$')}]];

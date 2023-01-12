@@ -22,15 +22,15 @@
 				<div class="box fl-panel" id="login" style="display: inline-block">
 					<form id="fm1" class="fm-v clearfix" style="text-align: left;"
 						action="" method="post">
-						<h2>請輸入您的用戶名和密碼。</h2>
+						<h2 th:text="#{global.label.user.tips}">請輸入您的用戶名和密碼。</h2>
 						<div class="row fl-controls-left">
-							<label for="userId" class="fl-label">用戶名：</label> 
+							<label for="userId" class="fl-label" th:text="#{global.label.user.userName}">用戶名：</label>
 							<input id="userId" name="userId" class="required" tabindex="1" maxlength="15"
 								accesskey="n" type="text" value="" size="38"
 								autocomplete="on" />
 						</div>
 						<div class="row fl-controls-left">
-							<label for="password" class="fl-label">密 碼：</label> 
+							<label for="password" class="fl-label" th:text="#{global.label.user.password}">密 碼：</label>
 							<input id="password" name="password" class="required" tabindex="2" maxlength="20"
 								accesskey="p" type="password" value="" size="38" autocomplete="on" />
 						</div>
@@ -40,8 +40,8 @@
 							<input type="hidden" name="lt" value="LT-6860-SP2QUA0jty40dirIR06Z6jTpcKymXz" /> 
 							<input type="hidden" name="execution" value="e3s1" /> 
 							<input type="hidden" name="_eventId" value="submit" /> 
-							<input id="loginBtnId" class="btn-submit" name="submit" accesskey="l" value="登錄" index="4" type="button" /> 
-							<input class="btn-reset" name="reset" accesskey="c" value="重置" tabindex="5" type="reset" />
+							<input id="loginBtnId" class="btn-submit" name="submit" accesskey="l" th:value="#{global.login}" value="登錄" index="4" type="button" />
+							<input class="btn-reset" name="reset" accesskey="c" th:value="#{global.reset}" value="重置" tabindex="5" type="reset" />
 						</div>
 					</form>
 				</div>

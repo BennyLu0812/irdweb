@@ -49,7 +49,8 @@ public class LoginController {
 		setRedirectUrl(param);
     	return "login";
     }
-    
+
+
     @PostMapping(path = "/login")
     @ResponseBody
     public void login(@RequestBody(required=false) User u, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
@@ -77,7 +78,8 @@ public class LoginController {
 			}
 		}
     }
-    
+
+
     @GetMapping(path = "/logout")
     public String logout(HttpServletRequest request) {
     	if(loginService.logout(request)){
