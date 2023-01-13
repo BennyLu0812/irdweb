@@ -3,6 +3,8 @@
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/../DEVvics/vics/vics-assets-web" />
+    <file type="web" url="file://$PROJECT_DIR$/clp-assets-web" />
+    <file type="web" url="file://$PROJECT_DIR$/clp-web" />
     <file type="web" url="file://$PROJECT_DIR$/ird-assets-web" />
     <file type="web" url="file://$PROJECT_DIR$/ird-web" />
   </component>

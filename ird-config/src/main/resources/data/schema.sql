@@ -1,2 +1,0 @@
-
-update IRD_SCH_CTRL_LOG set STATUS = 'COMPLETE' where STATUS != 'COMPLETE';

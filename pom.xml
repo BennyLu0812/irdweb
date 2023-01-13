@@ -5,26 +5,26 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.ird.portal</groupId>
-    <artifactId>ird</artifactId>
+    <artifactId>clp</artifactId>
     <version>0.0.1</version>
     <packaging>pom</packaging>
 
 
     <modules>
-        <module>ird-parent</module>
-        <module>ird-assets-web</module>
-        <module>ird-common-api-test</module>
-        <module>ird-common-api</module>
-        <module>ird-common-base</module>
-        <module>ird-common-web</module>
-        <module>ird-config</module>
-        <module>ird-rpt-core</module>
-        <module>ird-user-core</module>
-        <module>ird-sys-core</module>
-        <module>ird-web</module>
-        <module>ird-api-core</module>
-        <module>ird-sch-core</module>
-        <module>ird-sch-api</module>
+        <module>clp-parent</module>
+        <module>clp-assets-web</module>
+        <module>clp-common-api-test</module>
+        <module>clp-common-api</module>
+        <module>clp-common-base</module>
+        <module>clp-common-web</module>
+        <module>clp-config</module>
+        <module>clp-rpt-core</module>
+        <module>clp-user-core</module>
+        <module>clp-sys-core</module>
+        <module>clp-web</module>
+        <module>clp-api-core</module>
+        <module>clp-sch-core</module>
+        <module>clp-sch-api</module>
     </modules>
 
 

@@ -6,22 +6,36 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="ird-api-core" />
-        <module name="ird-assets-web" />
-        <module name="ird-common-api" />
-        <module name="ird-common-api-test" />
-        <module name="ird-common-base" />
-        <module name="ird-common-web" />
-        <module name="ird-config" />
-        <module name="ird-rpt-core" />
-        <module name="ird-sch-api" />
-        <module name="ird-sch-core" />
-        <module name="ird-sys-core" />
-        <module name="ird-user-core" />
-        <module name="ird-web" />
+        <module name="clp-api-core" />
+        <module name="clp-assets-web" />
+        <module name="clp-common-api" />
+        <module name="clp-common-api-test" />
+        <module name="clp-common-base" />
+        <module name="clp-common-web" />
+        <module name="clp-config" />
+        <module name="clp-rpt-core" />
+        <module name="clp-sch-api" />
+        <module name="clp-sch-core" />
+        <module name="clp-sys-core" />
+        <module name="clp-user-core" />
+        <module name="clp-web" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="ird-api-core" target="1.8" />
+      <module name="ird-assets-web" target="1.8" />
+      <module name="ird-common-api" target="1.8" />
+      <module name="ird-common-api-test" target="1.8" />
+      <module name="ird-common-base" target="1.8" />
+      <module name="ird-common-web" target="1.8" />
+      <module name="ird-config" target="1.8" />
+      <module name="ird-parent" target="1.8" />
+      <module name="ird-rpt-core" target="1.8" />
+      <module name="ird-sch-api" target="1.8" />
+      <module name="ird-sch-core" target="1.8" />
+      <module name="ird-sys-core" target="1.8" />
+      <module name="ird-user-core" target="1.8" />
+      <module name="ird-web" target="1.8" />
       <module name="vics-assets-web" target="1.8" />
       <module name="vics-assets-web (1)" target="1.8" />
       <module name="vics-assets-web (2)" target="1.8" />

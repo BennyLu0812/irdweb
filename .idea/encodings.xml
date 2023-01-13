@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding" native2AsciiForPropertiesFiles="true">
+    <file url="file://$PROJECT_DIR$/clp-api-core" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/clp-assets-web" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/clp-common-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/clp-common-api-test" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/clp-common-base" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/clp-common-web" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/clp-config" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/clp-parent" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/clp-rpt-core" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/clp-sch-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/clp-sch-core" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/clp-sys-core" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/clp-user-core" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/clp-web" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ird-api-core" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ird-assets-web" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ird-common-api" charset="UTF-8" />
