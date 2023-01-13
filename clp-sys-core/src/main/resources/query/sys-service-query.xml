@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+    <!-- Service-->
+    <getSysServiceList type="sql">
+        <![CDATA[
+
+            SELECT
+	            SERVICE_ID AS "serviceId",
+				SERVICE_CODE AS "serviceCode",
+				SERVICE_CNAME AS "serviceCname",
+				SERVICE_PNAME AS "servicePname",
+				SERVICE_DETAIL AS "serviceDetail",
+				SERVICE_STATUS AS "serviceStatus",
+				IS_ENQ AS "serviceType",
+				LAST_UPD_USER AS "lastUpdUser",
+				LAST_UPD_DATE AS "lastUpdDate",
+				CREATE_USER AS "createUser",
+				CREATE_DATE AS "createDate"
+            FROM CLP_SYS_SERVICE WITH (NOLOCK)
+	            WHERE 1 = 1
+				<#if serviceStatus?? && serviceStatus != ''>
+				 AND SERVICE_STATUS = :serviceStatus
+				</#if>
+				<#if serviceType?? && serviceType != ''>
+	             AND IS_ENQ = :serviceType
+	            </#if>
+
+	            ORDER BY SERVICE_ORDER ASC
+        ]]>
+    </getSysServiceList>
+
+    <getSysProcessList type="sql">
+        <![CDATA[
+
+            SELECT
+                PROCESS_ID AS "processId",
+				PROCESS_CODE AS "processCode",
+				SERVICE_ID AS "serviceId",
+				PROCESS_CNAME AS "processCname",
+				PROCESS_PNAME AS "processPname",
+				PROCESS_STATUS AS "processStatus",
+				IS_ENQ AS "processType",
+                LAST_UPD_USER AS "lastUpdUser",
+                LAST_UPD_DATE AS "lastUpdDate",
+                CREATE_USER AS "createUser",
+                CREATE_DATE AS "createDate"
+            FROM CLP_SYS_PROCESS WITH (NOLOCK)
+                WHERE 1 = 1
+                <#if serviceId??>
+                 AND SERVICE_ID = :serviceId
+                </#if>
+                <#if processStatus?? && processStatus != ''>
+                 AND PROCESS_STATUS = :processStatus
+                </#if>
+                <#if processType?? && processType != ''>
+                 AND IS_ENQ = :processType
+                </#if>
+
+                ORDER BY PROCESS_CODE ASC
+        ]]>
+    </getSysProcessList>
+
+
+    <getSysServiceByOperationCodes type="sql">
+        <![CDATA[
+             SELECT
+				DISTINCT dss.SERVICE_ID AS "serviceId",
+				dss.SERVICE_CODE AS "serviceCode",
+				dss.SERVICE_CNAME AS "serviceCname",
+				dss.SERVICE_PNAME AS "servicePname",
+				dss.SERVICE_DETAIL AS "serviceDetail",
+				dss.SERVICE_STATUS AS "serviceStatus",
+				dss.IS_ENQ AS "serviceType",
+				dss.LAST_UPD_USER AS "lastUpdUser",
+				dss.LAST_UPD_DATE AS "lastUpdDate",
+				dss.CREATE_USER AS "createUser",
+				dss.CREATE_DATE AS "createDate",
+				dss.SERVICE_ORDER AS "serviceOrder"
+			  FROM CLP_SYS_SERVICE dss WITH (NOLOCK)
+			LEFT JOIN CLP_SYS_PROCESS dsp ON dsp.SERVICE_ID = dss.SERVICE_ID
+			LEFT JOIN CLP_SYS_STAGE dssg ON dsp.PROCESS_ID = dssg.PROCESS_ID
+				where dssg.SP_OPERATION_CODE in :operationCodes
+				<#if serviceStatus?? && serviceStatus != ''>
+				 AND dss.SERVICE_STATUS = :serviceStatus
+				</#if>
+				<#if serviceType?? && serviceType != ''>
+	             AND dss.IS_ENQ = :serviceType
+	            </#if>
+
+	            ORDER BY dss.SERVICE_ORDER ASC
+        ]]>
+    </getSysServiceByOperationCodes>
+
+    <getSysProcessByOperationCodes type="sql">
+        <![CDATA[
+            SELECT
+                DISTINCT dsp.PROCESS_ID AS "processId",
+				dsp.PROCESS_CODE AS "processCode",
+				dsp.SERVICE_ID AS "serviceId",
+				dsp.PROCESS_CNAME AS "processCname",
+				dsp.PROCESS_PNAME AS "processPname",
+				dsp.PROCESS_STATUS AS "processStatus",
+				dsp.IS_ENQ AS "processType",
+                dsp.LAST_UPD_USER AS "lastUpdUser",
+                dsp.LAST_UPD_DATE AS "lastUpdDate",
+                dsp.CREATE_USER AS "createUser",
+                dsp.CREATE_DATE AS "createDate"
+            FROM CLP_SYS_PROCESS dsp WITH (NOLOCK)
+			LEFT JOIN CLP_SYS_STAGE dssg WITH (NOLOCK) ON dsp.PROCESS_ID = dssg.PROCESS_ID
+				where dssg.SP_OPERATION_CODE in :operationCodes
+                <#if serviceId??>
+                 AND dsp.SERVICE_ID = :serviceId
+                </#if>
+                <#if processStatus?? && processStatus != ''>
+                 AND dsp.PROCESS_STATUS = :processStatus
+                </#if>
+                <#if processType?? && processType != ''>
+                 AND dsp.IS_ENQ = :processType
+                </#if>
+
+                ORDER BY dsp.PROCESS_CODE ASC
+        ]]>
+    </getSysProcessByOperationCodes>
+
+</queries>

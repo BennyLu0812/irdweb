@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+    <!-- SCH -->
+    <findSchCtrlList type="sql">
+        <![CDATA[
+            SELECT
+                SCH_CTRL_ID as "id",
+                JOB_CODE as "JobCode",
+                JOB_USE as "JobUse",
+                JOB_TYPE as "JobType",
+                SYS_CODE as "sysCode",
+                CRON_CHAR as "cronChar",
+                CRON_NUM as "cronNum",
+                CRON_DATE as "cronDate",
+                CLS_NAME as "clsName",
+                IS_SYNC as "isSync",
+                DATA_DIR as "dataDir",
+                DATA_DAYS as "dataDays",
+                ENABLED as "enabled",
+                WORK_STATUS as "workStatus",
+                CREATE_USER as "createUser",
+                CREATE_DATE as "createDate",
+                LAST_UPD_USER as "lastUpdUser",
+                LAST_UPD_DATE as "lastUpdDate"
+            FROM CLP_SCH_CTRL with (nolock)
+            where JOB_TYPE <> 'TRIGGER'
+        ]]>
+    </findSchCtrlList>
+
+    <findSchCtrlLogBySchCtrlId type="sql">
+        <![CDATA[
+            SELECT *
+            FROM (
+                SELECT
+                    ROW_NUMBER()over(order by START_TIME desc) as "num",
+                    SCH_CTRL_LOG_ID as "schCtrlLogId",
+                    SCH_CTRL_ID as "schCtrlId",
+                    JOB_CODE as "jobCode",
+                    REC_PROCESSED as "recProcessed",
+                    REC_PENDING as "recPending",
+                    REC_INSERT as "recInsert",
+                    REC_UPDATE as "recUpdate",
+                    REC_DELETE as "recDelete",
+                    START_TIME as "startTime",
+                    END_TIME as "endTime",
+                    STATUS as "status",
+                    LATEST_JOB_IND as "latestJobInd",
+                    ERROR_CODE as "errorCode",
+                    ERROR_MSG as "errorMsg",
+                    LOG_FILE_NAME as "logFileName",
+                    CREATE_USER as "createUser",
+                    CREATE_DATE as "createDate",
+                    LAST_UPD_USER as "lastUpdUser",
+                    LAST_UPD_DATE as "lastUpdDate"
+                FROM CLP_SCH_CTRL_LOG with (nolock)
+                WHERE SCH_CTRL_ID = :schCtrlId
+            ) t WHERE t.num = 1
+        ]]>
+    </findSchCtrlLogBySchCtrlId>
+
+    <findSchCtrlPage type="sql">
+        <![CDATA[
+            SELECT
+                SCH_CTRL_ID as "id",
+                JOB_CODE as "JobCode",
+                JOB_USE as "JobUse",
+                JOB_TYPE as "JobType",
+                SYS_CODE as "sysCode",
+                CRON_CHAR as "cronChar",
+                CRON_NUM as "cronNum",
+                CRON_DATE as "cronDate",
+                CLS_NAME as "clsName",
+                IS_SYNC as "isSync",
+                DATA_DIR as "dataDir",
+                DATA_DAYS as "dataDays",
+                ENABLED as "enabled",
+                WORK_STATUS as "workStatus",
+                CREATE_USER as "createUser",
+                CREATE_DATE as "createDate",
+                LAST_UPD_USER as "lastUpdUser",
+                LAST_UPD_DATE as "lastUpdDate",
+                ROW_NUMBER()over(order by CREATE_DATE desc) as "num"
+            FROM CLP_SCH_CTRL with (nolock) where JOB_TYPE <> 'TRIGGER'
+            <#if sysCode!!=''>
+                and SYS_CODE = :sysCode
+            </#if>
+            <#if jobUse!!=''>
+                and JOB_USE like :jobUse
+            </#if>
+            <#if jobCode!!=''>
+                and JOB_CODE = :jobCode
+            </#if>
+        ]]>
+    </findSchCtrlPage>
+
+    <findSchCtrlLogPage type="sql">
+        <![CDATA[
+           select
+           ROW_NUMBER()over(order by CREATE_DATE desc,LAST_UPD_DATE desc) as num,
+           SCH_CTRL_LOG_ID as "schCtrlLogId",
+          SCH_CTRL_ID as "schCtrlId",
+          JOB_CODE as "jobCode",
+          REC_PROCESSED as "recProcessed",
+          REC_PENDING as "recPending",
+          REC_INSERT as "recInsert",
+          REC_UPDATE as "recUpdate",
+          REC_DELETE as "recDelete",
+          START_TIME as "startTime",
+          END_TIME as "endTime",
+          STATUS as "status",
+          LATEST_JOB_IND as "latestJobInd",
+          ERROR_CODE as "errorCode",
+          ERROR_MSG as "errorMsg",
+          LOG_FILE_NAME as "logFileName"
+            from CLP_SCH_CTRL_LOG WITH(NOLOCK)
+        ]]>
+    </findSchCtrlLogPage>
+
+    <findSchCtrlLogPageBySchCtrlId type="sql">
+        <![CDATA[
+           select
+              ROW_NUMBER()over(order by CREATE_DATE desc,LAST_UPD_DATE desc) as "num",
+              SCH_CTRL_LOG_ID as "schCtrlLogId",
+              SCH_CTRL_ID as "schCtrlId",
+              JOB_CODE as "jobCode",
+              REC_PROCESSED as "recProcessed",
+              REC_PENDING as "recPending",
+              REC_INSERT as "recInsert",
+              REC_UPDATE as "recUpdate",
+              REC_DELETE as "recDelete",
+              START_TIME as "startTime",
+              END_TIME as "endTime",
+              STATUS as "status",
+              LATEST_JOB_IND as "latestJobInd",
+              ERROR_CODE as "errorCode",
+              ERROR_MSG as "errorMsg",
+              LOG_FILE_NAME as "logFileName",
+              CREATE_USER as "createUser",
+              CREATE_DATE as "createDate",
+              LAST_UPD_USER as "lastUpdUser",
+              LAST_UPD_DATE as "lastUpdDate"
+            FROM CLP_SCH_CTRL_LOG WITH(NOLOCK)
+            where SCH_CTRL_ID = :id
+        ]]>
+    </findSchCtrlLogPageBySchCtrlId>
+
+</queries>

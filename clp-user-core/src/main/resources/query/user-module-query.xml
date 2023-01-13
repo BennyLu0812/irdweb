@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+
+	<!-- Module ====================================-->
+	<getModuleChildren type="hql">
+		FROM
+		ModuleEntity m
+		WHERE m.parent = :parent
+	</getModuleChildren>
+
+	<getTopModule type="hql">
+		FROM
+		ModuleEntity m
+		WHERE m.parent IS NULL
+	</getTopModule>
+
+	<getModuleByIds type="hql">
+		FROM ModuleEntity
+		WHERE moduleId IN(:ids)
+	</getModuleByIds>
+
+	<getModuleList type="hql">
+		FROM
+		ModuleEntity m
+		ORDER BY m.sort DESC
+	</getModuleList>
+
+	<buildModuleParent type="hql">
+		<![CDATA[
+        FROM
+            ModuleEntity
+        WHERE
+            moduleId <> :moduleId
+        ]]>
+	</buildModuleParent>
+
+</queries>
+

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:dls="http://dls.atos.net/security">
+<head>
+<div th:replace="fragments/head">head</div>
+<title>role Edit</title>
+
+</head>
+<body>
+    <div style="margin: 20px;" id="app">
+        
+        <!-- screen id -->
+        <div v-if="!role.createDate">
+            <div th:replace="fragments/layout :: content_header(|#{role.header.add}|, 'CLP-SYS-014')">SCREEN-ID</div>
+        </div>
+        <div v-if="role.createDate" >
+            <div th:replace="fragments/layout :: content_header(|#{role.header.update}|, 'CLP-SYS-015')">SCREEN-ID</div>
+        </div>
+        
+        <!-- form -->
+        <form id="role-form" class="form-horizontal margin-top-10">
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="role" th:text="#{role.role}">角色名</label>
+                <div class="col-sm-3">
+                    <input id="role" name="role" v-model="role.role" class="form-control" th:placeholder="#{role.role}" placeholder="角色名">
+                </div>
+                
+                <label class="control-label col-sm-2" for="status" th:text="#{role.status}">角色狀態</label>
+                <div class="col-sm-3">
+                    <v-select name="status" v-model="role.status" :url="statusUrl" :options="statusOptions"></v-select>
+                </div>
+            </div>
+                      
+            <div class="form-group">
+                <label  class="control-label col-sm-2" for="roleDesc" th:text="#{role.roleDesc}">角色説明</label>
+                <div class="col-sm-8">
+                    <input id="roleDesc" name="roleDesc" v-model="role.roleDesc" class="form-control" th:placeholder="#{role.roleDesc}" placeholder="角色描述">
+                </div>
+            </div>
+            <hr>
+            
+            <div class="form-group"
+                    style="margin-left: 2px; margin-right: 2px;">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title" th:text="#{role.roleAuthorization}"></h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table id="role-module-func" class="table table-hover table-condensed" style="width:100%;">
+                                    <thead>
+                                        <tr>
+                                            <th style="border-right:#D3D3D3 solid 1px;" th:text="#{func.module}">模塊</th>
+                                            <th  style="border-right:#D3D3D3 solid 1px;" th:text="#{func.menu}">菜單</th>
+                                            <th th:text="#{func.permission}">權限</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <template v-for = "module in funcMenus.moduleList">
+                                            <tr v-for="menu,index in module.menuList">
+                                                <td v-if="index == 0" style="width: 150px;border-right:#D3D3D3 solid 1px" :rowspan="module.menuList.length">
+                                                    {{module.moduleName}}
+                                                </td>
+                                                <td style="width: 250px; border-right:#D3D3D3 solid 1px">
+                                                    <input type="checkbox" :value="menu.funcId"  :id="'menu'+menu.funcId" v-model="role.funcIds" @click='setAllChecked($event, menu)'/>
+                                                    <label :for="'menu'+menu.funcId">{{menu.funcDesc}}</label>
+                                                </td>
+                                                <td>
+                                                    <div style="width:250px; margin-right: 5px;float: left;" v-for ="func in menu.funcList">
+                                                        <input type="checkbox" :value="func.funcId"  :id="'func'+func.funcId" v-model="role.funcIds" @change="funcChecked($event, menu)"/>
+                                                        <label :for="'func'+func.funcId">{{func.funcDesc}}</label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </template>
+                                    </tbody>
+                                 </table>
+                            </div>
+                        </div>
+                    </div>                
+                </div>
+
+            <div class="form-group">
+                 <div style="float: right;margin-right: 30px;">
+                     <button  id="btnSave" type="button" @click="doSave" class="btn btn-sm btn-primary" v-if="!role.roleId">
+                         <i class="iconfont icon-dui"></i> <span th:text="#{global.save}"></span>
+                     </button>
+                     
+                     <button id="btnSave" type="button" @click="doUpdate" class="btn btn-sm btn-primary" v-if="role.roleId">
+                         <i class="iconfont icon-dui"></i> <span th:text="#{global.save}"></span>
+                     </button>
+                   
+                 </div>
+            </div>
+        </form>
+
+    </div>
+
+    <!-- 注入系統默認javaScript腳本 -->
+    <div th:replace="fragments/script">Script JS</div>
+    <!-- 自己系統的腳本請在下面引入 -->
+    <script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+        //此處為將表單的值傳值到JS
+        var vModel = {
+                roleId: [[${roleId}]]
+            };
+    /*]]>*/ 
+    </script>
+        <script type="text/javascript" src="static/js/sys/roleEditController.js" th:src="@{/static/js/sys/roleEditController.js}"></script>
+    
+</body>
+</html>

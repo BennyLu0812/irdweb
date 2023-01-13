@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<div th:replace="fragments/head">head</div>
+<title>系統代碼管理</title>
+
+</head>
+<body>
+    <div class="container-fluid">
+
+        <!-- screen id -->
+        <div th:replace="fragments/layout :: content_header(|#{code.header.title}|, 'CLP-SYS-004')">SCREEN-ID</div>
+
+        <form id="fm-search" class="form-horizontal margin-top-10">
+            <div class="form-group">
+                <label class="control-label col-sm-1" for="codeCname" th:text="#{code.codeCname}">中文內容</label>
+                <div class="col-sm-2">
+                    <input id="codeCname" name="codeCname" value="" class="form-control" th:placeholder="#{code.codeCname}" placeholder="中文內容">
+                </div>
+                <label class="control-label col-sm-1" for="codePname" th:text="#{code.codePname}">葡文內容</label>
+                <div class="col-sm-2">
+                    <input id="codePname" name="codePname" value="" class="form-control" th:placeholder="#{code.codePname}" placeholder="浦文內容">
+                </div>
+                <label class="control-label col-sm-1" for="codeKey" th:text="#{code.codeKey}">代碼類型</label>
+                <div class="col-sm-2">
+                    <input id="codeKey" name="codeKey" value="" class="form-control" th:placeholder="#{code.codeKey}" placeholder="代碼類型">
+                </div>
+                <div class="col-sm-2">
+                    <button id="btn-create" type="button" class="btn btn-sm btn-default">
+                        <i class="glyphicon glyphicon-plus"></i> <span th:text="#{global.create}"></span>
+                    </button>
+                    <a class="btn btn-sm btn-default" href="javascript:history.go(-1);"> <i class="glyphicon glyphicon-backward"></i>&nbsp;返回
+                    </a>
+                </div>
+
+            </div>
+            <div class="form-group">
+
+                <label class="control-label col-sm-1" for="codeStatus" th:text="#{code.codeStatus}">代碼狀態</label>
+                <div class="col-sm-2">
+                    <select id="codeStatus" class="form-control simpleselect" name="codeStatus">
+                        <option value="">請選擇...</option>
+                        <option value="A" selected="selected">A - Activo - 有效</option>
+                        <option value="I">I - Cancelado - 失效</option>
+                    </select>
+                </div>
+
+                <label class="control-label col-sm-1" for="codePrintCname" th:text="#{code.codePrintCname}">中文印刷名</label>
+                <div class="col-sm-2">
+                    <input id="codePrintCname" name="codePrintCname" value="" class="form-control" th:placeholder="#{code.codePrintCname}" placeholder="代碼類型">
+                </div>
+                <label class="control-label col-sm-1" for="codePrintPname" th:text="#{code.codePrintPname}">葡文印刷名</label>
+                <div class="col-sm-2">
+                    <input id="codePrintPname" name="codePrintPname" value="" class="form-control" th:placeholder="#{code.codePrintPname}" placeholder="代碼類型">
+                </div>
+
+                <div class="col-sm-2">
+                    <button id="btn-search" type="button" class="btn btn-sm btn-primary">
+                        <i class="glyphicon glyphicon-search"></i> <span th:text="#{global.search}"></span>
+                    </button>
+                    <button id="btn-reset" type="reset" class="btn btn-sm btn-default">
+                        <i class="glyphicon glyphicon-refresh"></i>&nbsp;重置
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- Table -->
+    <div>
+        <table id="table" class="table table-bordered table-hover table-condensed" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th th:text="#{code.codeKey}">系統代碼</th>
+                    <th>
+                    	<div th:text="#{code.codeCname}">中文內容</div>
+                    	<div class="text text-muted" th:text="#{code.codePname}">葡文内容</div>
+                    </th>
+                    <th>
+                    	<div th:text="#{code.codePrintCname}">中文印刷名</div>
+                    	<div class="text text-muted" th:text="#{code.codePrintPname}">葡文印刷名</div>
+                    </th>
+                    <th th:text="#{code.codeStatus}">代碼狀態</th>
+                    <th>
+                    	<div th:text="#{global.lastUpdUser}">最後更新用戶</div>
+                    	<div class="text text-muted" th:text="#{global.lastUpdDate}">最後更新日期</div>
+                    </th>
+                    <th th:text="#{global.action}">操作</th>
+                </tr>
+            </thead>
+        </table>
+
+    </div>
+
+    <!-- 注入系統默認javaScript腳本 -->
+    <div th:replace="fragments/script">Script JS</div>
+    <!-- 自己系統的腳本請在下面引入 -->
+
+    <script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+        var vModel = {
+                codeType: [[${codeType}]],
+                codeCname: [[${codeCname}]],
+                codePname: [[${codePname}]],
+                codeKey: [[${codeKey}]]
+            };
+    /*]]>*/ 
+    </script>
+
+    <script type="text/javascript" src="static/js/sys/codeController.js" th:src="@{/static/js/sys/codeController.js}"></script>
+
+</body>
+</html>

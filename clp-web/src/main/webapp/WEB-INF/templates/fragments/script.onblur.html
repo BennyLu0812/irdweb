@@ -1,0 +1,46 @@
+<script th:src="@{'~'+${webPrefix}+'/assets/bower/bluebird/bluebird.min.js'}"></script>
+<script th:src="@{'~'+${webPrefix}+'/assets/bower/requirejs/require.js'}" type="text/javascript" crossorigin="anonymous"></script>
+<script th:src="@{'~'+${webPrefix}+'/assets/static/js/requirejs.config.onblur.js'}" type="text/javascript" crossorigin="anonymous"></script>
+
+
+<script type="text/javascript" th:inline="javascript">
+/*<![CDATA[*/        
+//contextPath
+var basePath = [[${#request.getContextPath()}]];
+
+var webPrefix = [[${webPrefix}]];
+
+var sessionUserId = [[${#session.getAttribute('USER_SESSION').userId}]];
+sessionStorage.setItem("userId",sessionUserId);
+//locale
+var _LOCALE = [[${#locale}]];
+//ç³»çµ±åœ‹éš›åŒ–å¤šèªžè¨€
+var _LANGUAGE;
+if (_LOCALE == 'en') {
+    _LANGUAGE = 'en';
+} else{
+    _LANGUAGE = 'zh_TW';
+}
+
+//ç¶²ç«™æ‰€è™•æ¨¡å¼� dev æ˜¯é–‹ç™¼è€…æ¨¡å¼�.
+var websiteModel = [[${#request.getAttribute('$websiteModel$')}]];
+if(websiteModel=='dev') {
+    if(window.parent.refreshUserProfile) {
+        window.parent.refreshUserProfile([[${#session.getAttribute('USER_SESSION').userId}]],[[${#request.getRemoteAddr()}]]);
+    }
+}
+
+String.format = function() {
+    if (arguments.length == 0) {
+        return null;
+    }
+    var str = arguments[0];
+    for (var i = 1; i < arguments.length; i++) {
+        var reg = new RegExp('\\{' + (i - 1) + '\\}', 'gm');
+        str = str.replace(reg, arguments[i]);
+    }
+    return str;
+};
+
+/*]]>*/
+</script>

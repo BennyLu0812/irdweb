@@ -1,0 +1,22 @@
+﻿﻿spring:
+  profiles:
+    active: @run.env@  #去查找appliation-dev.yml
+  devtools:
+    restart:
+      enabled: false
+      additional-paths: src/main/java
+      exclude: WEB-INF/templates/**,WEB-INF/static/**
+
+    # 多语言国际化
+  messages:
+    basename: i18n/global/messages,i18n/rpt/messages,i18n/sch/messages,i18n/sys/messages,i18n/enum/messages,i18n/validation/messages
+server:
+  port: 8888
+  contextPath: @web-prefix@/web
+
+clp-web:
+  version: @sysVersion@
+  deployDate: @buildTime@
+# vics upgrade
+weblogic:
+  webPrefix: @web-prefix@

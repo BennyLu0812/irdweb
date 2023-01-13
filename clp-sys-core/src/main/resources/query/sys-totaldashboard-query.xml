@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+
+
+    <entryTimeTotal type="sql">
+        <![CDATA[
+             select cast(floor(cast(ENTRY_TIME as float)*24*60/30)*30/60/24 as smalldatetime) as date,count(*) as total
+                from CLP_QUE_INSPECTION_PROCESS WITH(NOLOCK)
+                where CONVERT(varchar(100), ENTRY_TIME , 14) Between '00:00:00:000' and '24:00:00:000'
+                and DATEDIFF( DAY, ENTRY_TIME, :createDate) = 0
+                and CENTER_CODE = :centerCode
+                and DATEDIFF( DAY, CREATE_DATE, :createDate) = 0
+                group by cast(floor(cast(ENTRY_TIME as float)*24*60/30)*30/60/24 as smalldatetime)
+        ]]>
+    </entryTimeTotal>
+
+    <completeTimeTotal type="sql">
+        <![CDATA[
+             select cast(floor(cast(COMPLETE_TIME as float)*24*60/30)*30/60/24 as smalldatetime) as date,count(*) as total
+                from CLP_QUE_INSPECTION_PROCESS WITH(NOLOCK)
+                where CONVERT(varchar(100), COMPLETE_TIME , 14) Between '00:00:00:000' and  '24:00:00:000'
+                and DATEDIFF( DAY, COMPLETE_TIME, :createDate) =0
+                and CENTER_CODE = :centerCode
+                and DATEDIFF( DAY, CREATE_DATE, :createDate) = 0
+                group by cast(floor(cast(COMPLETE_TIME as float)*24*60/30)*30/60/24 as smalldatetime)
+        ]]>
+    </completeTimeTotal>
+
+    <getTableSumTotal type="sql">
+        <![CDATA[
+
+              SELECT
+                    'TOTAL' AS TYPE,
+                    COUNT(1) AS TOTAL,
+                    ISNULL(SUM(CASE INSPECTION_RESULT WHEN '1' THEN 1 ELSE 0 END), 0) AS PASS,
+                    ISNULL(SUM(CASE INSPECTION_RESULT WHEN '1' THEN 0 ELSE 1 END), 0) AS NO_PASS,
+                    ISNULL((CAST(SUM(CASE INSPECTION_RESULT WHEN '1' THEN 1 ELSE 0 END) AS FLOAT) / COUNT(1)), 0) AS PASS_RATE
+                    FROM
+                (
+                        SELECT
+                            *
+                        FROM
+                            (
+                            SELECT
+                                VIT.INSP_TASK_ID,
+                                VIT.INSP_MASTER_ID,
+                                VIT.NO_OF_TIMES_INSP,
+                                VIT.CVIC_INSP_TYPE,
+                                VIT.INSP_METHOD,
+                                VIR.INSPECTION_RESULT,
+                                ROW_NUMBER ( ) OVER ( PARTITION BY VIT.INSP_MASTER_ID ORDER BY VIT.NO_OF_TIMES_INSP DESC, VIT.INSP_TASK_ID DESC ) AS ROW
+                            FROM
+                                CLP_INP_TASK VIT WITH (NOLOCK)
+                                INNER JOIN CLP_INP_RESULT VIR WITH (NOLOCK)
+                                    ON VIR.INSP_MASTER_ID = VIT.INSP_MASTER_ID
+                                    AND VIR.NO_OF_TIMES_INSP =  VIT.NO_OF_TIMES_INSP
+                                    AND VIT.STATUS = 'A'
+                                    AND VIT.BUSINESS_STATUS = '07'
+                                    AND VIT.CENTER_CODE = :centerCode
+                                    AND DATEDIFF( DAY, VIT.COMPLETE_TIME, :createDate ) = 0
+                            ) AS T1
+                        WHERE
+                            ROW = 1
+                ) AS T2
+
+                UNION ALL
+
+                SELECT
+                    'NEW_CAR' AS TYPE,
+                    COUNT(1) AS TOTAL,
+                    ISNULL(SUM(CASE INSPECTION_RESULT WHEN '1' THEN 1 ELSE 0 END), 0) AS PASS,
+                    ISNULL(SUM(CASE INSPECTION_RESULT WHEN '1' THEN 0 ELSE 1 END), 0) AS NO_PASS,
+                    ISNULL((CAST(SUM(CASE INSPECTION_RESULT WHEN '1' THEN 1 ELSE 0 END) AS FLOAT) / COUNT(1)), 0) AS PASS_RATE
+                    FROM
+                (
+                        SELECT
+                            *
+                        FROM
+                            (
+                            SELECT
+                                VIT.INSP_TASK_ID,
+                                VIT.INSP_MASTER_ID,
+                                VIT.NO_OF_TIMES_INSP,
+                                VIT.CVIC_INSP_TYPE,
+                                VIT.INSP_METHOD,
+                                VIR.INSPECTION_RESULT,
+                                ROW_NUMBER ( ) OVER ( PARTITION BY VIT.INSP_MASTER_ID ORDER BY VIT.NO_OF_TIMES_INSP DESC, VIT.INSP_TASK_ID DESC ) AS ROW
+                            FROM
+                                CLP_INP_TASK VIT WITH (NOLOCK)
+                                INNER JOIN CLP_INP_RESULT VIR WITH (NOLOCK)
+                                    ON VIR.INSP_MASTER_ID = VIT.INSP_MASTER_ID
+                                    AND VIR.NO_OF_TIMES_INSP =  VIT.NO_OF_TIMES_INSP
+                                    AND (VIT.INSP_METHOD = '04' OR VIT.INSP_METHOD = '05')
+                                    AND (VIT.CVIC_INSP_TYPE = '03')
+                                    AND VIT.STATUS = 'A'
+                                    AND VIT.BUSINESS_STATUS = '07'
+                                    AND VIT.CENTER_CODE = :centerCode
+                                    AND DATEDIFF( DAY, VIT.COMPLETE_TIME, :createDate ) = 0
+                            ) AS T1
+                        WHERE
+                            ROW = 1
+                ) AS T2
+
+                UNION ALL
+
+                SELECT
+                    'SPECIAL' AS TYPE,
+                    COUNT(1) AS TOTAL,
+                    ISNULL(SUM(CASE INSPECTION_RESULT WHEN '1' THEN 1 ELSE 0 END), 0) AS PASS,
+                    ISNULL(SUM(CASE INSPECTION_RESULT WHEN '1' THEN 0 ELSE 1 END), 0) AS NO_PASS,
+                    ISNULL((CAST(SUM(CASE INSPECTION_RESULT WHEN '1' THEN 1 ELSE 0 END) AS FLOAT) / COUNT(1)), 0) AS PASS_RATE
+                    FROM
+                (
+                        SELECT
+                            *
+                        FROM
+                            (
+                            SELECT
+                                VIT.INSP_TASK_ID,
+                                VIT.INSP_MASTER_ID,
+                                VIT.NO_OF_TIMES_INSP,
+                                VIT.CVIC_INSP_TYPE,
+                                VIT.INSP_METHOD,
+                                VIR.INSPECTION_RESULT,
+                                ROW_NUMBER ( ) OVER ( PARTITION BY VIT.INSP_MASTER_ID ORDER BY VIT.NO_OF_TIMES_INSP DESC, VIT.INSP_TASK_ID DESC ) AS ROW
+                            FROM
+                                CLP_INP_TASK VIT WITH (NOLOCK)
+                                INNER JOIN CLP_INP_RESULT VIR WITH (NOLOCK)
+                                    ON VIR.INSP_MASTER_ID = VIT.INSP_MASTER_ID
+                                    AND VIR.NO_OF_TIMES_INSP =  VIT.NO_OF_TIMES_INSP
+                                    AND (VIT.INSP_METHOD = '04' OR VIT.INSP_METHOD = '05')
+                                    AND (VIT.CVIC_INSP_TYPE = '01')
+                                    AND VIT.STATUS = 'A'
+                                    AND VIT.BUSINESS_STATUS = '07'
+                                    AND VIT.CENTER_CODE = :centerCode
+                                    AND DATEDIFF( DAY, VIT.COMPLETE_TIME, :createDate ) = 0
+                            ) AS T1
+                        WHERE
+                            ROW = 1
+                ) AS T2
+
+                UNION ALL
+
+                SELECT
+                    'OUT' AS TYPE,
+                    COUNT(1) AS TOTAL,
+                    ISNULL(SUM(CASE INSPECTION_RESULT WHEN '1' THEN 1 ELSE 0 END), 0) AS PASS,
+                    ISNULL(SUM(CASE INSPECTION_RESULT WHEN '1' THEN 0 ELSE 1 END), 0) AS NO_PASS,
+                    ISNULL((CAST(SUM(CASE INSPECTION_RESULT WHEN '1' THEN 1 ELSE 0 END) AS FLOAT) / COUNT(1)), 0) AS PASS_RATE
+                    FROM
+                (
+                        SELECT
+                            *
+                        FROM
+                            (
+                            SELECT
+                                VIT.INSP_TASK_ID,
+                                VIT.INSP_MASTER_ID,
+                                VIT.NO_OF_TIMES_INSP,
+                                VIT.CVIC_INSP_TYPE,
+                                VIT.INSP_METHOD,
+                                VIR.INSPECTION_RESULT,
+                                ROW_NUMBER ( ) OVER ( PARTITION BY VIT.INSP_MASTER_ID ORDER BY VIT.NO_OF_TIMES_INSP DESC, VIT.INSP_TASK_ID DESC ) AS ROW
+                            FROM
+                                CLP_INP_TASK VIT WITH (NOLOCK)
+                                INNER JOIN CLP_INP_RESULT VIR WITH (NOLOCK)
+                                    ON VIR.INSP_MASTER_ID = VIT.INSP_MASTER_ID
+                                    AND VIR.NO_OF_TIMES_INSP =  VIT.NO_OF_TIMES_INSP
+                                    AND VIT.INSP_METHOD = '06'
+                                    AND VIT.STATUS = 'A'
+                                    AND VIT.BUSINESS_STATUS = '07'
+                                    AND VIT.CENTER_CODE = :centerCode
+                                    AND DATEDIFF( DAY, VIT.COMPLETE_TIME, :createDate ) = 0
+                            ) AS T1
+                        WHERE
+                            ROW = 1
+                ) AS T2
+
+                UNION ALL
+
+                SELECT
+                    'REGULAR' AS TYPE,
+                    COUNT(1) AS TOTAL,
+                    ISNULL(SUM(CASE INSPECTION_RESULT WHEN '1' THEN 1 ELSE 0 END), 0) AS PASS,
+                    ISNULL(SUM(CASE INSPECTION_RESULT WHEN '1' THEN 0 ELSE 1 END), 0) AS NO_PASS,
+                    ISNULL((CAST(SUM(CASE INSPECTION_RESULT WHEN '1' THEN 1 ELSE 0 END) AS FLOAT) / COUNT(1)), 0) AS PASS_RATE
+                    FROM
+                    (
+                        SELECT
+                            VIT.INSP_TASK_ID,
+                            VIT.INSP_MASTER_ID,
+                            VIT.NO_OF_TIMES_INSP,
+                            VIT.CVIC_INSP_TYPE,
+                            VIT.INSP_METHOD,
+                            VIR.INSPECTION_RESULT
+                        FROM
+                            CLP_INP_TASK VIT WITH (NOLOCK)
+                            INNER JOIN CLP_INP_RESULT VIR WITH (NOLOCK)
+                                ON VIR.INSP_MASTER_ID = VIT.INSP_MASTER_ID
+                                AND VIR.NO_OF_TIMES_INSP =  VIT.NO_OF_TIMES_INSP
+                                AND (VIT.INSP_METHOD = '04' OR VIT.INSP_METHOD = '05')
+                                AND (VIT.CVIC_INSP_TYPE = '02')
+                                AND VIT.STATUS = 'A'
+                                AND VIT.BUSINESS_STATUS = '07'
+                                AND VIT.CENTER_CODE = :centerCode
+                                AND DATEDIFF( DAY, VIT.COMPLETE_TIME, :createDate ) = 0
+                    ) AS T2
+
+                UNION ALL
+
+                SELECT
+                    'REGULAR_VEH' AS TYPE,
+                    COUNT(1) AS TOTAL,
+                    ISNULL(SUM(CASE INSPECTION_RESULT WHEN '1' THEN 1 ELSE 0 END), 0) AS PASS,
+                    ISNULL(SUM(CASE INSPECTION_RESULT WHEN '1' THEN 0 ELSE 1 END), 0) AS NO_PASS,
+                    ISNULL((CAST(SUM(CASE INSPECTION_RESULT WHEN '1' THEN 1 ELSE 0 END) AS FLOAT) / COUNT(1)), 0) AS PASS_RATE
+                    FROM
+                (
+                        SELECT
+                            *
+                        FROM
+                            (
+                            SELECT
+                                VIT.INSP_TASK_ID,
+                                VIT.INSP_MASTER_ID,
+                                VIT.NO_OF_TIMES_INSP,
+                                VIT.CVIC_INSP_TYPE,
+                                VIT.INSP_METHOD,
+                                VIR.INSPECTION_RESULT,
+                                ROW_NUMBER ( ) OVER ( PARTITION BY VIT.VEH_ID ORDER BY VIT.INSP_MASTER_ID DESC, VIT.NO_OF_TIMES_INSP DESC, VIT.INSP_TASK_ID DESC ) AS ROW
+                            FROM
+                                CLP_INP_TASK VIT WITH (NOLOCK)
+                                INNER JOIN CLP_INP_RESULT VIR WITH (NOLOCK)
+                                    ON VIR.INSP_MASTER_ID = VIT.INSP_MASTER_ID
+                                    AND VIR.NO_OF_TIMES_INSP =  VIT.NO_OF_TIMES_INSP
+                                    AND (VIT.INSP_METHOD = '04' OR VIT.INSP_METHOD = '05')
+                                    AND (VIT.CVIC_INSP_TYPE = '02')
+                                    AND VIT.STATUS = 'A'
+                                    AND VIT.BUSINESS_STATUS = '07'
+                                    AND VIT.CENTER_CODE = :centerCode
+                                    AND DATEDIFF( DAY, VIT.COMPLETE_TIME, :createDate ) = 0
+                            ) AS T1
+                        WHERE
+                            ROW = 1
+                ) AS T2
+
+        ]]>
+    </getTableSumTotal>
+    <getCitizenAvgData type="sql">
+        <![CDATA[
+            select ISNULL(avg(datediff(mi,ENTRY_TIME,ENROLL_TIME)), 0) as citizenAvgMin,count(*) as citizenAvgMinCount
+            from CLP_QUE_INSPECTION_PROCESS vqip WITH(NOLOCK)
+            where VSS_LOGIN_TIME is not null
+            and ENROLL_TIME is not null
+            and ENROLL_TIME < COMPLETE_TIME
+            and CENTER_CODE =:centerCode
+            and DATEDIFF(day,CREATE_DATE , :createDate) = 0
+        ]]>
+    </getCitizenAvgData>
+    <getCarAvgData type="sql">
+        <![CDATA[
+            select ISNULL(avg(datediff(mi,ENROLL_TIME,COMPLETE_TIME)), 0) as carAvgMin,count(*) as carAvgMinCount
+            from CLP_QUE_INSPECTION_PROCESS vqip WITH(NOLOCK)
+            where COMPLETE_TIME is not null
+            and ENROLL_TIME is not null
+            and ENROLL_TIME < COMPLETE_TIME
+            and CENTER_CODE =:centerCode
+            and DATEDIFF(day,CREATE_DATE , :createDate) = 0
+        ]]>
+    </getCarAvgData>
+</queries>

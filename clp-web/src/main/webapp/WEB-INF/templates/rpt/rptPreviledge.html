@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<div th:replace="fragments/head">head</div>
+<title>報表管理界面</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div th:replace="fragments/layout :: content_header(|#{rptMaster.previledge.title}|, 'CLP-LIC-153')">SCREEN-ID</div>
+    </div>
+    <div class="col-sm-12">
+        <table id="table-rptMaster" class="table table-bordered table-hover table-condensed dataTable no-footer" role="grid" style="width: 100%;" width="100%"
+            cellspacing="0">
+            <thead>
+                <tr>
+                    <th th:text="#{rptMaster.funcCode}">功能編碼</th>
+                    <th th:text="#{rptMaster.funcDecs}">功能描述</th>
+                    <th th:text="#{rptMaster.moduleName}">模塊名稱</th>
+                </tr>
+            </thead>
+
+        </table>
+    </div>
+    <!-- 注入系統默認javaScript腳本 -->
+    <div th:replace="fragments/script">Script JS</div>
+
+    <!-- 自己系統的腳本請在下面引入 -->
+
+    <script type="text/javascript" th:inline="javascript">
+            var vModel = {rptPreviledge: [[${ rptPreviledge }]]}
+    </script>
+
+   <script type="text/javascript" src="static/js/rpt/rptPreviledgeController.js" th:src="@{/static/js/rpt/rptPreviledgeController.js}"></script>
+    
+    
+</body>
+
+</html>

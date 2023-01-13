@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<div th:replace="fragments/head">head</div>
+<title>User</title>
+
+</head>
+<body>
+<div id="app" >
+    <div class="container-fluid">
+
+        <!-- screen id -->
+        <div th:replace="fragments/layout :: content_header(|#{user.header.title}|, '')">SCREEN-ID</div>
+
+        <form id="fm-search" class="form-horizontal margin-top-10">
+            <div class="row form-group">
+            <label class="control-label col-sm-1" for="userId" th:text="#{user.userId}">賬號名稱</label>
+                <div class="col-sm-2">
+                    <input id="userId" name="userId" value="" class="form-control" th:placeholder="#{user.userId}" placeholder="用戶編號">
+                </div>
+                <label class="control-label col-sm-1" for="userCname" th:text="#{user.userCname}">中文姓名</label>
+                <div class="col-sm-3">
+                    <input id="userCname" name="cnName" value="" class="form-control" th:placeholder="#{user.userCname}" placeholder="中文姓名">
+                </div>
+                <label class="control-label col-sm-1" for="role" th:text="#{role.role}">用戶角色</label>
+                <div class="col-sm-3">
+                    <input id="role" name="role" value="" class="form-control" th:placeholder="#{role.role}" placeholder="用戶角色">
+                </div>
+            </div>
+            
+            <div class="row form-group">
+                <label class="control-label col-sm-1" for="status" th:text="#{user.status}">用戶狀態</label>
+                <div class="col-sm-2">
+                    <v-select name="status" v-model="user.status" :options="statusOptions" th:placeholder="#{global.selectPlaceholder}"></v-select>
+                </div>
+                <label class="control-label col-sm-1" for="userEname" th:text="#{user.userEname}">英文姓名</label>
+                <div class="col-sm-3">
+                    <input id="userEname" name="enName" value="" class="form-control" th:placeholder="#{user.userEname}" placeholder="英文姓名">
+                </div>
+                <div class="col-sm-4">
+                    <div class="pull-right">
+                        <button id="btn-search" type="button" class="btn btn-sm btn-primary">
+                            <i class="glyphicon glyphicon-search"></i> <span th:text="#{global.search}"></span>
+                        </button>
+                        <button sec:authorize="hasPermission('USER-ADD')" id="btn-create" type="button" class="btn btn-sm btn-default">
+                            <i class="glyphicon glyphicon-plus"></i> <span th:text="#{global.create}"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- Table -->
+        <table id="table" class="table table-bordered table-hover table-condensed" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th width="90" th:text="#{user.userId}">賬號名稱</th>
+                    <th><div th:text="#{user.userCname}">中文姓名</div><div class="text text-muted" th:text="#{user.userEname}">英文姓名</div></th>
+                    <th width="80"th:text="#{user.status}">用戶狀態</th>
+                    <th th:text="#{role.role}">用户角色</th>
+                    <th width="90"><div th:text="#{global.createUser}">創建用戶</div><div class="text text-muted" th:text="#{global.createDate}">創建日期</div></th>
+                    <th width="90"><div th:text="#{global.lastUpdUser}">最後更新用戶</div><div class="text text-muted" th:text="#{global.lastUpdDate}">最後更新日期</div></th>
+                    <th width="110" th:text="#{global.action}">操作</th>
+                </tr>
+            </thead>
+        </table>
+
+    </div>
+</div>
+<div sec:authorize="hasPermission('USER-MODIFY')" id="user-update-div" style="display:none;">
+    <a href="edit.html?userId={0}" class="btn btn-sm btn-default fancybox fancybox.iframe" data-fancybox-width="100%" data-fancybox-height="100%">
+    <i class="glyphicon glyphicon-edit"></i><span th:text="#{global.update}">修改</span></a>
+</div>
+    <!-- 注入系統默認javaScript腳本 -->
+    <div th:replace="fragments/script">Script JS</div>
+    <!-- 自己系統的腳本請在下面引入 -->
+
+    <script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+        var i18n= {
+                detail: [[#{global.detail}]]
+        };
+    /*]]>*/ 
+    </script>
+
+    <script type="text/javascript" src="static/js/sys/userController.js" th:src="@{/static/js/sys/userController.js}"></script>
+</body>
+</html>

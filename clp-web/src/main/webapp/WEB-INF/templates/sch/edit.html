@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="fragments/head">head</div>
+    <title>schCtrl Edit</title>
+    <style type="text/css">
+    </style>
+</head>
+
+<body>
+    <div class="container" id="app">
+
+        <!-- screen id -->
+        <div v-if="!schCtrl.id">
+            <div th:replace="fragments/layout :: content_header(|#{schCtrl.header.add}|, 'CLP-SCH-002')">SCREEN-ID</div>
+        </div>
+        <div v-if="schCtrl.id">
+            <div th:replace="fragments/layout :: content_header(|#{schCtrl.header.update}|, 'CLP-SCH-003')">SCREEN-ID</div>
+        </div>
+
+        <!-- form -->
+        <form id="fm-jobctrl" class="form-horizontal margin-top-10">
+            <input type="hidden" id="id" name="id" v-model="schCtrl.id" class="form-control">
+
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="id" th:text="#{schCtrl.sysCode}">模组名</label>
+                <div class="col-sm-6">
+                    <div class="control has-icon has-icon-right">
+                        <input id="sysCode" name="sysCode" v-model="schCtrl.sysCode" class="form-control" th:placeholder="#{schCtrl.sysCode}" placeholder="模组名" >
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="jobUse" th:text="#{schCtrl.jobUse}">用途</label>
+                <div class="col-sm-6">
+                    <input id="jobUse" name="jobUse" v-model="schCtrl.jobUse" class="form-control" th:placeholder="#{schCtrl.jobUse}" placeholder="用途">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="jobCode" th:text="#{schCtrl.jobCode}">任務名稱</label>
+                <div class="col-sm-6">
+                    <div class="control has-icon has-icon-right">
+                        <div v-if="!schCtrl.id">
+                            <input id="jobCode" name="jobCode" v-model="schCtrl.jobCode" class="form-control" th:placeholder="#{schCtrl.jobCode}" placeholder="任務名稱" >
+                        </div>
+                        <div v-if="schCtrl.id">
+                            <input disabled="disabled" id="jobCode" name="jobCode" v-model="schCtrl.jobCode" class="form-control" th:placeholder="#{schCtrl.jobCode}" placeholder="任務名稱" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="cronChar" th:text="#{schCtrl.cronChar}">時間表達式</label>
+                <div class="col-sm-6">
+                    <input id="cronChar" name="cronChar" v-model="schCtrl.cronChar" class="form-control" th:placeholder="#{schCtrl.cronChar}"
+                        placeholder="時間表達式">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="clsName" th:text="#{schCtrl.clsName}">類全路徑</label>
+                <div class="col-sm-6">
+                    <input id="clsName" name="clsName" v-model="schCtrl.clsName" class="form-control" th:placeholder="#{schCtrl.clsName}" placeholder="類全路徑">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="isSync" th:text="#{schCtrl.isSync}">運行方式</label>
+                <div class="col-sm-6">
+                    <select id="isSync" name="isSync" v-model="schCtrl.isSync" class="form-control">
+                        <option value="" th:placeholder="#{schCtrl.choose}">請選擇</option>
+                        <option value="true" th:placeholder="#{schCtrl.isSync.true}">同步</option>
+                        <option value="false" th:placeholder="#{schCtrl.isSync.false}">異步</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="jobType" th:placeholder="#{schCtrl.jobType}">任務類型</label>
+                <div class="col-sm-6">
+                    <div class="control has-icon has-icon-right">
+                        <select id="jobType" name="jobType" v-model="schCtrl.jobType" class="form-control" required>
+                            <option value="" th:text="#{schCtrl.choose}">請選擇</option>
+                            <option value="JAVA">JAVA</option>
+                            <option value="JAVA_NOLOG">JAVA_NOLOG</option>
+                            <option value="PLSQL">PLSQL</option>
+                            <option value="TRIGGER">TRIGGER</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="dataDir">文件存放路勁</label>
+                <div class="col-sm-6">
+                    <input id="dataDir" name="dataDir" v-model="schCtrl.dataDir" class="form-control" placeholder="文件存放路勁">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="dataDays">導出數據(天)</label>
+                <div class="col-sm-6">
+                    <input id="dataDays" name="dataDays" v-model="schCtrl.dataDays" type="number" class="form-control" placeholder="導出數據(天)">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="enabled">啓用/禁用</label>
+                <div class="col-sm-6">
+                    <select id="enabled" name="enabled" v-model="schCtrl.enabled" class="form-control">
+                        <option value="" th:text="#{schCtrl.choose}">請選擇</option>
+                        <option value="true" th:text="#{schCtrl.enabled.true}">啓用</option>
+                        <option value="false" th:text="#{schCtrl.enabled.false}">禁用</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-sm-10">
+                    <div class="pull-right">
+                        <button id="btnSave" type="button" @click="doSave" class="btn btn-sm btn-primary" v-if="!schCtrl.id">
+                            <i class="glyphicon glyphicon-ok"></i>
+                            <span th:text="#{global.save}"></span>
+                        </button>
+                        <button id="btnSave" type="button" @click="doUpdate" class="btn btn-sm btn-primary" v-if="schCtrl.id">
+                            <i class="glyphicon glyphicon-ok"></i>
+                            <span th:text="#{global.update}"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+    <!-- 注入系統默認javaScript腳本 -->
+    <div th:replace="fragments/script">Script JS</div>
+    <!-- 自己系統的腳本請在下面引入 -->
+    <script type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/
+        //此處為將表單的值傳值到JS
+        var vModel = {
+            id: [[${id}]]
+        };
+    /*]]>*/
+    </script>
+    <script type="text/javascript" src="static/js/sch/schCtrlEditController.js" th:src="@{/static/js/sch/schCtrlEditController.js}"></script>
+
+</body>
+
+</html>

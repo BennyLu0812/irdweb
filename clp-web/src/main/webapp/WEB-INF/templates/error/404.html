@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<div th:replace="fragments/head">head</div>
+<title>資源不存在-404</title>
+
+<style type="text/css">
+.container-fluid {
+    background: rgb(245, 245, 245);
+    padding: 30px;
+}
+
+.row {
+    margin-top: 15px;
+}
+</style>
+
+</head>
+
+<body>
+    <div class="container-fluid">
+
+        <div class="row">
+            <label>用戶名稱:</label> <span th:if="${user!=null}" th:text="${user.userName}"></span> <span th:if="${user==null}">未登陸</span>
+        </div>
+        <div class="row">
+            <label>電腦IP:</label><span th:text="${ip}"></span>
+        </div>
+        <div class="row">
+            <label>錯誤:</label> <span style="color: red">請求的資源不存在或請求的URL錯誤。</span>
+        </div>
+        <div class="row">
+            <label>錯誤碼：</label><span th:text="${error.errorCode}"></span>
+        </div>
+        <div class="row">
+            <label>錯誤信息： </label><span th:text="${error.errorMsg}"></span>
+        </div>
+        <div class="row">
+            <label>請求URL： </label><span th:text="${error.path}"></span>
+        </div>
+        <div class="row">
+            <button id="btn-error" type="button" class="btn btn-default" onclick="javascript:details();">錯誤詳情</button>
+            <button id="btn-back" type="button" class="btn btn-default" onclick="javascript:window.history.go(-1);">返&nbsp;&nbsp;回</button>
+        </div>
+        <div class="row" id="detail" style="display: none;">
+            <label>錯誤詳情：</label>
+            <pre th:text="${error.sysErrorMsg}"></pre>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+        var isShow = false;
+        function details() {
+            var detail = document.getElementById('detail');
+            detail.style.display = 'block';
+            if (isShow) {
+                var detail = document.getElementById('detail');
+                detail.style.display = 'none';
+                document.getElementById('btn-error').innerHTML = '錯誤詳情';
+                document.getElementById('btn-error').blur();
+            } else {
+                var detail = document.getElementById('detail');
+                detail.style.display = 'block';
+                document.getElementById('btn-error').innerHTML = '隱藏錯誤';
+            }
+            isShow = !isShow;
+        }
+    </script>
+
+</body>
+</html>

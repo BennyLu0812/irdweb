@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<parent>
+		<artifactId>clp-parent</artifactId>
+		<groupId>com.ird.portal</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../clp-parent/pom.xml</relativePath>
+	</parent>
+
+
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>clp-common-api-test</artifactId>
+	<packaging>jar</packaging>
+
+	<name>clp-common-api-test</name>
+	<description>clp Common API</description>
+
+
+	<dependencies>
+		<!-- Common Base -->
+		<dependency>
+			<groupId>com.ird.portal</groupId>
+			<artifactId>clp-common-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>compile</scope>
+		</dependency>
+    </dependencies>
+
+</project>

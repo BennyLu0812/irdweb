@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+    <getHoliday type="sql">
+        <![CDATA[
+            SELECT
+                CONVERT(varchar(100), DATEVALUE, 23) AS HOLIDAY
+            FROM
+                SP_DATEPROFILE WITH (NOLOCK)
+            WHERE
+                DATEVALUE <= :dateValue
+                AND
+                DATEADD(DAY, 1, DATEVALUE) > :dateValue
+        ]]>
+    </getHoliday>
+</queries>

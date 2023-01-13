@@ -1,0 +1,27 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.ird.portal</groupId>
+    <artifactId>clp-war-ear-install</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+
+    <name>clp-war-ear-install</name>
+    <url>http://maven.apache.org</url>
+    <modules>
+        <module>../clp-parent</module>
+        <module>../clp-assets-web</module>
+        <module>../clp-config</module>
+        <module>../clp-common-api-test</module>
+        <module>../clp-common-api</module>
+        <module>../clp-common-base</module>
+        <module>../clp-common-web</module>
+        <module>../clp-rpt-core</module>
+        <module>../clp-user-core</module>
+        <module>../clp-sys-core</module>
+        <module>../clp-sch-api</module>
+        <module>../clp-sch-core</module>
+        <module>../clp-api-core</module>
+        <module>../clp-web</module>
+    </modules>
+</project>

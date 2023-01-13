@@ -1,0 +1,45 @@
+<script type="text/javascript" th:inline="javascript">
+
+    //contextPath
+    var basePath = [[${#request.getContextPath()}]];
+
+    var webPrefix = [[${webPrefix}]];
+
+</script>
+
+<script th:src="@{'~'+${webPrefix}+'/assets/bower/bluebird/bluebird.min.js'}"></script>
+<script th:src="@{'~'+${webPrefix}+'/assets/bower/requirejs/require.js'}" type="text/javascript" crossorigin="anonymous"></script>
+<script th:src="@{'~'+${webPrefix}+'/assets/static/js/requirejs.config.js'}" type="text/javascript" crossorigin="anonymous"></script>
+
+<script type="text/javascript" th:inline="javascript">
+/*<![CDATA[*/
+
+//locale
+var _LOCALE = [[${#locale}]];
+//系統國際化多語言
+var _LANGUAGE;
+if (_LOCALE == 'en') {
+    _LANGUAGE = 'en';
+} else{
+    _LANGUAGE = 'zh_TW';
+}
+
+
+//網站所處模式 dev 是開發者模式.
+var websiteModel = [[${#request.getAttribute('$websiteModel$')}]];
+
+
+String.format = function() {
+    if (arguments.length == 0) {
+        return null;
+    }
+    var str = arguments[0];
+    for (var i = 1; i < arguments.length; i++) {
+        var reg = new RegExp('\\{' + (i - 1) + '\\}', 'gm');
+        str = str.replace(reg, arguments[i]);
+    }
+    return str;
+};
+
+/*]]>*/
+</script>

@@ -1,0 +1,242 @@
+@font-face {
+  font-family: 'iconfont';
+    src: url('iconfont.eot');
+    src: url('iconfont.eot?#iefix') format('embedded-opentype'),
+    url('iconfont.woff') format('woff'),
+    url('iconfont.ttf') format('truetype'),
+    url('iconfont.svg#iconfont') format('svg');
+}
+.iconfont {
+  font-size: 14px !important;
+  position: relative;
+  top: 0px;
+  display: inline-block;
+  margin-right: 1px;
+  font-family: 'Glyphicons Halflings';
+  -webkit-font-smoothing: antialiased;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -moz-osx-font-smoothing: grayscale;
+}
+/*box  */
+.box{
+  margin:30px;
+}
+/*按钮  */
+/* !important */
+.tes{
+  color:#fff !important;
+  border-radius:3px;
+  border: 0px;
+  height: 35px;
+  margin-right: 10px;
+  float: left;
+  padding: 0px 15px;
+  font-size: 14px;
+  font-weight: bold;
+}
+.fw{
+  font-weight: normal !important;
+}
+button{
+  outline:none !important;
+}
+.a1{
+  height: 57px;
+  margin-bottom: 20px;
+}
+.a2{
+  font-size: 16px;
+  margin-right: 20px;
+}
+.button-floatleft{
+  float: left;
+}
+.popsize-size {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333333;
+    background: #fff;
+    border-bottom: 1px solid #dddddd;
+    line-height: 46px;
+    margin-bottom: 20px;
+}
+/*蓝色背景按钮  */
+.blueb{
+  background: linear-gradient(#347ab2, #285b86);
+  border: 1px solid #2c5b83;
+}
+.blueb:hover{
+  background: linear-gradient(#347ab2, #214b6e)!important ;
+}
+.blueb:active{
+  background: linear-gradient(#276ca3, #1d4160)!important ;
+}
+
+.blueb:visited,.blueb:link{
+  background: linear-gradient(#347ab2, #285b86)!important ;
+}
+/*灰色背景按钮  */
+.grayb{
+  font-weight: bold;
+}
+.grayb{
+  background: linear-gradient(#ffffff, #dddddd);
+  border: 1px solid #a7a7a7;
+}
+.grayb:hover{
+  background: linear-gradient(#ffffff, #cccccc) !important;
+}
+.grayb:active{
+  background: linear-gradient(#f3f3f3, #c9c7c7) !important;
+}
+.grayb:visited,.tes:link{
+  background: linear-gradient(#ffffff, #dddddd) !important;
+ }
+/*橙色背景按钮  */
+.orangeb{
+  background: linear-gradient(#f3663a, #bb4e2c);
+  border: 1px solid #ca4115;
+}
+.orangeb:hover{
+  background: linear-gradient(#f3663a, #9f4022) !important;
+}
+.orangeb:active{
+  background: linear-gradient(#df592e, #9f4022) !important;
+}
+.orangeb:visited,.orangeb:link{
+  background-color:#f26522 !important;
+}
+/*黑色文字  */
+.black{
+  color: #000 !important;
+}
+/*白色文字  */
+.white{
+  color: #fff !important;
+}
+/*灰色文字  */
+.gray{
+  color:#787878 !important;
+}
+
+/*選擇圖片button  */
+.psize{
+  width: 100px !important;
+  height: 35px !important;
+  padding: 0px !important;
+}
+.psize2{
+  width: 75px !important;
+  height: 35px !important;
+  padding: 0px !important;
+}
+
+/*Update  */
+.gjbutton{
+    border: 1px solid #d9d9d9;
+    height: 36px;
+
+}
+.enlarge{
+  color: #6c6c6c !important;
+  background-color: #e5e5e5 !important;
+  border-radius:0px !important;
+  border: 0px;
+  width: 34px;
+  height: 34px;
+  padding: 0px !important;
+  border: 0px !important;
+  float: left;
+}
+.enlarge:hover{
+  color: #6c6c6c !important;
+  background-color:#d0d0d0 !important;
+}
+.enlarge:active{
+  color: #6c6c6c !important;
+  background-color:#c1c1c1 !important;
+}
+
+.enlarge:visited,.enlarge:link{
+  color: #6c6c6c !important;
+  background-color:#e5e5e5 !important;
+}
+button{
+  outline:none !important;
+}
+.txt2{
+    margin-left: 34px;
+    margin-right: 180px;
+}
+.txt{
+    height: 34px;
+    border: 0px;
+    outline:none !important;
+    width: 100%;
+    padding-left: 10px;
+}
+.check{
+  color: #666666 !important;
+  background-color: #e5e5e5 !important;
+  border-radius:0px !important;
+  line-height: 5px !important;
+  border: 0px !important;
+  width: 90px;
+  height: 34px;
+  float: right;
+}
+.check:hover{
+  color: #666666 !important;
+  background-color:#d0d0d0 !important;
+}
+.check:active{
+  color: #666666 !important;
+  background-color:#c1c1c1 !important;
+}
+
+.check:visited,.check:link{
+  color: #666666 !important;
+  background-color:#e5e5e5 !important;
+}
+.Update2{
+  color: #fff !important;
+  background-color: #f26522 !important;
+  border-radius:0px !important;
+  line-height: 5px !important;
+  border: 0px !important;
+  width: 90px;
+  height: 34px;
+  float: right;
+}
+.Update2:hover{
+  color: #fff !important;
+  background-color:#df652c !important;
+}
+.Update2:active{
+  color: #fff !important;
+  background-color:#c95118 !important;
+}
+
+.Update2:visited,.Update2:link{
+  color: #fff !important;
+  background-color:#f26522 !important;
+}
+
+.btn-primary{
+  border: 1px solid #a7a7a7 !important;
+}
+
+.Round{
+  border-radius: 7.5px;
+  width: 15px;
+  height: 15px;
+  background-color: red;
+  display:inline-block;
+  color: #fff;
+  font-size: 2px;
+  font-weight: bold;
+  margin-left: 3px;
+  
+}

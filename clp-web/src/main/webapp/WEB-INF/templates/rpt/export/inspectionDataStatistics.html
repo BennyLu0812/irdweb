@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/head">head</div>
+    <title></title>
+</head>
+<body>
+<div class="col-sm-12" id="app">
+    <div th:replace="fragments/layout :: content_header(|#{rpt.export.inspectionDataStatistics.header.title}|, 'CLP-RPT-003')">SCREEN-ID</div>
+    <form class="form-horizontal bv-form" id="fm-search">
+        <fieldset>
+            <div class="form-group">
+                <label class="control-label col-sm-1 required" th:text="#{rpt.export.center}">驗車中心</label>
+                <div class="col-sm-2">
+                    <v-select :url="centerUrl" id="centerCode" name="centerCode" th:placeholder="#{que.center}" placeholder="請選擇"></v-select>
+                </div>
+                <label class="control-label col-sm-1" for="startDate" th:text="#{rpt.export.date}">時間</label>
+                <div class="col-sm-3_5">
+                    <div class="input-group">
+                        <input id="startDate" autocomplete="off" name="startDate" class="input-sm form-control" th:placeholder="#{global.dateFormat}" placeholder="DD/MM/YYYY" style="padding-right: 18px">
+                        <span class="input-group-addon">-</span>
+                        <input id="endDate" autocomplete="off" name="endDate" class="input-sm form-control" th:placeholder="#{global.dateFormat}" placeholder="DD/MM/YYYY">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-12" style="text-align:right;">
+                    <button class="btn btn-primary" type="button" @click="searchFunc()">
+                        <i class="glyphicon glyphicon-search"></i>
+                        <span th:text="#{global.search}"></span>
+                    </button>
+                    <button class="btn btn-default" type="button" @click="reset()">
+                        <i class="glyphicon glyphicon-repeat"></i>
+                        <span th:text="#{global.reset}"></span>
+                    </button>
+                    <button class="btn btn-default" type="button" @click="exportData()" sec:authorize="hasPermission('RPT-EXPORT-STATISTICS')">
+                        <i class="glyphicon glyphicon-save"></i>
+                        <span th:text="#{global.export}"></span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <table class="table table-bordered table-condensed dataTable" id="table">
+                        <thead>
+                        <tr role="row">
+                            <th th:text="#{rpt.export.inspectionDataStatistics.centerName}">驗車中心名稱</th>
+                            <th th:text="#{rpt.export.inspectionDataStatistics.date}">時間</th>
+                            <th th:text="#{rpt.export.inspectionDataStatistics.inspMasterId}">驗車編號</th>
+                            <th th:text="#{rpt.export.inspectionDataStatistics.noOfTimesInsp}">驗車次數</th>
+                            <th th:text="#{rpt.export.inspectionDataStatistics.plateNo}">車輛號牌</th>
+                            <th th:text="#{rpt.export.inspectionDataStatistics.vehType}">車輛類型</th>
+                            <th th:text="#{rpt.export.inspectionDataStatistics.cvicInspType}">檢驗類別</th>
+                            <th th:text="#{rpt.export.inspectionDataStatistics.inspSubtypeId}">業務子類別</th>
+                            <th th:text="#{rpt.export.inspectionDataStatistics.inspLineNo}">檢測線名稱</th>
+                            <th th:text="#{rpt.export.inspectionDataStatistics.a}">A(目視及底盤檢驗)</th>
+                            <th th:text="#{rpt.export.inspectionDataStatistics.b}">B(汽油／天然氣汽車尾氣排放)</th>
+                            <th th:text="#{rpt.export.inspectionDataStatistics.c}">C(柴油汽車尾氣排放)</th>
+                            <th th:text="#{rpt.export.inspectionDataStatistics.d}">D(摩托車尾氣排放)</th>
+                            <th th:text="#{rpt.export.inspectionDataStatistics.e}">E(汽油汽車尾氣排放（穩態工況法）)</th>
+                            <th th:text="#{rpt.export.inspectionDataStatistics.f}">F(柴油汽車尾氣排放（加載減速法）)</th>
+                            <th th:text="#{rpt.export.inspectionDataStatistics.g}">G(側滑檢測)</th>
+                            <th th:text="#{rpt.export.inspectionDataStatistics.h}">H(行車制動 (儀器))</th>
+                            <th th:text="#{rpt.export.inspectionDataStatistics.i}">I(行車制動 (路試))</th>
+                            <th th:text="#{rpt.export.inspectionDataStatistics.j}">J(駐車制動 (儀器))</th>
+                            <th th:text="#{rpt.export.inspectionDataStatistics.k}">K(駐車制動 (路試))</th>
+                            <th th:text="#{rpt.export.inspectionDataStatistics.l}">L(前照燈)</th>
+                            <th th:text="#{rpt.export.inspectionDataStatistics.m}">M(噪音)</th>
+                            <th th:text="#{rpt.export.inspectionDataStatistics.p}">P(計程錶)</th>
+                            <th th:text="#{rpt.export.inspectionDataStatistics.mechanicalInspectionResult}">機械檢驗結果</th>
+                            <th th:text="#{rpt.export.inspectionDataStatistics.inspectionResult}">檢驗結果</th>
+                            <th th:text="#{rpt.export.inspectionDataStatistics.unqualifiedInfo}">不合格信息</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<div id="table_action" style="display: none">
+    <div class="text-center">
+
+    </div>
+</div>
+<!aScript腳本 -->
+<div th:replace="fragments/script">Script JS</div>
+<!-- 自己系統的腳本請在下面引入 -->
+
+<script type="text/javascript" src="static/js/rpt/export/inspectionDataStatistics.js" th:src="@{/static/js/rpt/export/inspectionDataStatistics.js}"></script>
+
+</body>
+</html>

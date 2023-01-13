@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<div th:replace="fragments/head">head</div>
+<title>Params Edit</title>
+
+</head>
+<body>
+    <div class="container" id="app">
+        
+        <!-- screen id -->
+        <div v-if="!comp.compId">
+            <div th:replace="fragments/layout :: content_header(|#{comp.header.add}|, 'CLP-SYS-002')">SCREEN-ID</div>
+        </div>
+        <div v-if="comp.compId" >
+            <div th:replace="fragments/layout :: content_header(|#{comp.header.update}|, 'CLP-SYS-003')">SCREEN-ID</div>
+        </div>
+        
+        <!-- form -->
+        <form id="param-form" class="form-horizontal margin-top-10">
+            <input type="hidden" id="compId" name="compId" v-model="comp.compId" class="form-control">
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="paramName" th:text="#{comp.name}">參數名</label>
+                <div class="col-sm-6">
+                    <input id="paramName" name="paramName" v-model="comp.paramName" class="form-control" th:placeholder="#{comp.name}" placeholder="參數名">
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="paramValue" th:text="#{comp.value}">系統參數值</label>
+                <div class="col-sm-6">
+                    <input id="paramValue" name="paramValue" v-model="comp.paramValue" class="form-control" th:placeholder="#{comp.value}" placeholder="系統參數值">
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="paramValue" th:text="#{comp.desc}">參數描述</label>
+                <div class="col-sm-6">
+                    <textarea id="paramDesc" name="paramDesc" v-model="comp.paramDesc" class="form-control" th:placeholder="#{comp.desc}" placeholder="參數描述"></textarea>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <div class="col-sm-10">
+                    <div class="pull-right">
+                        <button id="btnSave" type="button" @click="doSave" class="btn btn-sm btn-primary" v-if="!comp.compId">
+                            <i class="glyphicon glyphicon-ok"></i> <span th:text="#{global.save}"></span>
+                        </button>
+                        <button id="btnSave" type="button" @click="doUpdate" class="btn btn-sm btn-primary" v-if="comp.compId">
+                            <i class="glyphicon glyphicon-ok"></i> <span th:text="#{global.update}"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+    <!-- 注入系統默認javaScript腳本 -->
+    <div th:replace="fragments/script">Script JS</div>
+    <!-- 自己系統的腳本請在下面引入 -->
+    <script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+        //此處為將表單的值傳值到JS
+        var vModel = {
+                compId: [[${compId}]]
+            };
+    /*]]>*/ 
+    </script>
+    <script type="text/javascript" src="static/js/sys/compController.js" th:src="@{/static/js/sys/compController.js}"></script>
+    
+</body>
+</html>

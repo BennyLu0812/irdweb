@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<div th:replace="fragments/head">head</div>
+<title>打印</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div th:replace="fragments/layout :: content_header(|#{rpt.lceQuota.header.title}|, 'CLP-RPT-005')">SCREEN-ID</div>
+
+        <form class="form-horizontal bv-form" id="queryForm">
+                
+                <div class="form-group">
+                    <label class="control-label col-sm-3_5" for="pname" th:text="#{rpt.lceQuota.date}">執照有效日期 ： </label>
+                    <div class="col-sm-4_5">
+                        <input id="date" name="date" class="input-sm form-control" data-provide="datepicker" placeholder="DD/MM/YYYY">
+                    </div>
+                    <button id="export" type="button" class="btn btn-default" data-toggle="popover" data-placement="top" >
+                        <i class="glyphicon glyphicon-edit"></i> 
+                        <span th:text="#{global.export}" >導出</span>
+                    </button>
+                </div>
+        </form>
+    </div>
+    <!-- 注入系統默認javaScript腳本 -->
+    <div th:replace="fragments/script">Script JS</div>
+
+    <!-- 自己系統的腳本請在下面引入 -->
+
+    <script type="text/javascript" th:inline="javascript">
+    
+    </script>
+
+   <script type="text/javascript" src="static/js/rpt/rptLCEPrintController.js" th:src="@{/static/js/rpt/rptLCEPrintController.js}"></script>
+    
+    
+</body>
+
+</html>

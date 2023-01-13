@@ -1,0 +1,7 @@
+Manifest-Version: 1.0.1
+weblogic-Application-Version: v1.0.1.beta
+Archiver-Version: Plexus Archiver
+Built-By: ATOS
+Class-Path: lib
+Created-By: Apache Maven 3.2.5
+Build-Jdk: 1.8.0_72

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:dls="http://dls.atos.net/security">
+<head>
+<div th:replace="fragments/head">head</div>
+<title></title>
+
+</head>
+<body>
+    <div class="container-fluid" id="app">
+        <!-- screen id -->
+      <div th:replace="fragments/layout :: content_header(|#{sys.auditLogDetail}|, 'CLP-SYS-032')">SCREEN-ID</div>
+      <form id="fm-search" class="form-horizontal bv-form">
+        <!-- form -->
+            <table id="table" class="table table-bordered table-hover table-condensed" cellspacing="0" width="100%">
+                 <thead>
+                     <tr>
+                        <th th:text="#{sys.action}">操作</th>
+                        <th th:text="#{sys.tableName}">表名</th>
+                        <th th:text="#{sys.columnName}">字段</th>
+                        <th th:text="#{sys.valueBefore}">舊值</th>
+                        <th th:text="#{sys.valueAfter}">新值</th>
+                     </tr>
+                   </thead>
+            </table>
+        </form>
+    </div>
+
+    <!-- 注入系統默認javaScript腳本 -->
+    <div th:replace="fragments/script">Script JS</div>
+    <!-- 自己系統的腳本請在下面引入 -->
+    <script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+        //此處為將表單的值傳值到JS
+        var vModel = {
+            auditMasterId: [[${auditMasterId}]],
+      		locale: [[${session['org.springframework.web.servlet.i18n.SessionLocaleResolver.LOCALE'].language}]]
+            };
+            
+            console.log(vModel.locale);
+    /*]]>*/ 
+    </script>
+        <script type="text/javascript" src="static/js/sys/auditDetailController.js" th:src="@{/static/js/sys/auditDetailController.js}"></script>
+    
+</body>
+</html>

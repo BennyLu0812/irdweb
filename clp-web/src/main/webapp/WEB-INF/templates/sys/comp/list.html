@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<div th:replace="fragments/head">head</div>
+<title>Params List</title>
+
+</head>
+<body>
+    <div class="container-fluid">
+
+        <!-- screen id -->
+        <div th:replace="fragments/layout :: content_header(|#{comp.header.title}|, 'CLP-SYS-001')">SCREEN-ID</div>
+
+        <form id="fm-search" class="form-horizontal margin-top-10">
+            <div class="row form-group">
+              <!--   <label class="control-label col-sm-1" for="compIdentType" th:text="#{comp.compIdentType}">類別</label>
+                <div class="col-sm-3">
+                    <input id="compIdentType" name="compIdentType" value="" class="form-control" th:placeholder="#{comp.compIdentType}" placeholder="類別">
+                </div> -->
+                <label class="control-label col-sm-1" for="compIdentNo" th:text="#{comp.compIdentNo}">登記編號</label>
+                <div class="col-sm-2">
+                    <input id="compIdentNo" name="compIdentNo" value="" class="form-control" th:placeholder="#{comp.compIdentNo}" placeholder="登記編號">
+                </div>
+                <label class="control-label col-sm-1" for="compAbrev" th:text="#{comp.compAbrev}">縮寫</label>
+                <div class="col-sm-2">
+                    <input id="compAbrev" name="compAbrev" value="" class="form-control" th:placeholder="#{comp.compAbrev}" placeholder="縮寫">
+                </div>
+                <label class="control-label col-sm-1" for="compStatus" th:text="#{global.status}">狀態</label>
+                <div class="col-sm-2">
+                    <select id="compStatus" name="compStatus" class="form-control simpleselect">
+		                <option value="">--<label  th:text="#{global.selectPlaceholder}"--/></option>
+		                <option value="A" selected="selected">A - <label  th:text="#{global.activeStatus}"/></option>
+		                <option value="C">C - <label  th:text="#{global.cancelStatus}"/></option>                           
+		            </select>
+                </div>
+            </div>
+ 			<div class="row form-group">
+ 				<label class="control-label col-sm-1" for="compCname" th:text="#{comp.compCname}">中文名稱</label>
+                <div class="col-sm-2">
+                    <input id="compCname" name="compCname" value="" class="form-control" th:placeholder="#{comp.compCname}" placeholder="中文名稱">
+                </div>
+                <label class="control-label col-sm-1" for="compPname" th:text="#{comp.compEname}">類別</label>
+                <div class="col-sm-2">
+                    <input id="compPname" name="compPname" value="" class="form-control" th:placeholder="#{comp.compEname}" placeholder="英文名稱">
+                </div>
+                <div class="col-sm-3">
+                    <button id="btn-search" type="button" class="btn btn-sm btn-primary">
+                        <i class="glyphicon glyphicon-search"></i> <span th:text="#{global.search}"></span>
+                    </button>
+                    <button id="btn-create" type="button" class="btn btn-sm btn-primary">
+                        <i class="glyphicon glyphicon-plus"></i> <span th:text="#{global.create}"></span>
+                    </button>
+                </div>
+            </div>
+        </form>
+        <!-- Table -->
+        <table id="table" class="table table-bordered table-hover table-condensed" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th th:text="#{comp.compIdentType}">類別</th>
+                    <th th:text="#{comp.compIdentNo}">登記編號</th>
+                    <th th:text="#{comp.compAbrev}">縮寫 </th>
+                    <th th:text="#{comp.compCname}">中文名</th>
+                    <th th:text="#{comp.compEname}">英文名稱</th>
+                    <th th:text="#{global.action}">操作</th>
+                </tr>
+            </thead>
+        </table>
+
+    </div>
+
+    <!-- 注入系統默認javaScript腳本 -->
+    <div th:replace="fragments/script">Script JS</div>
+    <!-- 自己系統的腳本請在下面引入 -->
+
+    <script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+        //此處為將國際化傳值到JS
+        var i18n= {
+                update: [[#{global.update}]]
+        };
+    /*]]>*/ 
+    </script>
+
+    <script type="text/javascript" src="static/js/sys/compController.js" th:src="@{/static/js/sys/compController.js}"></script>
+
+</body>
+</html>

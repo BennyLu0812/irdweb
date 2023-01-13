@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+
+	<!-- ==============================User============================ -->
+	<getUserList type="hql">
+		<![CDATA[
+            SELECT u
+	        FROM
+	        UserEntity u
+	        <#if role?? && role!!= ''>
+               left join u.roles r
+             </#if>
+
+	        WHERE 1 = 1
+		        <#if lastUpdDate_start?? && lastUpdDate_start!!= ''>
+		               AND u.lastUpdDate >= :lastUpdDate_start
+		        </#if>
+		        <#if lastUpdDate_end?? && lastUpdDate_end!!= ''>
+		               AND u.lastUpdDate <= :lastUpdDate_end
+		        </#if>
+		        <#if createDate_start?? && createDate_start!!= ''>
+
+                       AND u.createDate >= :createDate_start
+                </#if>
+                <#if createDate_end?? && createDate_end!!= ''>
+                       AND u.createDate <= :createDate_end
+                </#if>
+
+              <#if cnName?? && cnName!!= ''>
+               AND u.cnName like concat('%', :cnName, '%')
+              </#if>
+              <#if enName?? && enName!!= ''>
+               AND u.enName like concat('%', :enName, '%')
+              </#if>
+              <#if status?? && status!!= ''>
+               AND u.status = :status
+              </#if>
+              <#if userId?? && userId!!= ''>
+               AND UPPER(u.userId) like UPPER(concat('%', :userId, '%'))
+              </#if>
+              <#if role?? && role!!= ''>
+               AND r.role like concat('%', :role, '%')
+              </#if>
+
+              ORDER BY u.userId asc,u.lastUpdDate DESC
+        ]]>
+	</getUserList>
+	<getUserNameQuotaSelectPage type="sql">
+		<![CDATA[
+	            SELECT USER_ID AS "id",
+	            USER_ID + ' - ' + USER_NAME_EN +  ' - ' + USER_NAME_CN   as "text"
+	            FROM CLP_SYS_USER WITH (NOLOCK)
+	            WHERE 1=1
+
+	            <#if keyword?? && keyword!!=''>
+	            AND (
+	            UPPER(USER_ID) LIKE UPPER(:keyword) OR
+	            UPPER(replace(USER_NAME_CN, '-')) LIKE UPPER(replace(:keyword, '-')) OR
+	            UPPER(USER_NAME_EN) LIKE UPPER(:keyword)
+	            )
+	            </#if>
+	        ]]>
+	</getUserNameQuotaSelectPage>
+
+	<getAuthorizedBatchPrintUsers type="sql">
+		<![CDATA[
+			 SELECT distinct to_char(u.USER_ID) AS "id",
+	            u.USER_ID + ' - ' + u.USER_NAME_EN +  ' - ' + u.USER_NAME_CN   as "text"
+	        from CLP_SYS_USER u WITH (NOLOCK) left join CLP_SYS_USER_ROLE r WITH (NOLOCK) on u.USER_ID = r.USER_ID
+			left join CLP_SYS_ROLE_FUNC rf WITH (NOLOCK) on rf.ROLE_ID = r.ROLE_ID
+			left join CLP_SYS_FUNC f WITH (NOLOCK) on f.FUNC_ID = rf.FUNC_ID
+			where 1=1
+			 <#if funcList??>
+			 	AND f.FUNC_CODE in (:funcList)
+			 </#if>
+			 <#if excludeUsers??>
+			 	AND u.USER_ID not in (:excludeUsers)
+			 </#if>
+			<#if keyword?? && keyword!!=''>
+			   AND ( UPPER(u.USER_ID) LIKE UPPER(:keyword) OR
+	            UPPER(replace(u.USER_NAME_CN, '-')) LIKE UPPER(replace(:keyword, '-')) OR
+	            UPPER(u.USER_NAME_EN) LIKE UPPER(:keyword) )
+			</#if>
+		 ]]>
+	</getAuthorizedBatchPrintUsers>
+
+	<findTodayDrawUserInfoByUserId type="sql">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+				CLP_DRAW_USER_INFO WITH (NOLOCK)
+			WHERE
+				DATEDIFF( DAY, INSPECTION_DATE, GETDATE( ) ) = 0
+			AND
+				USER_ID = (:userId)
+		]]>
+	</findTodayDrawUserInfoByUserId>
+	<geUser type="sql">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+				CLP_SYS_USER WITH (NOLOCK)
+			WHERE
+				USER_STATUS = 'A'
+			and
+				USER_ID = :userId
+			and
+				PASSWORD = :password
+		]]>
+	</geUser>
+</queries>
+

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+
+    <!-- RPT -->
+    <getTemplate type="hql">
+        <![CDATA[
+        FROM TemplateEntity
+        WHERE status='A'
+      ]]>
+    </getTemplate>
+
+    <getRptMaster type="hql">
+        <![CDATA[
+            FROM RptMasterEntity
+            WHERE 1=1
+            <#if cname??&&cname!!=''>
+                AND UPPER(cname) like UPPER(:cname)
+            </#if>
+            <#if pname??&&pname!!=''>
+                AND UPPER(pname) like UPPER(:pname)
+            </#if>
+            <#if status??&&status!!=''>
+                AND status = :status
+            </#if>
+            <#if rptType??&&rptType!!=''>
+                AND rptType = :rptType
+            </#if>
+        ]]>
+    </getRptMaster>
+
+    <getRptMasterPage type="sql">
+        <![CDATA[
+            SELECT 
+            RPT_ID "id",
+            RPT_CNAME "cname",
+            RPT_PNAME "pname",
+            RPT_DESC_CN "descCn",
+            RPT_DESC_PT "descPt",
+            RPT_STATUS "status",
+            RPT_PREVILEDGE "rptPreviledge",
+            RPT_TYPE "rptType" 
+            FROM CLP_RPT_MASTER WITH (NOLOCK)
+            WHERE 1=1 
+            <#if cname??&&cname!!=''>
+                AND UPPER(RPT_CNAME) like UPPER('%' + :cname + '%')
+            </#if>
+            <#if pname??&&pname!!=''>
+                AND UPPER(RPT_PNAME) like  UPPER('%' + :pname + '%')
+            </#if>
+            <#if status??&&status!!=''>
+                AND RPT_STATUS = :status
+            </#if>
+            <#if rptType??&&rptType!!=''>
+                AND RPT_TYPE = :rptType
+            </#if>
+        ]]>
+    </getRptMasterPage>
+
+
+</queries>

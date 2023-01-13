@@ -1,0 +1,14 @@
+spring:
+  profiles:
+    active: test
+    
+    
+    # 多语言国际化
+  messages:
+    basename: i18n/global/messages,i18n/enum/messages,i18n/validation/messages
+    
+    
+server:
+  port: 8888
+  contextPath: /dls/web
+  

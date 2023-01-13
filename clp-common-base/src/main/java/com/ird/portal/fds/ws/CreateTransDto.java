@@ -1,0 +1,124 @@
+
+package com.ird.portal.fds.ws;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * 
+ * 								Create Transaction Dto
+ * 							
+ * 
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "CreateTransDto", propOrder = {
+    "serviceOperationCode",
+    "loginId",
+    "incomeIP",
+    "completeOnCreation"
+})
+public class CreateTransDto {
+
+    @XmlElement(required = true)
+    protected String serviceOperationCode;
+    @XmlElement(required = true)
+    protected String loginId;
+    @XmlElement(required = true)
+    protected String incomeIP;
+    @XmlElement(defaultValue = "true")
+    protected boolean completeOnCreation;
+
+    /**
+     * \u83b7\u53d6serviceOperationCode\u5c5e\u6027\u7684\u503c\u3002
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getServiceOperationCode() {
+        return serviceOperationCode;
+    }
+
+    /**
+     * \u8bbe\u7f6eserviceOperationCode\u5c5e\u6027\u7684\u503c\u3002
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setServiceOperationCode(String value) {
+        this.serviceOperationCode = value;
+    }
+
+    /**
+     * \u83b7\u53d6loginId\u5c5e\u6027\u7684\u503c\u3002
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getLoginId() {
+        return loginId;
+    }
+
+    /**
+     * \u8bbe\u7f6eloginId\u5c5e\u6027\u7684\u503c\u3002
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setLoginId(String value) {
+        this.loginId = value;
+    }
+
+    /**
+     * \u83b7\u53d6incomeIP\u5c5e\u6027\u7684\u503c\u3002
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getIncomeIP() {
+        return incomeIP;
+    }
+
+    /**
+     * \u8bbe\u7f6eincomeIP\u5c5e\u6027\u7684\u503c\u3002
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setIncomeIP(String value) {
+        this.incomeIP = value;
+    }
+
+    /**
+     * \u83b7\u53d6completeOnCreation\u5c5e\u6027\u7684\u503c\u3002
+     * 
+     */
+    public boolean isCompleteOnCreation() {
+        return completeOnCreation;
+    }
+
+    /**
+     * \u8bbe\u7f6ecompleteOnCreation\u5c5e\u6027\u7684\u503c\u3002
+     * 
+     */
+    public void setCompleteOnCreation(boolean value) {
+        this.completeOnCreation = value;
+    }
+
+}

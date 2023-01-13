@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<div th:replace="fragments/head">head</div>
+<title>系統代碼詳情</title>
+
+</head>
+<body>
+    <div class="container" id="app">
+        <div id="tile"></div>
+        <!-- screen id -->
+        <div v-if="!code.codeId">
+            <div th:replace="fragments/layout :: content_header(|#{code.header.add}|, 'CLP-SYS-005')">SCREEN-ID</div>
+        </div>
+        <div v-if="code.codeId">
+            <div th:replace="fragments/layout :: content_header(|#{code.header.detail}|, 'CLP-SYS-006')">SCREEN-ID</div>
+        </div>
+
+        <!-- form -->
+        <form id="param-form" class="form-horizontal margin-top-10">
+            <input type="hidden" id="codeId" name="codeId" v-model="code.codeId" class="form-control"> <input type="hidden" id="codeType"
+                name="codeType" v-model="code.codeType" class="form-control">
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="codeKey" th:text="#{code.codeKey}">系統代碼</label>
+                <div class="col-sm-6">
+                    <input id="codeKey" name="codeKey" v-model="code.codeKey" class="form-control required" required readonly></input>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="codeCname" th:text="#{code.codeCname}">中文內容</label>
+                <div class="col-sm-6">
+                    <input id="codeCname" name="codeCname" v-model="code.codeCname" class="form-control" readonly></input>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="codePname" th:text="#{code.codePname}">葡文內容</label>
+                <div class="col-sm-6">
+                    <input id="codePname" name="codePname" v-model="code.codePname" class="form-control" readonly></input>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="codePrintPname" th:text="#{code.codePrintPname}">代碼葡文印刷名</label>
+                <div class="col-sm-6">
+                    <input id="codePrintPname" name="codePrintPname" v-model="code.codePrintPname" class="form-control" readonly></input>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="codePrintCname" th:text="#{code.codePrintCname}">代碼中文印刷名</label>
+                <div class="col-sm-6">
+                    <input id="codePrintCname" name="codePrintCname" v-model="code.codePrintCname" class="form-control" readonly></input>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="codeOrder" th:text="#{code.codeOrder}">排序號</label>
+                <div class="col-sm-6">
+                    <input id="codeOrder" name="codeOrder" v-model="code.codeOrder" class="form-control" readonly></input>
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                <div class="col-sm-10">
+                    <div class="pull-right">
+
+                        <button id="btnClose" type="button" @click="doClose" class="btn btn-sm btn-default">
+                            <i class="glyphicon glyphicon-ok"></i> <span th:text="#{global.close}"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+    <!-- 注入系統默認javaScript腳本 -->
+    <div th:replace="fragments/script">Script JS</div>
+    <!-- 自己系統的腳本請在下面引入 -->
+    <script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+        //此處為將表單的值傳值到JS
+        var vModel = {
+                codeId: [[${codeId}]],
+                codeType: [[${codeType}]],
+                codeCname: [[${codeCname}]],
+                codePname: [[${codePname}]]
+            };
+    /*]]>*/ 
+    </script>
+    <script type="text/javascript" src="static/js/sys/codeEditController.js" th:src="@{/static/js/sys/codeEditController.js}"></script>
+
+</body>
+</html>

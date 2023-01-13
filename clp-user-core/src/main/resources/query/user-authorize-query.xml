@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+
+    <!-- Authorize -->
+    <hasRole type="sql">
+        <![CDATA[
+    		select count(r.ROLE_ID) from CLP_SYS_ROLE r WITH (NOLOCK) inner join CLP_SYS_USER_ROLE ur WITH (NOLOCK) on r.ROLE_ID  = ur.ROLE_ID
+    		where ur.USER_ID  = (:userId) and r.STATUS='A' and r.ROLE=(:role)
+    	]]>
+    </hasRole>
+
+    <hasAnyRole type="sql">
+        <![CDATA[
+    		select count(r.ROLE_ID) from CLP_SYS_ROLE r WITH (NOLOCK) inner join CLP_SYS_USER_ROLE ur WITH (NOLOCK) on r.ROLE_ID  = ur.ROLE_ID
+    		where ur.USER_ID  = (:userId) and r.STATUS='A' and  r.ROLE in (:roles)
+    	]]>
+    </hasAnyRole>
+
+    <hasPermission type="sql">
+        <![CDATA[
+	    	select count(f.FUNC_CODE) from CLP_SYS_FUNC f WITH (NOLOCK)
+		    	left join CLP_SYS_ROLE_FUNC rf WITH (NOLOCK) on f.FUNC_ID  = rf.func_id
+				left join CLP_SYS_USER_ROLE ur WITH (NOLOCK) on rf.ROLE_ID = ur.role_id
+				left join CLP_SYS_ROLE r WITH (NOLOCK) on r.ROLE_ID = ur.ROLE_ID
+			where ur.USER_ID=(:userId) and r.STATUS = 'A' and f.FUNC_CODE=(:funcCode) and f.status='A'
+		]]>
+    </hasPermission>
+
+    <getFuncCodesByUserId type="sql">
+        <![CDATA[
+             SELECT DISTINCT(DSF.FUNC_CODE) FROM CLP_SYS_FUNC DSF WITH (NOLOCK)
+			    LEFT JOIN CLP_SYS_ROLE_FUNC DSRF WITH (NOLOCK) ON DSRF.FUNC_ID = DSF.FUNC_ID
+			    LEFT JOIN CLP_SYS_ROLE DSR WITH (NOLOCK) ON DSR.ROLE_ID = DSRF.ROLE_ID
+			    LEFT JOIN CLP_SYS_USER_ROLE DSUR WITH (NOLOCK) ON DSUR.ROLE_ID = DSR.ROLE_ID
+			WHERE DSUR.USER_ID = :userId AND DSR.STATUS = 'A' AND DSF.STATUS = 'A'
+        ]]>
+    </getFuncCodesByUserId>
+
+
+
+</queries>
+

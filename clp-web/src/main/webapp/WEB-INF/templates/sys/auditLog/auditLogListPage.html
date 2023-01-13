@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<div th:replace="fragments/head">head</div>
+		<title>Audit Log</title>
+	</head>
+
+<div class="container-fluid" id="app">
+    <!-- screen id -->
+    <div th:replace="fragments/layout :: content_header(|#{sys.auditLog}|, 'CLP-SYS-020')">SCREEN-ID</div>
+
+    <form id="fm-search" class="form-horizontal bv-form">
+        <div class="col-sm-12">
+
+            <table id="table" class="table table-bordered table-hover table-condensed" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th th:text="#{audit.funcCode}">功能名稱</th>
+                        <th th:text="#{audit.operatorId}">創建用戶</th>
+                        <th th:text="#{audit.operationTime}">創建日期</th>
+                        <th th:text="#{audit.remark}">備注</th>
+                        <th th:text="#{audit.service}">服務</th>
+                        <th th:text="#{audit.process}">操作 </th>
+                        <th th:text="#{audit.hostIP}">主機IP</th>
+                        <th th:text="#{global.action}">操作</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </form>
+    <div sec:authorize="hasPermission('SYS-AUDITLOG-VIEW')" id="audit-detail-div" style="display:none;" >
+        <a th:href="@{'~'+${webPrefix}+'/web/sys/auditlog/auditDetailList.html?auditMasterId={0}'}" class="btn btn-sm btn-default fancybox fancybox.iframe"
+        	data-fancybox-width="100%" data-fancybox-height="100%" >
+            <i class="glyphicon glyphicon-detail" th:text="#{global.detail}"></i></a>
+    </div>
+</div>
+ </body>
+    <!-- 注入系統默認javaScript腳本 -->
+	<div th:replace="fragments/script">Script JS</div>
+
+    <!-- 自己系統的腳本請在下面引入 -->
+
+   <script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+        //此處為將國際化傳值到JS
+        var vModel = {
+            docId: [[${auditIndex.docId}]],
+            licType: [[${auditIndex.licType}]],
+            licNo: [[${auditIndex.licNo}]],
+            examNo:[[${auditIndex.examNo}]],
+            examYear:[[${auditIndex.examYear}]]
+        };
+    /*]]>*/ 
+    </script>
+
+    <script type="text/javascript" src="static/js/sys/auditIndexController.js" th:src="@{/static/js/sys/auditIndexController.js}"></script>
+    
+    
+</body>
+
+</html>

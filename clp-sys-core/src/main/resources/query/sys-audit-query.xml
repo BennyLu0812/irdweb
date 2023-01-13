@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+
+	<getAuditIndexList type="sql">
+		<![CDATA[
+                SELECT
+                distinct
+                ROW_NUMBER()over(order by dam.OPERATION_TIME desc) as num,
+                dam.AUDIT_MASTER_ID AS "auditMasterId",
+                dam.FUNC_CODE AS "sysFuncCode",
+                dsf.FUNC_DESC AS "sysFuncDesc",
+                dam.HOST_NAME AS "hostName",
+                dam.HOST_IP AS "hostIp",
+                dam.OPERATOR_ID AS "sysOperatorId",
+                dam.OPERATION_TIME AS "sysOperationTime",
+                dam.REMARK  AS "sysRemark"
+               FROM  CLP_AUDIT_MASTER dam WITH(NOLOCK)
+                 left join CLP_SYS_FUNC dsf WITH(NOLOCK) on dsf.FUNC_CODE = dam.FUNC_CODE
+               WHERE 1 = 1
+               <#if funcCodes??>
+                AND dam.FUNC_CODE  in(:funcCodes)
+               </#if>
+              <#if sysFuncCode?? && sysFuncCode !!=''>
+               AND dsf.FUNC_DESC =:sysFuncCode
+              </#if>
+              <#if sysOperatorId?? && sysOperatorId !!=''>
+               AND dam.OPERATOR_ID =:sysOperatorId
+              </#if>
+              <#if hostName?? && hostName !!=''>
+               AND dam.hostName =:hostName
+              </#if>
+              <#if sysOperationTimeStart??>
+              	AND dam.Operation_Time >= :sysOperationTimeStart
+              </#if>
+              <#if sysOperationTimeEnd??>
+              	AND dam.Operation_Time <= :sysOperationTimeEnd
+              </#if>
+        ]]>
+	</getAuditIndexList>
+
+	<getAuditLogMaster type="sql">
+		<![CDATA[
+                SELECT
+                dam.AUDIT_MASTER_ID AS "id",
+                dam.SERVICE_ID AS "serviceId",
+                dam.PROCESS_ID AS "processId",
+                dam.STAGE_ID  AS "stageId",
+                dam.FUNC_CODE AS "sysFuncCode",
+                dsf.FUNC_DESC AS "sysFuncDesc",
+                dam.HOST_NAME AS "hostName",
+                dam.HOST_IP AS "hostIp",
+                dam.OPERATOR_ID AS "sysOperatorId",
+                dam.OPERATION_TIME AS "sysOperationTime",
+                dam.REMARK  AS "sysRemark",
+                dss.SERVICE_CNAME AS "serviceCname",
+                dss.SERVICE_PNAME AS "servicePname",
+                dss.SERVICE_CODE AS "serviceCode",
+                dsp.PROCESS_CODE AS "processCode",
+                dsp.PROCESS_CNAME AS "processCname",
+                dsp.PROCESS_PNAME AS "processPname"
+               FROM CLP_AUDIT_MASTER dam WITH(NOLOCK)
+                 left join CLP_SYS_SERVICE dss WITH(NOLOCK) on  dss.SERVICE_ID=dam.SERVICE_ID
+                 left join CLP_SYS_PROCESS dsp WITH(NOLOCK) on  dsp.PROCESS_ID=dam.PROCESS_ID
+                 left join CLP_SYS_FUNC dsf WITH(NOLOCK) on dsf.FUNC_CODE = dam.FUNC_CODE
+               WHERE  1=1
+               <#if funcCodes??>
+                AND dam.FUNC_CODE  in(:funcCodes)
+               </#if>
+              <#if sysFuncCode??>
+               AND dam.FUNC_CODE =:sysFuncCode
+              </#if>
+              <#if sysOperatorId??>
+               AND dam.OPERATOR_ID =:sysOperatorId
+              </#if>
+              <#if hostName??>
+               AND dam.hostName =:hostName
+              </#if>
+              order by dam.OPERATION_TIME desc
+        ]]>
+	</getAuditLogMaster>
+	<getAuditDetailByMasterId type="sql">
+		<![CDATA[
+		 SELECT
+                dai.AUDIT_MASTER_ID as "auditMasterId",
+                dai.AUDIT_INDEX_ID as "auditIndexId",
+	              dai.ACTION AS "action",
+	              dai.ROW_ID AS "rowId",
+	              dai.TABLE_NAME as "tableName",
+	              dad.COLUMN_NAME AS "columnName",
+	              dad.VALUE_BEFORE AS "valueBefore",
+	              dad.VALUE_AFTER AS "valueAfter"
+          FROM CLP_AUDIT_DETAIL dad WITH(NOLOCK)
+                left JOIN CLP_AUDIT_INDEX dai WITH(NOLOCK) on dai.AUDIT_INDEX_ID = dad.AUDIT_INDEX_ID
+          WHERE dai.AUDIT_MASTER_ID = :auditMasterId
+
+     ]]>
+	</getAuditDetailByMasterId>
+</queries>

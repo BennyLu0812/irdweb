@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Built-By: Atos
+Created-By: Apache Maven 3.3.9
+Build-Jdk: 1.8.0_131
+Class-Path: h2-1.4.200.jar h2-1.4.196.jar
+

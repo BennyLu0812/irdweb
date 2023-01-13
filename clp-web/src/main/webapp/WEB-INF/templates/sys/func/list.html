@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<div th:replace="fragments/head">head</div>
+<title>Params List</title>
+
+</head>
+<body>
+    <div class="container-fluid">
+
+        <!-- screen id -->
+        <div th:replace="fragments/layout :: content_header(|#{func.header.title}|, 'CLP-SYS-16')">SCREEN-ID</div>
+
+        <form id="fm-search" class="form-horizontal margin-top-10">
+            <div class="row form-group">
+            <label class="control-label col-sm-1" for="funcCode" th:text="#{func.funcCode}">功能編號</label>
+                <div class="col-sm-2">
+                    <input id="funcCode" name="funcCode" value="" class="form-control" th:placeholder="#{func.funcCode}" placeholder="功能編號">
+                </div>
+                <label class="control-label col-sm-1" for="funcDesc" th:text="#{func.funcDesc}">功能描述</label>
+                <div class="col-sm-3">
+                    <input id="funcDesc" name="funcDesc" value="" class="form-control" th:placeholder="#{func.funcDesc}" placeholder="功能描述">
+                </div>
+                <div class="col-sm-5">
+                    <div class="pull-right">
+                        <button id="btn-search" type="button" class="btn btn-sm btn-primary">
+                            <i class="glyphicon glyphicon-search"></i> <span th:text="#{global.search}"></span>
+                        </button>
+                        <button sec:authorize="hasPermission('USER-FUNC-ADD')" id="btn-create" type="button" class="btn btn-sm btn-default">
+                            <i class="glyphicon glyphicon-plus"></i> <span th:text="#{global.create}"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- Table -->
+        <table id="table" class="table table-bordered table-hover table-condensed" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th th:text="#{func.funcCode}">>功能編號</th>
+                    <th th:text="#{func.funcDesc}">功能編號</th>
+                    <th th:text="#{func.module}">所屬模塊</th>
+                    <th th:text="#{func.menu}">菜單</th>
+                    <th th:text="#{global.createUser}">創建用戶</th>
+                    <th th:text="#{global.createDate}">創建日期</th>
+                    <th th:text="#{global.lastUpdUser}">最後更新用戶</th>
+                    <th th:text="#{global.lastUpdDate}">最後更新用戶</th>
+                    <th th:text="#{global.action}">操作</th>
+                </tr>
+            </thead>
+        </table>
+
+    </div>
+
+<div sec:authorize="hasPermission('USER-FUNC-MODIFY')" id="func-update-div" style="display:none;">
+    <a href="edit.html?funcId={0}" class="btn btn-sm btn-default fancybox fancybox.iframe" data-fancybox-width="80%" data-fancybox-height="80%">
+    <i class="glyphicon glyphicon-edit"></i><span th:text="#{global.update}">修改</span></a>
+</div>
+
+    <!-- 注入系統默認javaScript腳本 -->
+    <div th:replace="fragments/script">Script JS</div>
+    <!-- 自己系統的腳本請在下面引入 -->
+
+    <script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+        //此處為將國際化傳值到JS
+        var i18n= {
+                update: [[#{global.update}]],
+                delete: [[#{global.delete}]],
+                detail: [[#{global.detail}]]
+        };
+    /*]]>*/ 
+    </script>
+
+    <script type="text/javascript" src="static/js/sys/funcController.js" th:src="@{/static/js/sys/funcController.js}"></script>
+
+</body>
+</html>

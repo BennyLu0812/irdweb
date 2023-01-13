@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+
+    <!-- =================================func =============================-->
+    <getFuncChildren type="hql">
+        FROM
+        FuncEntity f
+        WHERE f.parent = :parent
+    </getFuncChildren>
+
+    <getTopFunc type="hql">
+        FROM
+        FuncEntity f
+        WHERE f.parent IS NULL
+    </getTopFunc>
+
+    <getFuncByIds type="hql">
+        FROM FuncEntity
+        WHERE funcId IN(:ids)
+    </getFuncByIds>
+
+    <buildFuncParent type="hql">
+        <![CDATA[
+        FROM
+            FuncEntity
+        WHERE
+            funcId <> :funcId
+        ]]>
+    </buildFuncParent>
+
+    <getFuncList type="hql">
+        <![CDATA[
+    		FROM
+    			FuncEntity t
+    		WHERE
+    			1=1
+    		<#if funcCode?? && funcCode!!=''>
+             	AND upper(t.funcCode) like upper(concat('%', :funcCode, '%'))
+        	</#if>
+        	<#if funcDesc?? && funcDesc!!=''>
+             	AND t.funcDesc like concat('%', :funcDesc, '%')
+        	</#if>
+        	order by t.module.id asc,t.funcId
+    	]]>
+    </getFuncList>
+
+    <getFuncByFuncCode type="hql">
+        <![CDATA[
+    		FROM
+    			FuncEntity
+    		WHERE
+    			1=1
+    		<#if funcCode?? && funcCode!!=''>
+    			AND funcCode=:funcCode
+    		</#if>
+    	]]>
+    </getFuncByFuncCode>
+
+    <getRptPreviledgePage type="sql">
+        <![CDATA[
+            SELECT F.FUNC_CODE  "funcCode",
+                   F.FUNC_DESC  "funcDesc",
+                   M.MODULE_NAME  "moduleName"
+            FROM CLP_SYS_FUNC F WITH (NOLOCK)
+            INNER JOIN CLP_SYS_MODULE M WITH (NOLOCK) ON F.MODULE_ID = M.MODULE_ID
+            WHERE F.FUNC_CODE  IN (:funcCodes)
+        ]]>
+    </getRptPreviledgePage>
+
+    <getFuncQuotaSelectPageData type="sql">
+        <![CDATA[
+            SELECT FUNC_DESC AS "id",
+            FUNC_DESC  as "text",
+            ROW_NUMBER()over(order by MODULE_ID,SORT desc) as num
+            FROM CLP_SYS_FUNC WITH (NOLOCK)
+            WHERE 1=1 and FUNC_TYPE = 'F'
+            <#if keyword?? && keyword!!=''>
+                and UPPER(FUNC_DESC) LIKE UPPER(:keyword)
+            </#if>
+        ]]>
+    </getFuncQuotaSelectPageData>
+
+    <findFuncByUser type="sql">
+        <![CDATA[
+            SELECT
+                CLP_SYS_FUNC.*
+            FROM
+                CLP_SYS_FUNC WITH (NOLOCK)
+                INNER JOIN CLP_SYS_ROLE_FUNC WITH (NOLOCK) ON CLP_SYS_ROLE_FUNC.FUNC_ID = CLP_SYS_FUNC.FUNC_ID
+                INNER JOIN CLP_SYS_USER_ROLE WITH (NOLOCK) ON CLP_SYS_USER_ROLE.ROLE_ID = CLP_SYS_ROLE_FUNC.ROLE_ID
+            WHERE
+                CLP_SYS_USER_ROLE.USER_ID = (:userId)
+                <#if centerId??>
+                    AND CLP_SYS_USER_ROLE.ROLE_ID IN ( SELECT ROLE_ID FROM CLP_CTR_CENTER_ROLE WITH (NOLOCK) WHERE CENTER_ID = :centerId )
+                </#if>
+                AND CLP_SYS_FUNC.STATUS = 'A'
+            ORDER BY
+                CASE
+                    CLP_SYS_FUNC.FUNC_TYPE
+                    WHEN 'M' THEN
+                    1
+                    WHEN 'F' THEN
+                    2
+                END,
+                CLP_SYS_FUNC.SORT ASC,
+                CLP_SYS_FUNC.FUNC_ID
+        ]]>
+    </findFuncByUser>
+
+    <findAllMenuFunc type="hql">
+        <![CDATA[
+    		FROM
+    			FuncEntity t
+    		WHERE
+    			t.status = 'A'
+        	ORDER BY
+                CASE
+                    t.funcType
+                    WHEN 'M' THEN
+                    1
+                    WHEN 'F' THEN
+                    2
+                END,
+                t.sort ASC,
+                t.module.sort ASC,
+        	    t.funcId
+    	]]>
+    </findAllMenuFunc>
+
+    <findMenuList>
+        <![CDATA[
+    		FROM
+    			FuncEntity t
+    		WHERE t.status = 'A'
+             	AND t.funcType = 'M'
+        	ORDER BY
+        	    t.sort ASC,
+                t.module.sort ASC,
+        	    t.funcId
+    	]]>
+    </findMenuList>
+
+</queries>
+
