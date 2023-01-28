@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/head">head</div>
+    <title>history</title>
+</head>
+<body>
+<div class="container-fluid" id="historyApp">
+    <!-- screen id -->
+    <div th:replace="fragments/layout :: content_header(|#{api.trigger.history.header.title}|, 'CLP-API-010')">SCREEN-ID</div>
+    <form id="historyForm" class="form-horizontal bv-form" ref = "fmSearch">
+        <fieldset>
+            <div class="form-group">
+
+                <label class="control-label col-sm-2" th:text="#{api.history.userName}">用戶</label>
+                <div class="col-sm-2">
+                    <input  name="userName"  th:placeholder="#{api.history.userName}"  class="form-control" type="text">
+                </div>
+
+                <label class="control-label col-sm-2" th:text="#{api.history.API}">API</label>
+                <div class="col-sm-4">
+                    <v-select id="apiName" name="apiName" th:placeholder="#{global.pleaseSelect}" sys-code-type="2001" :options="apiNameOptions"></v-select>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">trigger datetime:</label>
+                <div class="col-sm-5">
+                    <div class="input-group">
+                        <input type="text" id="createDateFrom" name="createDateFrom" v-model="createDateFrom" class="form-control form_datetime"  autocomplete="off" placeholder="yyyy-mm-dd hh:ii:ss" >
+                        <span class="input-group-addon">-</span>
+                        <input type="text" id="createDateTo" name="createDateTo" v-model="createDateTo"  class="form-control form_datetime" autocomplete="off" placeholder="yyyy-mm-dd hh:ii:ss" >
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="pull-right">
+                        <button id="historySearch" type="button" class="btn btn-primary">
+                            <i class="glyphicon glyphicon-search"></i>
+                            <span th:text="#{global.search}">查詢</span>
+                        </button>
+                        <button id="historyRefresh" type="button" class="btn btn-default">
+                            <i class="glyphicon glyphicon-refresh"></i>
+                            <span th:text="#{global.reset}">重置</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- 爲了授權管理新增的div end-->
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <table id="historyTable" class="table table-bordered table-hover table-condensed dataTable no-footer" role="grid" style="width: 100%;" width="100%" cellspacing="0" ref = "searchTable">
+                        <thead>
+                        <tr role="row">
+                            <th class="dataTables_empty sorting_disabled dt-nowrap" rowspan="1" colspan="1" style="width: 10%;">
+                                <div th:text="#{api.history.userName}">user name</div>
+                            </th>
+                            <th class="dataTables_empty sorting_disabled dt-nowrap" rowspan="1" colspan="1" style="width: 15%;">
+                                <div th:text="#{api.history.API}">API </div>
+                            </th>
+                            <th class="dataTables_empty sorting_disabled dt-nowrap" rowspan="1" colspan="1" style="width: 15%;">
+                                <div th:text="#{api.history.triggerDatetime}">trigger datetime</div>
+                            </th>
+
+
+                            <th class="dataTables_empty sorting_disabled" style="width: 15%;" rowspan="1" colspan="1">
+                                <div th:text="#{api.history.inputParams}">input params</div>
+                            </th>
+
+                            <th class="dataTables_empty sorting_disabled" style="width: 10%;" rowspan="1" colspan="1">
+                                <div th:text="#{api.history.result}">result</div>
+                            </th>
+
+                            <th class="dataTables_empty sorting_disabled" style=" width: 5%;" rowspan="1" colspan="1" th:text="#{global.action}">操作</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<!-- 注入系統默認javaScript腳本 -->
+<div th:replace="fragments/script">Script JS</div>
+<!-- 自己系統的腳本請在下面引入 -->
+
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+
+    /*]]>*/
+</script>
+
+<script type="text/javascript" src="static/js/triggerApi/history.js" th:src="@{/static/js/triggerApi/history.js}"></script>
+
+</body>
+</html>

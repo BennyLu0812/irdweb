@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/head">head</div>
+    <title>AlertBlackoutAPIQueryRequest</title>
+    <style>
+        @media (min-width: 992px) {
+            .col-md-3 {
+                width: 20%;
+            }
+        }
+    </style>
+</head>
+<body >
+<div class="container-fluid padding-bottom-50" id="alertBlackoutAPIQueryRequestApp">
+
+    <div class="container-fluid">
+        <div th:replace="fragments/layout :: content_header(|#{api.trigger.alertBlackoutAPIQueryRequest.header.title}|, 'CLP-API-003')">
+            SCREEN-ID
+        </div>
+    </div>
+
+    <form id="alertBlackoutAPIQueryRequestForm" class="form-horizontal bv-form">
+        <fieldset>
+
+
+            <div class="form-group">
+                <label class="control-label col-sm-2 control-label-required"  for="dataCentreId">dataCentreId:</label>
+                <div class="col-sm-5">
+                    <input  name="dataCentreId"
+                            v-model="dataCentreId" th:placeholder="#{api.trigger.requestParams.dataCentreId}"
+                            type="text" class="form-control"  style="width: 100%" ref = "dataCentreId"
+                    />
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="control-label col-sm-2"></label>
+                <div class="col-sm-5">
+                    <button type="button" class="btn btn-primary" draw-confirm  >
+                        <span th:text="#{global.submit}">提交</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">result:</label>
+                <div class="col-sm-5">
+                    <textarea name="responseResult" v-model="responseResult" class="form-control" rows="10" disabled="disabled"
+                              th:placeholder="#{api.trigger.responseResult}"  style="width: 100%"></textarea>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+
+    <!-- 注入系統默認javaScript腳本 -->
+    <div th:replace="fragments/script">Script JS</div>
+    <!-- 自己系統的腳本請在下面引入 -->
+    <script type="text/javascript" th:inline="javascript">
+
+    </script>
+    <script type="text/javascript" src="static/js/triggerApi/alertBlackoutQuery.js" th:src="@{/static/js/triggerApi/alertBlackoutQuery.js}"></script>
+</div>
+</body>
+</html>

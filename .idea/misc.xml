@@ -15,6 +15,7 @@
         <option value="$PROJECT_DIR$/ird-common-api/pom.xml" />
         <option value="$PROJECT_DIR$/ird-assets-web/pom.xml" />
         <option value="$PROJECT_DIR$/ird-web/pom.xml" />
+        <option value="$PROJECT_DIR$/clp-portal-core/pom.xml" />
       </list>
     </option>
   </component>

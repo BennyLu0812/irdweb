@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/head">head</div>
+    <title>AlertBlackoutRequestOutput</title>
+    <style>
+        @media (min-width: 992px) {
+            .col-md-3 {
+                width: 20%;
+            }
+        }
+    </style>
+</head>
+<body >
+<div class="container-fluid padding-bottom-50" id="alertBlackoutRequestOutputApp">
+
+    <div class="container-fluid">
+        <div th:replace="fragments/layout :: content_header(|#{api.trigger.alertBlackoutRequestOutput.header.title}|, 'CLP-API-4')">
+            SCREEN-ID
+        </div>
+    </div>
+
+    <form id="alertBlackoutRequestOutputForm" class="form-horizontal bv-form">
+        <fieldset>
+
+
+            <div class="form-group">
+                <label class="control-label col-sm-2 control-label-required"  for="dataCentreId">dataCentreId:</label>
+                <div class="col-sm-5">
+                    <input  name="dataCentreId"
+                            v-model="dataCentreId" th:placeholder="#{api.trigger.requestParams.dataCentreId}"
+                            type="text" class="form-control"  style="width: 100%" ref = "dataCentreId"
+                    />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2 control-label-required"  for="eventUid">eventUid:</label>
+                <div class="col-sm-5">
+                    <input  name="eventUid"
+                            v-model="eventUid" th:placeholder="#{api.trigger.requestParams.eventUid}"
+                            type="text" class="form-control"  style="width: 100%" ref = "eventUid"
+                    />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2 control-label-required">blackoutWindow Date Between:</label>
+                <div class="col-sm-5">
+                    <div class="input-group">
+                        <input type="text" id="blackoutWindowBegin" name="blackoutWindowBegin" v-model="blackoutWindowBegin" class="form-control form_datetime"  autocomplete="off" placeholder="yyyy-mm-dd hh:ii:ss" >
+                        <span class="input-group-addon">-</span>
+                        <input type="text" id="blackoutWindowEnd" name="blackoutWindowEnd" v-model="blackoutWindowEnd"  class="form-control form_datetime" autocomplete="off" placeholder="yyyy-mm-dd hh:ii:ss" >
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="control-label col-sm-2 control-label-required" for="description" control-label-required>description:</label>
+                <div class="col-sm-5">
+                    <textarea name="description" v-model="description" class="form-control" rows="5"
+                              th:placeholder="#{api.trigger.requestParams.description}"  style="width: 100%"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2"></label>
+                <div class="col-sm-5">
+                    <button type="button" class="btn btn-primary" draw-confirm  >
+                        <span th:text="#{global.submit}">提交</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">result:</label>
+                <div class="col-sm-5">
+                    <textarea name="responseResult" v-model="responseResult" class="form-control" rows="10" disabled="disabled"
+                              th:placeholder="#{api.trigger.responseResult}"  style="width: 100%"></textarea>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+
+    <!-- 注入系統默認javaScript腳本 -->
+    <div th:replace="fragments/script">Script JS</div>
+    <!-- 自己系統的腳本請在下面引入 -->
+    <script type="text/javascript" th:inline="javascript">
+
+    </script>
+    <script type="text/javascript" src="static/js/triggerApi/alertBlackoutOutput.js" th:src="@{/static/js/triggerApi/alertBlackoutOutput.js}"></script>
+</div>
+</body>
+</html>

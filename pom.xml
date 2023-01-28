@@ -25,6 +25,7 @@
         <module>clp-api-core</module>
         <module>clp-sch-core</module>
         <module>clp-sch-api</module>
+        <module>clp-portal-core</module>
     </modules>
 
 

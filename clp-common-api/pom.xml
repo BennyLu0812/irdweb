@@ -12,10 +12,13 @@
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>clp-common-api</artifactId>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
     <name>clp-common-api</name>
     <description>DLS Common API</description>
+    <modules>
+        <module>clp-portal-core</module>
+    </modules>
 
 
     <dependencies>

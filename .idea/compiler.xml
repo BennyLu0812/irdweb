@@ -8,11 +8,11 @@
         <outputRelativeToContentRoot value="true" />
         <module name="clp-api-core" />
         <module name="clp-assets-web" />
-        <module name="clp-common-api" />
         <module name="clp-common-api-test" />
         <module name="clp-common-base" />
         <module name="clp-common-web" />
         <module name="clp-config" />
+        <module name="clp-portal-core" />
         <module name="clp-rpt-core" />
         <module name="clp-sch-api" />
         <module name="clp-sch-core" />

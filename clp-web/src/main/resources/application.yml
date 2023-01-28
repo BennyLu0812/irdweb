@@ -9,7 +9,7 @@
 
     # 多语言国际化
   messages:
-    basename: i18n/global/messages,i18n/rpt/messages,i18n/sch/messages,i18n/sys/messages,i18n/enum/messages,i18n/validation/messages
+    basename: i18n/global/messages,i18n/rpt/messages,i18n/sch/messages,i18n/sys/messages,i18n/enum/messages,i18n/validation/messages,i18n/api/messages
 server:
   port: 8888
   contextPath: @web-prefix@/web
