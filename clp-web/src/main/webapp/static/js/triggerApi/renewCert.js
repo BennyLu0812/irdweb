@@ -31,7 +31,7 @@ require([
         var controller = atosBaseController(momentConfig, {
             variables: {
                 vue: null,
-                i18n: {},
+                i18n: {}
             },
             init: function() {
                 var self = this;
@@ -52,14 +52,21 @@ require([
                         description: '',
                         blackoutWindowBegin: '',
                         blackoutWindowEnd: '',
-                        responseResult:''
+                        responseResult:'',
+                        fileuploaderror:''
                     },
                     methods: {
-                        doSave: function() {
+                        doSubmit: function() {
                             var self = this;
+                            if ($("#uploadCer").prop("files").length == 0) {
+                                var validator = $("#renewCertResponseForm").data('bootstrapValidator');
+                                validator.updateStatus('uploadCer', 'INVALID', 'notEmpty');
+                            }
                             if (!$.formValidator('#renewCertResponseForm')) { // 驗證
                                 return false;
                             }
+
+                            $("#uploadCer").fileinput("upload");
                         }
                     },
                     computed: {
@@ -84,38 +91,40 @@ require([
             initEvent: function() {
                 var self = this;
 
+
                 $('#uploadCer').fileinput({
-                    uploadUrl: basePath + '/#', // you must set a valid URL here else you will get an error
+                    uploadUrl: basePath + '/triggerApi/uploadX509CertFile', // you must set a valid URL here else you will get an error
                     uploadAsync: false,
                     showPreview: false,
                     dropZoneEnabled: false,
                     //showCaption: true,
                     showUpload: false,
                     showRemove: true,
-                    minFileCount: 0,
+                    //minFileCount: 0,
                     maxFileCount: 1,
-                    maxFileSize: 1024,
+                    maxFileSize: 4096 ,//单位为kb，如果为0表示不限制文件大小
                     enctype: 'multipart/form-data',
                     allowedFileExtensions: ['cer'],
                     //initialCaption: self.getI18nMessage('api.trigger.requestParams.x509CertFile'),
                     layoutTemplates: {
                         actionUpload: ''
-                    },
-                    uploadExtraData: function () {
-                        return {
-                            /*foreignLicenseId: controller.vue.licExchange.foreignLicenseId,
-                            licNo: controller.vue.licExchange.licCatDto.licNo,
-                            spNo: controller.vue.licExchange.spNo,
-                            licType: controller.vue.licExchange.licCatDto.licType*/
-                        };
                     }
                 }).on('filebatchuploadsuccess', function (event, data) {
+                    self.fileuploaderror='';
+                    console.log(data);
                     /*if (vModel.foreignLicenseId && vModel.licCatId) {
                         parent.controller.reloadDatatable();
                         parent.controller.variables.vue.getForeignLic();
                         parent.$.fancybox.close();
-
                     }*/
+                }).on('fileuploaderror', function(event, data, msg) {
+                    self.fileuploaderror=msg;
+                }).on('fileclear', function(event) {
+                    self.fileuploaderror='';
+                    var $renewCertResponseForm = $("#renewCertResponseForm");
+                    var validator = $renewCertResponseForm.data('bootstrapValidator');
+                    validator.updateMessage('uploadCer','callback', self.fileuploaderror);
+                    validator.updateStatus('uploadCer', 'INVALID', 'notEmpty');
                 });
 
 
@@ -135,6 +144,26 @@ require([
                                     min : 7,
                                     max : 15,
                                     message : that.getI18nMessage('api.vaildate.msg.errorLength',['7~15'])
+                                }
+                            }
+                        },
+                        uploadCer: {
+                            validators: {
+                                notEmpty: {
+                                    enabled : true,
+                                    message: that.getI18nMessage('api.vaildate.msg.notEmpty')
+                                }
+                                ,
+                                callback : {
+                                    callback : function(value, validator){
+                                        if (atosUtil.isNotEmpty(that.fileuploaderror)) {
+                                            validator.updateMessage('uploadCer','callback', that.fileuploaderror);
+                                            validator.updateStatus('uploadCer', 'NOT_VALIDATED');
+                                            return false;
+                                        }
+                                        validator.updateStatus('uploadCer', 'VALID');
+                                        return true;
+                                    }
                                 }
                             }
                         }

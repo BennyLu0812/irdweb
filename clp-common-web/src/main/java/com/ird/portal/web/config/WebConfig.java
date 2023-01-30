@@ -2,6 +2,7 @@ package com.ird.portal.web.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.ird.portal.util.DateUtil;
 import com.ird.portal.web.interceptor.AuthenticationInterceptor;
 import com.ird.portal.web.interceptor.LocaleInterceptor;
 import com.ird.portal.web.interceptor.PermissionInterceptor;
@@ -176,7 +177,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         SimpleModule module = new SimpleModule();
         module.addDeserializer(String.class, new XssStringJsonDeserializer());
         ObjectMapper objectMapper = Jackson2ObjectMapperBuilder.json().timeZone("GMT+8")
-                .dateFormat(new SimpleDateFormat("dd/MM/yyyy")).build();
+                .dateFormat(new SimpleDateFormat(DateUtil.DATE_FORMAT)).build();
         objectMapper.registerModule(module);
         return new MappingJackson2HttpMessageConverter(objectMapper);
     }

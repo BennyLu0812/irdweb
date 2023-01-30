@@ -47,4 +47,18 @@ public class EmailServiceImplTest {
 
     }
 
+    public static void main(String[] args) {
+        // 2023-01-28 17:58:41
+        // Date testDate = DateUtil.parse("2023-01-28 17:58:41", DateUtil.DATE_FORMAT);
+        // String dateText = DateUtil.format(testDate, DateUtil.DATE_FORMAT_2);
+        // 2023-01-28T17:58:41.807+08:00
+        // System.out.println(dateText);
+
+
+         //Date testDate = DateUtil.parse("2023-01-28T17:58:41.807+08:00", DateUtil.DATE_FORMAT_2);
+         //String dateText = DateUtil.format(testDate, DateUtil.DATE_FORMAT);
+         // 2023-01-28 17:58:41
+         //System.out.println(dateText);
+    }
+
 }

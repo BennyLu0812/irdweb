@@ -32,6 +32,8 @@ public final class DateUtil {
 
     public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
+    public static final String DATE_FORMAT_2 = "yyyy-MM-dd'T'HH:mm:ss.SSS+08:00";
+
     public static final String DATE_TIME_SYSTEM_PATTERN = "yyyyMMddHHmmss";
 
     private static final Logger logger = LoggerFactory.getLogger(DateUtil.class);
@@ -638,4 +640,6 @@ public final class DateUtil {
 
         return format(photoTime, DATE_TIME_PATTERN);
     }
+
+
 }

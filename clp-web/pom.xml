@@ -44,6 +44,11 @@
             <artifactId>clp-sch-core</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.ird.portal</groupId>
+            <artifactId>clp-portal-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <!-- clp-user-core -->
         <dependency>
             <groupId>com.ird.portal</groupId>

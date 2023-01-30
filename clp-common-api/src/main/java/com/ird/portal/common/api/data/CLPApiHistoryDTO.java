@@ -1,22 +1,13 @@
-package com.ird.portal.core.entity;
+package com.ird.portal.common.api.data;
 
-import com.ird.portal.audit.annotation.Audited;
-import com.ird.portal.entity.AbstractEntity;
-
-import javax.persistence.*;
-
+import com.ird.portal.data.BaseDTO;
 
 /**
- * @version 1.0
- * @description: 調用別人系統api後需要記錄日誌。
- * @DATE: 2023/1/16
- * @author: Benny
+ * @author Benny
+ * @description: CLP ApiHistory DTO
+ * @date 2023/1/30
  */
-
-@Audited
-@Entity
-@Table(name="CLP_API_HISTORY")
-public class CLPApiHistoryEntity extends AbstractEntity {
+public class CLPApiHistoryDTO extends BaseDTO {
 
     private Integer apiHistoryId;
 
@@ -55,10 +46,6 @@ public class CLPApiHistoryEntity extends AbstractEntity {
      */
     private String apiFilePath;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CLP_API_HISTORY_SEQ")
-    @SequenceGenerator(name = "CLP_API_HISTORY_SEQ", sequenceName = "CLP_API_HISTORY_SEQ", allocationSize = 1)
-    @Column(name = "API_HISTORY_ID")
     public Integer getApiHistoryId() {
         return apiHistoryId;
     }
@@ -67,52 +54,6 @@ public class CLPApiHistoryEntity extends AbstractEntity {
         this.apiHistoryId = apiHistoryId;
     }
 
-    @Column(name = "API_REQUEST_PARAMS")
-    public String getApiRequestParams() {
-        return apiRequestParams;
-    }
-
-    public void setApiRequestParams(String apiRequestParams) {
-        this.apiRequestParams = apiRequestParams;
-    }
-
-    @Column(name = "API_RESPONSE_VALUES")
-    public String getApiResponseValues() {
-        return apiResponseValues;
-    }
-
-    public void setApiResponseValues(String apiResponseValues) {
-        this.apiResponseValues = apiResponseValues;
-    }
-
-    @Column(name = "API_MEDIA_TYPE")
-    public String getApiMediaType() {
-        return apiMediaType;
-    }
-
-    public void setApiMediaType(String apiMediaType) {
-        this.apiMediaType = apiMediaType;
-    }
-
-    @Column(name = "API_FILE_NAME")
-    public String getApiFileName() {
-        return apiFileName;
-    }
-
-    public void setApiFileName(String apiFileName) {
-        this.apiFileName = apiFileName;
-    }
-
-    @Column(name = "API_FILE_PATH")
-    public String getApiFilePath() {
-        return apiFilePath;
-    }
-
-    public void setApiFilePath(String apiFilePath) {
-        this.apiFilePath = apiFilePath;
-    }
-
-    @Column(name = "API_NAME")
     public String getApiName() {
         return apiName;
     }
@@ -121,12 +62,51 @@ public class CLPApiHistoryEntity extends AbstractEntity {
         this.apiName = apiName;
     }
 
-    @Column(name = "API_RESPONSE_STATUS")
+    public String getApiRequestParams() {
+        return apiRequestParams;
+    }
+
+    public void setApiRequestParams(String apiRequestParams) {
+        this.apiRequestParams = apiRequestParams;
+    }
+
+    public String getApiResponseValues() {
+        return apiResponseValues;
+    }
+
+    public void setApiResponseValues(String apiResponseValues) {
+        this.apiResponseValues = apiResponseValues;
+    }
+
     public String getApiResponseStatus() {
         return apiResponseStatus;
     }
 
     public void setApiResponseStatus(String apiResponseStatus) {
         this.apiResponseStatus = apiResponseStatus;
+    }
+
+    public String getApiMediaType() {
+        return apiMediaType;
+    }
+
+    public void setApiMediaType(String apiMediaType) {
+        this.apiMediaType = apiMediaType;
+    }
+
+    public String getApiFileName() {
+        return apiFileName;
+    }
+
+    public void setApiFileName(String apiFileName) {
+        this.apiFileName = apiFileName;
+    }
+
+    public String getApiFilePath() {
+        return apiFilePath;
+    }
+
+    public void setApiFilePath(String apiFilePath) {
+        this.apiFilePath = apiFilePath;
     }
 }

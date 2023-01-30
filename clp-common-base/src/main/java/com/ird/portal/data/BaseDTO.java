@@ -24,8 +24,10 @@ public class BaseDTO extends AbstractDatatableDTO {
     private static final long serialVersionUID = 1958450066631590714L;
 
     private String createUser;
+
     private Date createDate;
     private String lastUpdUser;
+
     private Date lastUpdDate;
 
     public String getCreateUser() {

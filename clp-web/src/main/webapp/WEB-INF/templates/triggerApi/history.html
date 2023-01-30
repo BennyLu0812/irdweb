@@ -14,12 +14,12 @@
 
                 <label class="control-label col-sm-2" th:text="#{api.history.userName}">用戶</label>
                 <div class="col-sm-2">
-                    <input  name="userName"  th:placeholder="#{api.history.userName}"  class="form-control" type="text">
+                    <input  name="createUser" v-model.trim = "createUser"  th:placeholder="#{api.history.userName}"  class="form-control" type="text">
                 </div>
 
                 <label class="control-label col-sm-2" th:text="#{api.history.API}">API</label>
                 <div class="col-sm-4">
-                    <v-select id="apiName" name="apiName" th:placeholder="#{global.pleaseSelect}" sys-code-type="2001" :options="apiNameOptions"></v-select>
+                    <select id="apiName" name="apiName" class="form-control"  th:placeholder="#{global.pleaseSelect}"></select>
                 </div>
 
             </div>
@@ -28,9 +28,9 @@
                 <label class="control-label col-sm-2">trigger datetime:</label>
                 <div class="col-sm-5">
                     <div class="input-group">
-                        <input type="text" id="createDateFrom" name="createDateFrom" v-model="createDateFrom" class="form-control form_datetime"  autocomplete="off" placeholder="yyyy-mm-dd hh:ii:ss" >
+                        <input type="text" id="createDateFrom" name="createDateFrom" v-model.trim="createDateFrom" class="form-control form_datetime"  autocomplete="off" placeholder="yyyy-mm-dd hh:ii:ss" >
                         <span class="input-group-addon">-</span>
-                        <input type="text" id="createDateTo" name="createDateTo" v-model="createDateTo"  class="form-control form_datetime" autocomplete="off" placeholder="yyyy-mm-dd hh:ii:ss" >
+                        <input type="text" id="createDateTo" name="createDateTo" v-model.trim="createDateTo"  class="form-control form_datetime" autocomplete="off" placeholder="yyyy-mm-dd hh:ii:ss" >
                     </div>
                 </div>
 
@@ -49,7 +49,11 @@
             </div>
 
 
-
+            <div id="historyDiv_NotAllowed_DPRM" style="display:none">
+                <div class='btn-group' v-cloak>
+                    <a id="={0}"  name='btn-details' class='btn btn-sm btn-default detailMaintenance'><span th:text="#{global.detail}"></span></a>
+                </div>
+            </div>
             <!-- 爲了授權管理新增的div end-->
             <div class="form-group">
                 <div class="col-sm-12">

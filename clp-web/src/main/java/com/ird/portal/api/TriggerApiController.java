@@ -1,8 +1,21 @@
 package com.ird.portal.api;
 
+import com.ird.portal.common.api.data.APIRequestDTO;
+import com.ird.portal.common.api.data.UploadFileDTO;
+import com.ird.portal.core.service.CLPApiHistoryService;
+import com.ird.portal.model.Page;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * @author Benny
@@ -12,6 +25,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/triggerApi")
 public class TriggerApiController {
+
+    /**
+     * 1024常量.
+     */
+    private static final int BYTESTREAM = 1024;
+
+    @Autowired
+    private CLPApiHistoryService clpApiHistoryService;
 
     @GetMapping("/alertBlackoutCreate.html")
     public String alertBlackoutCreateRequest() {
@@ -61,6 +82,48 @@ public class TriggerApiController {
     @GetMapping("/history.html")
     public String showHistory() {
         return "triggerApi/history";
+    }
+
+    @PostMapping(path = "/uploadX509CertFile")
+    @ResponseBody
+    public HttpEntity<UploadFileDTO> uploadX509CertFile(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        /*String foreignLicenseId = request.getParameter("foreignLicenseId");*/
+
+        request.setCharacterEncoding("UTF-8");
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        List<MultipartFile> fileList = multipartRequest.getFiles("uploadCer");//uploadCer為input標籤的name屬性。
+        Iterator<MultipartFile> iterator = fileList.iterator();
+        UploadFileDTO uploadFileDTO = new UploadFileDTO();
+        while (iterator.hasNext()) {
+            MultipartFile multipartFile = iterator.next();
+            byte[] bytes = multipartFile.getBytes();//二進制流
+
+            double size = (multipartFile.getSize() * 1.0) / (BYTESTREAM * 1.0);
+            BigDecimal bg = new BigDecimal(size);
+            BigDecimal f1 = bg.setScale(2, BigDecimal.ROUND_HALF_UP);
+            uploadFileDTO.setFileBytes(bytes);
+            uploadFileDTO.setFileValue(new String(bytes,"utf-8"));
+            uploadFileDTO.setSize(f1);
+            uploadFileDTO.setFileName(multipartFile.getName());
+            System.out.println(uploadFileDTO.toString());
+        }
+        return new HttpEntity<UploadFileDTO>(uploadFileDTO);
+    }
+
+    /**
+     *
+     * 分頁查詢.
+     *
+     * @param dto dto對象
+     * @return 返回http對象
+     */
+    /*@PreAuthorize("hasPermission('DLS-EXL-EXM-QUERY')")*/
+    @PostMapping("/apiHistory/list")
+    @ResponseBody
+    public HttpEntity<Page> getApiHistoryList(@RequestBody APIRequestDTO dto) {
+        Page list = clpApiHistoryService.getPage(dto);
+        return new HttpEntity<Page>(list);
     }
 
 }

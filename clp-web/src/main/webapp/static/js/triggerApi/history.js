@@ -40,6 +40,7 @@ require([
                     self.initVue(); // 初始化vue
                     self.initEvent(); // 初始化事件
                     self.vaildate();
+                    self.initDatatables();
                 });
             },
             // 初始化vue
@@ -50,9 +51,18 @@ require([
                     data: {
                         createDateFrom: '',
                         createDateTo: '',
-                        userName: '',
+                        createUser: '',
                         apiName: '',
-                        apiNameOptions: []
+                        apiNameOptions: [{
+                            "id": "",
+                            "text": ""
+                        },{
+                            "id": "M",
+                            "text": "M"
+                        },{
+                            "id": "T",
+                            "text": "T"
+                        }]
                     },
                     methods: {
                         doSave: function() {
@@ -80,9 +90,95 @@ require([
                     }
                 });
             },
+            initDatatables : function() {
+                var that = this;
+                this.variables.datatable = $('#historyTable').DataTable(
+                    {
+                        serverSide : true,
+                        processing : true,
+                        pageLength : 8, // 每頁顯示5行
+                        deferLoading : 0,
+                        ajax : {
+                            url : "#",
+                            type : "POST",
+                            data : function(data, settings) {
+                                var formData = $('#historyForm').serializeObject();
+                                return JSON.stringify($.extend({}, data, formData));
+                            },
+                            contentType : "application/json; charset=utf-8",
+                            dataType : "json"
+                        },
+                        select : {
+                            style : 'single',
+                            selector : 'td'
+                        },
+                        columns : [ {
+                            "data" : "createUser",
+                            "width" : "10%"
+                        }, {
+                            "data" : "apiName",
+                            "width" : "15%"
+                        }, {
+                            "data" : "createDate",
+                            "width" : "15%"
+                        }, {
+                            "data" : "apiRequestParams",
+                            "width" : "15%"
+                        }, {
+                            "data" : "apiResponseValues",
+                            "width" : "10%"
+                        }, {
+                            "data" : "column6",
+                            "width" : "5%"
+                        } ],
+                        columnDefs : [{
+                            render : function(data, type, row) {
+                                return atosUtil.formatHtml('historyDiv_NotAllowed_DPRM', [row.apiHistoryId]);
+                            },
+                            targets : 5
+                        }]
+                    });
+                // 操作栏点击获取詳情图标的id
+                $(document).on("click", 'a[name="btn-details"]', function() {
+                    var id = $(this).attr("id");
+                    that.onDetailsBtnEvent(id);
+                });
+            },
             // 初始化事件
             initEvent: function() {
                 var self = this;
+
+                $('#apiName').select2({data:[{
+                        "id": "",
+                        "text": ""
+                    },{
+                        "id": "alertBlackoutAPICreateRequest",
+                        "text": "alertBlackoutAPICreateRequest"
+                    },{
+                        "id": "alertBlackoutAPIUpdateRequest",
+                        "text": "alertBlackoutAPIUpdateRequest"
+                    },{
+                        "id": "alertBlackoutAPIQueryRequest",
+                        "text": "alertBlackoutAPIQueryRequest"
+                    },{
+                        "id": "alertBlackoutRequestOutput",
+                        "text": "alertBlackoutRequestOutput"
+                    },{
+                        "id": "alertBlackoutAPICancelRequest",
+                        "text": "alertBlackoutAPICancelRequest"
+                    },{
+                        "id": "serviceFailureEventAPIRequest",
+                        "text": "serviceFailureEventAPIRequest"
+                    },{
+                        "id": "securityEventAPIRequest",
+                        "text": "securityEventAPIRequest"
+                    },{
+                        "id": "renewCertResponse",
+                        "text": "renewCertResponse"
+                    },{
+                        "id": "heartBeatAPIRequest",
+                        "text": "heartBeatAPIRequest"
+                    }]});
 
                 $('#createDateFrom').datetimepicker({
                     //language:  'cn',
@@ -120,11 +216,41 @@ require([
                     self.createDateTo = endtime;
                 });
 
+                // 查詢
+                $("#historySearch").click(function() {
+                    self.doSearch();
+                });
+
+                // 重置
+                $("#historyRefresh").click(function() {
+                    self.doReset();
+                });
+
             },
             // 初始化校驗
             vaildate: function() {
                 var that = this;
 
+            },
+            // 顯示明細詳細
+            onDetailsBtnEvent : function(id) {
+                $.fancybox.open({
+                    href : 'triggerApi/apiHistoryDetail.html?apiHistoryId=' + id,
+                    type : 'iframe',
+                    width : '100%',
+                    height : '100%'
+                });
+            },
+            // 查詢
+            doSearch : function() {
+                // 重载ajaxUrl 因为初始化不显示数据
+                this.variables.datatable.ajax.url(basePath + "/triggerApi/apiHistory/list").load();
+            },
+            doReset : function() {
+                var self = this;
+                $("#historyForm").find(":input").val("");
+                $("#apiName").val("").trigger("change");
+                self.variables.vue.$refs.apiName.clearField();
             },
             /**
              * 根據模組簡稱及參數（可選），格式化國際化資源消息
