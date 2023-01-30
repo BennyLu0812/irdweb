@@ -1,12 +1,14 @@
 package com.ird.portal.api;
 
 import com.ird.portal.common.api.data.APIRequestDTO;
+import com.ird.portal.common.api.data.CLPApiHistoryDTO;
 import com.ird.portal.common.api.data.UploadFileDTO;
 import com.ird.portal.core.service.CLPApiHistoryService;
 import com.ird.portal.model.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -125,5 +127,19 @@ public class TriggerApiController {
         Page list = clpApiHistoryService.getPage(dto);
         return new HttpEntity<Page>(list);
     }
+
+
+    @GetMapping("/historyDetail.html")
+    public String showHistoryDetail(@RequestParam(value = "apiHistoryId") String apiHistoryId, Model model) {
+        model.addAttribute("apiHistoryId", apiHistoryId);
+        return "triggerApi/historyDetail";
+    }
+
+    @GetMapping("/apiHistory/detail")
+    public HttpEntity<CLPApiHistoryDTO> getApiHistorydetail(@RequestParam(value = "apiHistoryId") String apiHistoryId) {
+        CLPApiHistoryDTO dto = clpApiHistoryService.getApiHistoryDTOById(apiHistoryId);
+        return new HttpEntity<CLPApiHistoryDTO>(dto);
+    }
+
 
 }

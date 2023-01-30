@@ -96,7 +96,7 @@ require([
                     {
                         serverSide : true,
                         processing : true,
-                        pageLength : 8, // 每頁顯示5行
+                        pageLength : 5, // 每頁顯示5行
                         deferLoading : 0,
                         ajax : {
                             url : "#",
@@ -117,16 +117,16 @@ require([
                             "width" : "10%"
                         }, {
                             "data" : "apiName",
-                            "width" : "15%"
+                            "width" : "20%"
                         }, {
                             "data" : "createDate",
                             "width" : "15%"
                         }, {
                             "data" : "apiRequestParams",
-                            "width" : "15%"
+                            "width" : "45%"
                         }, {
-                            "data" : "apiResponseValues",
-                            "width" : "10%"
+                            "data" : "apiResponseStatus",
+                            "width" : "5%"
                         }, {
                             "data" : "column6",
                             "width" : "5%"
@@ -235,7 +235,7 @@ require([
             // 顯示明細詳細
             onDetailsBtnEvent : function(id) {
                 $.fancybox.open({
-                    href : 'triggerApi/apiHistoryDetail.html?apiHistoryId=' + id,
+                    href : basePath + '/triggerApi/historyDetail.html?apiHistoryId=' + id,
                     type : 'iframe',
                     width : '100%',
                     height : '100%'

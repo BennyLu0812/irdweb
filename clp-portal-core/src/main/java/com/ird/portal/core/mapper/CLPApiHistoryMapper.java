@@ -44,4 +44,6 @@ public class CLPApiHistoryMapper extends AbstractMapper<CLPApiHistoryEntity> {
     }
 
 
+
+
 }

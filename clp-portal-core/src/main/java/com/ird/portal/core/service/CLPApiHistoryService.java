@@ -1,6 +1,7 @@
 package com.ird.portal.core.service;
 
 import com.ird.portal.common.api.data.APIRequestDTO;
+import com.ird.portal.common.api.data.CLPApiHistoryDTO;
 import com.ird.portal.model.Page;
 
 /**
@@ -18,5 +19,12 @@ public interface CLPApiHistoryService {
      * */
     Page getPage(APIRequestDTO dto);
 
+
+    /**
+     * 獲取數據通過id.
+     * @param apiHistoryId id
+     * @return
+     */
+    CLPApiHistoryDTO getApiHistoryDTOById(String apiHistoryId);
 
 }

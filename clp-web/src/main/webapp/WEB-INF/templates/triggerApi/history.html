@@ -51,7 +51,7 @@
 
             <div id="historyDiv_NotAllowed_DPRM" style="display:none">
                 <div class='btn-group' v-cloak>
-                    <a id="={0}"  name='btn-details' class='btn btn-sm btn-default detailMaintenance'><span th:text="#{global.detail}"></span></a>
+                    <a id="{0}"  name='btn-details' class='btn btn-sm btn-default detailMaintenance'><span th:text="#{global.detail}"></span></a>
                 </div>
             </div>
             <!-- 爲了授權管理新增的div end-->
@@ -63,7 +63,7 @@
                             <th class="dataTables_empty sorting_disabled dt-nowrap" rowspan="1" colspan="1" style="width: 10%;">
                                 <div th:text="#{api.history.userName}">user name</div>
                             </th>
-                            <th class="dataTables_empty sorting_disabled dt-nowrap" rowspan="1" colspan="1" style="width: 15%;">
+                            <th class="dataTables_empty sorting_disabled dt-nowrap" rowspan="1" colspan="1" style="width: 20%;">
                                 <div th:text="#{api.history.API}">API </div>
                             </th>
                             <th class="dataTables_empty sorting_disabled dt-nowrap" rowspan="1" colspan="1" style="width: 15%;">
@@ -71,11 +71,11 @@
                             </th>
 
 
-                            <th class="dataTables_empty sorting_disabled" style="width: 15%;" rowspan="1" colspan="1">
+                            <th class="dataTables_empty sorting_disabled" style="width: 45%;" rowspan="1" colspan="1">
                                 <div th:text="#{api.history.inputParams}">input params</div>
                             </th>
 
-                            <th class="dataTables_empty sorting_disabled" style="width: 10%;" rowspan="1" colspan="1">
+                            <th class="dataTables_empty sorting_disabled" style="width: 5%;" rowspan="1" colspan="1">
                                 <div th:text="#{api.history.result}">result</div>
                             </th>
 
