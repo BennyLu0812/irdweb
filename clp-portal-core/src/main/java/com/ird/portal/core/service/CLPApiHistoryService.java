@@ -27,4 +27,11 @@ public interface CLPApiHistoryService {
      */
     CLPApiHistoryDTO getApiHistoryDTOById(String apiHistoryId);
 
+    /**
+     * 保存api history info.
+     * @param clpApiHistoryDTO history info
+     * @return
+     */
+    CLPApiHistoryDTO doSave(CLPApiHistoryDTO clpApiHistoryDTO);
+
 }

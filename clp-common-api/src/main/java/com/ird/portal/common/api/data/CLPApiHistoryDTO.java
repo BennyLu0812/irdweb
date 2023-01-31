@@ -1,6 +1,7 @@
 package com.ird.portal.common.api.data;
 
 import com.ird.portal.data.BaseDTO;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 /**
  * @author Benny
@@ -108,5 +109,10 @@ public class CLPApiHistoryDTO extends BaseDTO {
 
     public void setApiFilePath(String apiFilePath) {
         this.apiFilePath = apiFilePath;
+    }
+
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.reflectionToString(this);
     }
 }

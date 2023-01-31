@@ -45,4 +45,14 @@ public class CLPApiHistoryServiceImpl implements CLPApiHistoryService {
         }
         return new CLPApiHistoryDTO();
     }
+
+    @Override
+    public CLPApiHistoryDTO doSave(CLPApiHistoryDTO clpApiHistoryDTO) {
+        if (clpApiHistoryDTO != null) {
+            CLPApiHistoryEntity clpApiHistoryEntity = beanMapper.mapTo(clpApiHistoryDTO, CLPApiHistoryEntity.class);
+            CLPApiHistoryEntity clpApiHistoryEntity1 =(CLPApiHistoryEntity) clpApiHistoryMapper.insert(clpApiHistoryEntity);
+            return beanMapper.mapTo(clpApiHistoryEntity1, CLPApiHistoryDTO.class);
+        }
+        return clpApiHistoryDTO;
+    }
 }
