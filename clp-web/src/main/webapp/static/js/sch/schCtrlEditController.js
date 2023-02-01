@@ -7,9 +7,15 @@ require(['jquery','atosBaseController', 'Vue', 'axios', 'atosUtil', 'axios.confi
         'use strict'; // 使用JS嚴格模式.
 
         var controller = atosBaseController({}, {
+            // 統一定義變量.
+            variables: {
+                datatable: null,
+                i18n: {}
+            },
             init: function () {
                 var self = this;
-                atosUtil.getI18nByModules('global,validation', function() {
+                atosUtil.getI18nByModules('global,validation, api', function(result) {
+                    self.variables.i18n = result;
                     self.initVue();
                     // self.vaildate();
                 });
@@ -46,9 +52,35 @@ require(['jquery','atosBaseController', 'Vue', 'axios', 'atosUtil', 'axios.confi
                                     message: atosUtil.getI18nMessage('validation.invalidNaming')
                                 }
                             }
+                        },
+                        dataCentreId: {
+                            validators: {
+                                stringLength : {
+                                    min : 7,
+                                    max : 15,
+                                    message : that.getI18nMessage('api.vaildate.msg.errorLength',['7~15'])
+                                }
+                            }
                         }
                     }
                 });
+            },
+            /**
+             * 根據模組簡稱及參數（可選），格式化國際化資源消息
+             * @param code 模組簡稱
+             * @param args 數組參數，比如確定刪除{0}嗎？，args代表佔位符{0}
+             */
+            getI18nMessage: function(code, args) {
+                var that = this;
+                var message = that.variables.i18n[code];
+                if (message) {
+                    if (!args) {
+                        return message;
+                    }
+                    return message.format(args);
+                } else {
+                    return code;
+                }
             },
             initVue: function () {
                 new Vue({
@@ -61,11 +93,12 @@ require(['jquery','atosBaseController', 'Vue', 'axios', 'atosUtil', 'axios.confi
                             jobCode: "",
                             cronChar: "",
                             clsName: "",
-                            isSync: "",
-                            jobType: "",
+                            isSync: "true",
+                            jobType: "JAVA",
                             dataDir: "",
                             dataDays: "",
-                            enabled: ""
+                            enabled: "",
+                            dataCentreId:""
 
                         }
                     },

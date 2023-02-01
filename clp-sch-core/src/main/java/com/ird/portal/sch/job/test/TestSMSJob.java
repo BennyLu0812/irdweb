@@ -27,6 +27,7 @@ public class TestSMSJob implements Task {
             String cronDate = context.getCronDate();
             logger.info("===before executing===");
 
+            System.out.println("getDataCentreId="+context.getDataCentreId());
             batchResult.setStatus(JobStatus.PROGRESS);
 
             System.out.println("test SMSJob");

@@ -38,7 +38,7 @@ require([
                         status : "",
                         createDate : "",
                         roleIds : [],
-                        userType : ""
+                        userType : "L"
                     },
                     statusUrl: basePath + '/sys/user/status',
                     statusOptions: [],

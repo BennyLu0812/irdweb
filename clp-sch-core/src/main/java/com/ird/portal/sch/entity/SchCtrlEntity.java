@@ -66,6 +66,12 @@ public class SchCtrlEntity extends AbstractEntity {
 
     /** 工作狀態 */
     private String workStatus;
+
+    /**
+     * API 入參dataCentreId
+     * */
+    private String dataCentreId;
+
     
     @Id
     @Column(name = "SCH_CTRL_ID")
@@ -195,5 +201,14 @@ public class SchCtrlEntity extends AbstractEntity {
 
     public void setWorkStatus(String workStatus) {
         this.workStatus = workStatus;
+    }
+
+    @Column(name = "DATA_CENTRE_ID")
+    public String getDataCentreId() {
+        return dataCentreId;
+    }
+
+    public void setDataCentreId(String dataCentreId) {
+        this.dataCentreId = dataCentreId;
     }
 }

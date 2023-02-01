@@ -212,7 +212,7 @@ public class SchCtrlLogDTO extends BaseDTO {
 
     public String getStartTimeDesc() {
         if (startTime != null){
-           return DateUtil.format(startTime,DateUtil.DATE_TIME_PATTERN);
+           return DateUtil.format(startTime,DateUtil.DATE_FORMAT);
         }
         return startTimeDesc;
     }
@@ -223,7 +223,7 @@ public class SchCtrlLogDTO extends BaseDTO {
 
     public String getEndTimeDesc() {
         if (endTime != null){
-            return DateUtil.format(endTime,DateUtil.DATE_TIME_PATTERN);
+            return DateUtil.format(endTime,DateUtil.DATE_FORMAT);
         }
         return endTimeDesc;
     }

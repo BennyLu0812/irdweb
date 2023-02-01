@@ -12,7 +12,7 @@
 <!--         <div th:replace="fragments/layout :: content_header(|#{schCtrl.header.title}|, 'DLS-SHC-001')">SCREEN-ID</div> -->
 
         <form id="fm-search" class="form-horizontal margin-top-10">
-             <div class="row">
+             <!--<div class="row">
                <div class="form-group col-sm-6">
                   <label class="control-label col-sm-2" for="sysCode" th:text="#{schCtrl.sysCode}">模組名</label>
                   <div class="col-sm-9">
@@ -26,7 +26,7 @@
                       <input id="jobUse" name="jobUse" v-model="schCtrl.jobUse" class="form-control" readonly>
                   </div>
                </div> 
-            </div>
+            </div>-->
             <div class="row">
                <div class="form-group col-sm-6">
                   <label class="control-label col-sm-2" for="jobCode" th:text="#{schCtrl.jobCode}">任務名稱</label>
@@ -75,49 +75,49 @@
                        </select>
                   </div>
                </div>
-                
-               <div class="form-group col-sm-6">
-                  <label class="control-label col-sm-2" for="dataDir" th:text="#{schCtrl.dataDir}">文件存放路徑</label>
-                  <div class="col-sm-9">
-                      <input id="dataDir" name="dataDir" v-model="schCtrl.dataDir" class="form-control" readonly >
-                  </div>
-               </div> 
+
+                <div class="form-group col-sm-6">
+                    <label class="control-label col-sm-2" for="enabled" th:text="#{schCtrl.enabled}">啓用/禁用</label>
+                    <div class="col-sm-9">
+                        <select id="enabled" name="enabled" v-model="schCtrl.enabled" class="form-control" disabled >
+                            <option value="" th:text="#{schCtrl.choose}">請選擇</option>
+                            <option value="true" th:text="#{schCtrl.enabled.true}">啓用</option>
+                            <option value="false" th:text="#{schCtrl.enabled.false}">禁用</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!--<div class="form-group col-sm-6">
+                   <label class="control-label col-sm-2" for="dataDir" th:text="#{schCtrl.dataDir}">文件存放路徑</label>
+                   <div class="col-sm-9">
+                       <input id="dataDir" name="dataDir" v-model="schCtrl.dataDir" class="form-control" readonly >
+                   </div>
+                </div> -->
             </div>
             <div class="row">
-               <div class="form-group col-sm-6">
+               <!--<div class="form-group col-sm-6">
                   <label class="control-label col-sm-2" for="dataDays" th:text="#{schCtrl.dataDays}">導出數據(天)</label>
                   <div class="col-sm-9">
                       <input id="dataDays" name="dataDays" v-model="schCtrl.dataDays" class="form-control"  readonly>
                   </div>
-               </div>
-                
-               <div class="form-group col-sm-6">
-                  <label class="control-label col-sm-2" for="enabled" th:text="#{schCtrl.enabled}">啓用/禁用</label>
-                  <div class="col-sm-9">
-	                  <select id="enabled" name="enabled" v-model="schCtrl.enabled" class="form-control" disabled >
-	                      <option value="" th:text="#{schCtrl.choose}">請選擇</option>
-	                      <option value="true" th:text="#{schCtrl.enabled.true}">啓用</option>
-	                      <option value="false" th:text="#{schCtrl.enabled.false}">禁用</option>
-	                  </select>
-                  </div>
-               </div> 
+               </div>-->
             </div>
             <input type="hidden" id="jobCtrlId" name="jobCtrlId" v-model="schCtrl.id" >
         </form>
         <!-- Table -->
-        <table id="table" class="table table-bordered table-hover table-condensed" cellspacing="0" width="100%">
+        <table id="jobDetailTable" class="table table-bordered table-hover table-condensed" cellspacing="0" width="100%">
             <thead>
                 <tr>
                     <th th:text="#{jobCtrlLog.jobName}">Job Code</th>
                     <th th:text="#{jobCtrlLog.recProcessed}">處理記錄數</th>
                     <th th:text="#{jobCtrlLog.recPending}">未處理記錄數</th>
-                    <th th:text="#{jobCtrlLog.recInsert}">新增記錄數</th>
+                    <!--<th th:text="#{jobCtrlLog.recInsert}">新增記錄數</th>
                     <th th:text="#{jobCtrlLog.recUpdate}">更新記錄數</th>
-                    <th th:text="#{jobCtrlLog.recDelete}">刪除記錄數</th>
+                    <th th:text="#{jobCtrlLog.recDelete}">刪除記錄數</th>-->
                     <th th:text="#{jobCtrlLog.startTime}">開始時間</th>
                     <th th:text="#{jobCtrlLog.endTime}">結束時間</th>
                     <th th:text="#{jobCtrlLog.status}">工作狀態</th>
-                    <th th:text="#{jobCtrlLog.latestJobInd}">是否最新工作</th>
+                    <!--<th th:text="#{jobCtrlLog.latestJobInd}">是否最新工作</th>-->
                 </tr>
             </thead>
         </table>

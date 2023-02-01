@@ -9,7 +9,7 @@ import java.util.Map;
 
 public enum UserStatusEnum implements BaseEnum<String> {
     
-    ACTIVE("A","A - Activo - 有效"), DELETED("D","D-删除-删除"), STOPPED("S","S - Invalid - 失效");
+    ACTIVE("A","A - Active - 有效"), DELETED("D","D - Deleted - 删除"), STOPPED("I","I - Invalid - 失效");
     
     private String code;
     private String text;

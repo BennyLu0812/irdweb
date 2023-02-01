@@ -9,7 +9,7 @@ import java.util.Map;
 
 public enum RoleStatusEnum implements BaseEnum<String> {
     
-    ACTIVE("A","A - Activo - 有效"), STOPPED("S","S - Invalid - 失效");
+    ACTIVE("A","A - Active - 有效"), STOPPED("I","I - Invalid - 失效");
     
     private String code;
     private String text;

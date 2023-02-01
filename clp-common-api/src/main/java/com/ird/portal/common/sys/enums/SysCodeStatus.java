@@ -20,7 +20,7 @@ import java.util.Map;
  */
 public enum SysCodeStatus implements BaseEnum<String> {
     
-    ACTIVE("A", "A - Activo - 有效"),
+    ACTIVE("A", "A - Active - 有效"),
     INVALID("I", "I - Invalid - 失效"),
     DELETE("D", "D - Delete - 删除");
     

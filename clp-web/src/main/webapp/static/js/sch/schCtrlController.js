@@ -26,7 +26,8 @@ require([
         var controller = atosBaseController(momentConfig, {
             // 統一定義變量.
             variables: {
-                datatable: null
+                datatable: null,
+                i18n: {}
             },
             // 统一传参
             params: {
@@ -34,7 +35,8 @@ require([
             //所有初始化的入口處
             init: function () {
                 var self = this;
-                atosUtil.getI18nByModules('sys',function () {
+                atosUtil.getI18nByModules('sys, sch',function (result) {
+                    self.variables.i18n = result;
                     self.initDatatables();
                     self.initEvent();
                 });
@@ -43,6 +45,8 @@ require([
             },
             //初始化dataTables
             initDatatables: function () {
+                var that = this;
+
                 this.variables.datatable = $('#table').DataTable(
                     {
                         serverSide: true,
@@ -64,8 +68,6 @@ require([
                             selector: 'td'
                         },
                         columns: [{
-                            "data": "sysCode"
-                        }, {
                             "data": "jobCode",
                             className: 'dt-nowrap',
                             "width": "15%"
@@ -78,45 +80,40 @@ require([
                             className: 'dt-nowrap',
                             "width": "15%"
                         }, {
-                            "data": "isSync",
-                            render: function (data, type, row) {
-                                if (data == true) {
-                                    return '<span>同步</span>';
-                                } else {
-                                    return '<span>異步</span>';
-                                }
-                            }
-                        }, {
                             "data": "enabled",
                             render: function (data, type, row) {
                                 if (data == true) {
-                                    return '<span>啓用</span>';
+                                    var enableText = that.variables.i18n['schCtrl.enabled.true'];
+                                    return '<span>' + enableText + '</span>';
                                 } else {
-                                    return '<span>禁用</span>';
+                                    var disableText = that.variables.i18n['schCtrl.enabled.false'];
+                                    return '<span>' + disableText + '</span>';
                                 }
-                            }
+                            },
+                            "width": "10%"
                         }, {
                             "data": "workStatus",
                             render: function (data, type, row) {
+                                var workStatusText;
                                 if (data == 'NONE') {
-                                    return '<span>沒有運行</span>';
+                                    workStatusText = that.variables.i18n['schCtrl.status.none'];
                                 } else if (data == 'NORMAL') {
-                                    return '<span>正在運行</span>';
+                                    workStatusText = that.variables.i18n['schCtrl.status.normal'];
                                 } else if (data == 'PAUSED') {
-                                    return '<span>暫停</span>';
+                                    workStatusText = that.variables.i18n['schCtrl.status.paused'];
                                 } else if (data == 'COMPLETE') {
-                                    return '<span>完成</span>';
+                                    workStatusText = that.variables.i18n['schCtrl.status.complete'];
                                 } else if (data == 'ERROR') {
-                                    return '<span>出錯</span>';
+                                    workStatusText = that.variables.i18n['schCtrl.status.error'];
                                 } else if (data == 'BLOCKED') {
-                                    return '<span>禁用</span>';
+                                    workStatusText = that.variables.i18n['schCtrl.status.blocked'];
+                                } else {
+                                    workStatusText = '--';
                                 }
-                                return '--';
-                            }
-                        }, {
-                            "data": "jobUse",
-                            className: 'dt-nowrap',
-                            "width": "20%"
+
+                                return '<span>' + workStatusText + '</span>';
+                            },
+                            "width": "10%"
                         }, {
                             "data": "action",
                             "width": "7%",
@@ -131,23 +128,23 @@ require([
                                         + i18n.update+'</a>'
                                         + '<button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>'
                                         + '<ul class="dropdown-menu dropdown-menu-right" role="menu">'
-                                        + '<li><a href="sch_detail.html?id=' + row.id + '" >詳情</a><li>';
+                                        + '<li><a href="sch_detail.html?id=' + row.id + '" >detail</a><li>';
                                     if (row.workStatus == 'NONE') {
-                                        html += '<li><a href="#" onclick="controller.doStart(\'' + row.id + '\')" >啓動</a><li>';
+                                        html += '<li><a href="#" onclick="controller.doStart(\'' + row.id + '\')" >start</a><li>';
                                     }
                                     if (row.workStatus == 'NORMAL') {
-                                        html += '<li><a href="#" onclick="controller.doPause(\'' + row.id + '\')" >暫停</a><li>';
-                                        html += '<li><a href="#" onclick="controller.doRunOnce(\'' + row.id + '\')" >立即運行</a><li>';
+                                        html += '<li><a href="#" onclick="controller.doPause(\'' + row.id + '\')" >pause</a><li>';
+                                        html += '<li><a href="#" onclick="controller.doRunOnce(\'' + row.id + '\')" >runOnce</a><li>';
                                     }
                                     if (row.workStatus == 'PAUSED') {
-                                        html += '<li><a href="#" onclick="controller.doRestart(\'' + row.id + '\')">重新啓動</a><li>';
+                                        html += '<li><a href="#" onclick="controller.doRestart(\'' + row.id + '\')">restart</a><li>';
                                     }
                                     html += '</ul></div>';
                                     return html;
                                 },
-                                targets: 8
+                                targets: 5
                             }, {
-                                targets: [1, 3, 7],
+                                targets: [0, 2],
                                 createdCell: function (td, cellData, rowData, row, col) {
                                     $(td).attr({
                                         'data-toggle': 'tooltip',

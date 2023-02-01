@@ -68,6 +68,11 @@ public class SchCtrlDTO extends BaseDTO {
     private Integer dataDays;
     /** 是否啓用JOB */
     private Boolean enabled;
+    /**
+     * API 入參dataCentreId
+     * */
+    private String dataCentreId;
+
     
     public Long getId() {
         return id;
@@ -190,5 +195,13 @@ public class SchCtrlDTO extends BaseDTO {
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public String getDataCentreId() {
+        return dataCentreId;
+    }
+
+    public void setDataCentreId(String dataCentreId) {
+        this.dataCentreId = dataCentreId;
     }
 }

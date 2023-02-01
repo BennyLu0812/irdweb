@@ -5,6 +5,7 @@
 require([
     'jquery',
     'atosBaseController',
+    'atosUtil',
     'moment.config',
     'Vue',
     'axios',
@@ -13,7 +14,7 @@ require([
     'datatables',
     'datatables.config'
 ],
-    function ($, atosBaseController, momentConfig, Vue, axios) {
+    function ($, atosBaseController, atosUtil, momentConfig, Vue, axios) {
 
         'use strict'; // 使用JS嚴格模式.
 
@@ -32,15 +33,20 @@ require([
                     dataDays: "",
                     enabled: ""
 
-                }
+                },
+                i18n: {}
             },
             init: function () {
-                this.initVue();
-                this.initDatatables();
+                var self = this;
+                atosUtil.getI18nByModules('sys, sch',function (result) {
+                    self.variables.i18n = result;
+                    self.initVue();
+                    self.initDatatables();
+                });
             },
             initDatatables: function () {
                 var self = this;
-                $('#table').DataTable({
+                $('#jobDetailTable').DataTable({
                     serverSide: true,
                     processing: true,
                     paging: true,
@@ -65,33 +71,23 @@ require([
                     }, {
                         data: 'recPending'
                     }, {
-                        data: 'recInsert'
-                    }, {
-                        data: 'recUpdate'
-                    }, {
-                        data: 'recDelete'
-                    }, {
                         data: 'startTimeDesc'
                     }, {
                         data: 'endTimeDesc'
                     }, {
                         data: 'status',
                         render: function (data, type, row) {
+                            var workStatusText;
                             if (data == 'PROGRESS') {
-                                return '<span>处理中</span>';
+                                workStatusText = self.variables.i18n['jobCtrlLog.status.progress'];
                             } else if (data == 'COMPLETE') {
-                                return '<span>完成</span>';
+                                workStatusText = self.variables.i18n['jobCtrlLog.status.complete'];
                             } else if (data == 'FAILED') {
-                                return '<span>失敗</span>';
+                                workStatusText = self.variables.i18n['jobCtrlLog.status.failed'];
+                            } else {
+                                workStatusText = '--';
                             }
-                        }
-                    }, {
-                        data: 'latestJobInd',
-                        render: function (data, type, row) {
-                            if (data == true) {
-                                return '是';
-                            }
-                            return '否';
+                            return '<span>' + workStatusText + '</span>';
                         }
                     }]
                 });
