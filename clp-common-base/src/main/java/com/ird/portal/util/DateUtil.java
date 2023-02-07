@@ -24,7 +24,7 @@ public final class DateUtil {
 
     private DateUtil(){}
 
-    private static final String DATE_PATTERN_1 = "yyyyMMdd";
+    public static final String DATE_PATTERN_1 = "yyyyMMdd";
 
     public static final String DATE_PATTERN = "dd/MM/yyyy";
     

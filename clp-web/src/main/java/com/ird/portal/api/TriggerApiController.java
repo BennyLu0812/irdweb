@@ -4,7 +4,12 @@ import com.ird.portal.common.api.data.APIRequestDTO;
 import com.ird.portal.common.api.data.CLPApiHistoryDTO;
 import com.ird.portal.common.api.data.UploadFileDTO;
 import com.ird.portal.core.service.CLPApiHistoryService;
+import com.ird.portal.exception.ErrorMessageHelper;
+import com.ird.portal.exception.SysException;
 import com.ird.portal.model.Page;
+import com.ird.portal.util.DateUtil;
+import com.ird.portal.util.SysParamsConstant;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Controller;
@@ -15,7 +20,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -35,6 +42,9 @@ public class TriggerApiController {
 
     @Autowired
     private CLPApiHistoryService clpApiHistoryService;
+
+
+
 
     @GetMapping("/alertBlackoutCreate.html")
     public String alertBlackoutCreateRequest() {
@@ -107,9 +117,34 @@ public class TriggerApiController {
             uploadFileDTO.setFileBytes(bytes);
             uploadFileDTO.setFileValue(new String(bytes,"utf-8"));
             uploadFileDTO.setSize(f1);
-            uploadFileDTO.setFileName(multipartFile.getName());
-            System.out.println(uploadFileDTO.toString());
+            uploadFileDTO.setFileName(multipartFile.getOriginalFilename());
         }
+        // 保存creFile
+        StringBuffer savePath = new StringBuffer();
+        savePath.append(SysParamsConstant.getParamValue("CER_FILE_SAVE_PATH"));
+        savePath.append("\\"+DateUtil.format(new Date(), DateUtil.DATE_PATTERN_1));
+        File fileDir = new File(savePath.toString());
+        if (!fileDir.exists()) {
+            fileDir.mkdir();
+        }
+        savePath.append("\\"+uploadFileDTO.getFileName());
+        File cerFile = new File(savePath.toString());
+        if (!cerFile.exists()) {
+            // 保存cerfile
+            try (InputStream inputStream = new ByteArrayInputStream(uploadFileDTO.getFileBytes());
+                 OutputStream outputStream = new FileOutputStream(savePath.toString())
+            ) {
+                byte[] bytes = new byte[1024];
+                int n;
+                while ( (n=inputStream.read(bytes)) != -1){
+                    outputStream.write(bytes, 0, n);
+                }
+            } catch (Exception e) {
+                throw new SysException(ErrorMessageHelper.getErrorMessageWithCode("F-0103", "IO exception in X509CertFile"));
+            }
+        }
+        uploadFileDTO.setFilePath(savePath.toString());
+
         return new HttpEntity<UploadFileDTO>(uploadFileDTO);
     }
 
@@ -141,5 +176,46 @@ public class TriggerApiController {
         return new HttpEntity<CLPApiHistoryDTO>(dto);
     }
 
+    /**
+     * 下載cer文件
+     * @param apiHistoryId
+     * @param response
+     * @param request
+     * @throws Exception
+     */
+
+    @GetMapping("/downloadFile/{apiHistoryId}")
+    public void batchPrintLicense(@PathVariable("apiHistoryId") String apiHistoryId, HttpServletResponse response,HttpServletRequest request) throws Exception {
+
+        CLPApiHistoryDTO dto = clpApiHistoryService.getApiHistoryDTOById(apiHistoryId);
+        if (dto != null && StringUtils.isNotBlank(dto.getApiFilePath()) && StringUtils.isNotBlank(dto.getApiFileName())) {
+            //String fileName = dto.getApiFilePath().substring(dto.getApiFilePath().lastIndexOf(File.separator));
+            String name_prefix = dto.getApiFileName().substring(0, dto.getApiFileName().lastIndexOf("."));
+            //System.out.println(name_prefix);
+            String fileName = name_prefix + DateUtil.format(new Date(), DateUtil.DATE_TIME_SYSTEM_PATTERN) + ".cer";
+
+            response.setCharacterEncoding("utf-8");
+            response.setContentType("application/force-download");
+            response.setHeader("Content-Transfer-Encoding", "binary");
+            response.setHeader("Content-Disposition","attachment; filename=" + fileName);
+            File file = new File(dto.getApiFilePath());
+            if (!file.exists()){
+                throw new SysException(ErrorMessageHelper.getErrorMessageWithCode("F-0103",
+                        "Failed to find file from " + dto.getApiFilePath()));
+            }
+            try (InputStream inputStream = new FileInputStream(file);
+                 OutputStream outputStream = new BufferedOutputStream(response.getOutputStream())) {
+                byte[] bytes = new byte[1024];
+                int n;
+                while ( (n=inputStream.read(bytes)) != -1){
+                    outputStream.write(bytes, 0, n);
+                }
+            } catch (Exception e) {
+                throw new SysException(ErrorMessageHelper.getErrorMessageWithCode("F-0103", "IO exception in X509CertFile"));
+            }
+        } else {
+            throw new SysException(ErrorMessageHelper.getErrorMessageWithCode("F-0103", "Could not find X509CertFile"));
+        }
+    }
 
 }

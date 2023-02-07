@@ -55,8 +55,8 @@ public class EmailServiceImplTest  {
     @Rollback(false)
     public void testSaveApiHistory() {
         CLPApiHistoryDTO clpApiHistoryDTO = new CLPApiHistoryDTO();
-        clpApiHistoryDTO.setApiName("alertBlackoutAPICancelRequest");
-        clpApiHistoryDTO.setApiRequestParams("{\"dataCentreId\": \"111111111122222\"\n" +
+        clpApiHistoryDTO.setApiName("securityEventAPIRequest");
+        clpApiHistoryDTO.setApiRequestParams("{\"dataCentreId\": \"111111111122224\"\n" +
                 "\"blackoutWindowBegin\": \"2022-02-13T19:45:00+08:00\"\n" +
                 "\"blackoutWindowEnd\": \"2022-02-13T22:45:00+08:00\"\n" +
                 "\"timeStampSent\": \"2022-02-13T09:46:28.061+08:00\"\n" +

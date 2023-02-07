@@ -48,10 +48,26 @@
                 </div>
             </div>
 
-
-            <div id="historyDiv_NotAllowed_DPRM" style="display:none">
+            <div id="historyDiv_not_Download" style="display:none">
                 <div class='btn-group' v-cloak>
                     <a id="{0}"  name='btn-details' class='btn btn-sm btn-default detailMaintenance'><span th:text="#{global.detail}"></span></a>
+                </div>
+            </div>
+            <div id="historyDiv_enable_Download" style="display:none">
+                <div class='btn-group' v-cloak>
+                    <a id="{0}"  name='btn-details' class='btn btn-sm btn-default detailMaintenance'><span th:text="#{global.detail}"></span></a>
+
+                    <button type='button' class='btn btn-sm btn-default dropdown-toggle' data-toggle='dropdown'>
+                        <span class='caret'></span>
+                        <span class='sr-only'></span>
+                    </button>
+                    <ul class='dropdown-menu dropdown-menu-right' role='menu'>
+                        <li style="cursor: pointer;"  >
+                            <a id={0} name='btn-download'  class='tzCalendar'>
+                                <i class='glyphicon glyphicon-print'></i>&nbsp;<span th:text="#{global.download}"></span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <!-- 爲了授權管理新增的div end-->

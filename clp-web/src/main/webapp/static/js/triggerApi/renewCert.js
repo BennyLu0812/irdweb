@@ -90,8 +90,6 @@ require([
             // 初始化事件
             initEvent: function() {
                 var self = this;
-
-
                 $('#uploadCer').fileinput({
                     uploadUrl: basePath + '/triggerApi/uploadX509CertFile', // you must set a valid URL here else you will get an error
                     uploadAsync: false,
@@ -112,11 +110,6 @@ require([
                 }).on('filebatchuploadsuccess', function (event, data) {
                     self.fileuploaderror='';
                     console.log(data);
-                    /*if (vModel.foreignLicenseId && vModel.licCatId) {
-                        parent.controller.reloadDatatable();
-                        parent.controller.variables.vue.getForeignLic();
-                        parent.$.fancybox.close();
-                    }*/
                 }).on('fileuploaderror', function(event, data, msg) {
                     self.fileuploaderror=msg;
                 }).on('fileclear', function(event) {

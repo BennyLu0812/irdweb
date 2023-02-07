@@ -14,6 +14,7 @@ public class UploadFileDTO {
     private String fileValue;
     private String fileName;
     private byte[] fileBytes;
+    private String filePath;
 
     public BigDecimal getSize() {
         return size;
@@ -45,6 +46,14 @@ public class UploadFileDTO {
 
     public void setFileBytes(byte[] fileBytes) {
         this.fileBytes = fileBytes;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
     @Override

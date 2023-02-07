@@ -2,10 +2,10 @@ package com.ird.portal.core.mapper;
 
 import com.ird.portal.common.api.data.APIRequestDTO;
 import com.ird.portal.common.api.data.CLPApiHistoryDTO;
-import com.ird.portal.core.dao.PortalDao;
 import com.ird.portal.core.entity.CLPApiHistoryEntity;
 import com.ird.portal.dao.AbstractCommonDao;
 import com.ird.portal.dao.AbstractMapper;
+import com.ird.portal.dao.JpaSqlDao;
 import com.ird.portal.datatable.DataTablePage;
 import com.ird.portal.datatable.DatatableDaoCmd;
 import com.ird.portal.model.Page;
@@ -21,14 +21,14 @@ import org.springframework.stereotype.Repository;
 public class CLPApiHistoryMapper extends AbstractMapper<CLPApiHistoryEntity> {
 
     @Autowired
-    private PortalDao portalDao;
+    private JpaSqlDao dao;
 
     @Override
     protected AbstractCommonDao getDao() {
-        return portalDao;
+        return dao;
     }
 
-    private static final String SQL_GET_API_HISTORY_LIST_PAGE = "geCLPApiHistoryList";
+    private static final String SQL_GET_API_HISTORY_LIST_PAGE = "geCLPApiHistoryPage";
 
 
     /**

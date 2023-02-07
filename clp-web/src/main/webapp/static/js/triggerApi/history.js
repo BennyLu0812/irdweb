@@ -123,17 +123,21 @@ require([
                             "width" : "15%"
                         }, {
                             "data" : "apiRequestParams",
-                            "width" : "45%"
+                            "width" : "40%"
                         }, {
                             "data" : "apiResponseStatus",
                             "width" : "5%"
                         }, {
                             "data" : "column6",
-                            "width" : "5%"
+                            "width" : "10%"
                         } ],
                         columnDefs : [{
                             render : function(data, type, row) {
-                                return atosUtil.formatHtml('historyDiv_NotAllowed_DPRM', [row.apiHistoryId]);
+                                if (row.apiName == 'renewCertResponse') {
+                                    return atosUtil.formatHtml('historyDiv_enable_Download', [row.apiHistoryId]);
+                                } else {
+                                    return atosUtil.formatHtml('historyDiv_not_Download', [row.apiHistoryId]);
+                                }
                             },
                             targets : 5
                         }]
@@ -142,6 +146,11 @@ require([
                 $(document).on("click", 'a[name="btn-details"]', function() {
                     var id = $(this).attr("id");
                     that.onDetailsBtnEvent(id);
+                });
+                // 下載證書
+                $(document).on("click", 'a[name="btn-download"]', function() {
+                    var id = $(this).attr("id");
+                    that.doDownloadFile(id);
                 });
             },
             // 初始化事件
@@ -239,6 +248,34 @@ require([
                     type : 'iframe',
                     width : '100%',
                     height : '100%'
+                });
+            },
+            // 下載證書
+            doDownloadFile: function(apiHistoryId){
+                /*if(window.navigator.userAgent.indexOf("Chrome") > -1){
+                    $.fancybox.open({
+                        href : basePath + '/triggerApi/downloadFile/'+apiHistoryId,
+                        type : 'iframe',
+                        padding : 14,
+                        width : '100%',
+                        height : '100%',
+                    });
+                }else {
+                    window.location.href = basePath + '/triggerApi/downloadFile/'+apiHistoryId;
+                }*/
+
+
+                axios({
+                    method: 'get',
+                    url: basePath + '/triggerApi/downloadFile/'+apiHistoryId,
+                    responseType: 'blob',
+                    data : $('#fm-search').serializeObject(),
+                    contentType : "application/json; charset=utf-8",
+                    dataType : "json",
+                    handleResponse : false,
+                    loading : true
+                }).then(function(response){
+                    atosUtil.download(response);
                 });
             },
             // 查詢

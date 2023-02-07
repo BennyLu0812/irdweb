@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <queries>
 
-    <geCLPApiHistoryList type="sql">
+    <geCLPApiHistoryPage type="sql">
         <![CDATA[
             select
-            API_HISTORY_ID as apiHistoryId,
-            API_NAME as apiName,
-            API_REQUEST_PARAMS as apiRequestParams,
-            API_RESPONSE_VALUES as apiResponseValues,
-            API_RESPONSE_STATUS as apiResponseStatus,
-            API_MEDIA_TYPE as apiMediaType,
-            API_FILE_NAME as apiFileName,
-            API_FILE_PATH as apiFilePath,
-            CREATE_USER as createUser,
-            CREATE_DATE as createDate,
-            LAST_UPD_USER as lastUpdUser,
-            LAST_UPD_DATE as lastUpdDate
+            API_HISTORY_ID  "apiHistoryId",
+            API_NAME "apiName",
+            API_REQUEST_PARAMS "apiRequestParams",
+            API_RESPONSE_VALUES "apiResponseValues",
+            API_RESPONSE_STATUS "apiResponseStatus",
+            API_MEDIA_TYPE "apiMediaType",
+            API_FILE_NAME "apiFileName",
+            API_FILE_PATH "apiFilePath",
+            CREATE_USER "createUser",
+            CREATE_DATE "createDate",
+            LAST_UPD_USER "lastUpdUser",
+            LAST_UPD_DATE "lastUpdDate",
+            ROW_NUMBER() over (order by CREATE_DATE desc) as "num"
 
-            from CLP_API_HISTORY
+            from CLP_API_HISTORY with (nolock)
             where 1=1
             <#if createUser?? && createUser !!=''>
 	            and CREATE_USER =:createUser
@@ -36,7 +37,8 @@
 	                and CREATE_DATE <= :createDateTo
                 </#if>
             </#if>
+
         ]]>
-    </geCLPApiHistoryList>
+    </geCLPApiHistoryPage>
 
 </queries>
