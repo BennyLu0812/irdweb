@@ -122,12 +122,14 @@ public class TriggerApiController {
         // 保存creFile
         StringBuffer savePath = new StringBuffer();
         savePath.append(SysParamsConstant.getParamValue("CER_FILE_SAVE_PATH"));
-        savePath.append("\\"+DateUtil.format(new Date(), DateUtil.DATE_PATTERN_1));
+        savePath.append("\\" + DateUtil.format(new Date(), DateUtil.DATE_PATTERN_1));
         File fileDir = new File(savePath.toString());
         if (!fileDir.exists()) {
             fileDir.mkdir();
         }
-        savePath.append("\\"+uploadFileDTO.getFileName());
+        savePath.append("\\" + uploadFileDTO.getFileName().substring(0, uploadFileDTO.getFileName().lastIndexOf(".")));
+        savePath.append("_" + DateUtil.format(new Date(), DateUtil.DATE_TIME_SYSTEM_PATTERN));
+        savePath.append(uploadFileDTO.getFileName().substring(uploadFileDTO.getFileName().lastIndexOf(".")));
         File cerFile = new File(savePath.toString());
         if (!cerFile.exists()) {
             // 保存cerfile
@@ -189,11 +191,9 @@ public class TriggerApiController {
 
         CLPApiHistoryDTO dto = clpApiHistoryService.getApiHistoryDTOById(apiHistoryId);
         if (dto != null && StringUtils.isNotBlank(dto.getApiFilePath()) && StringUtils.isNotBlank(dto.getApiFileName())) {
-            //String fileName = dto.getApiFilePath().substring(dto.getApiFilePath().lastIndexOf(File.separator));
-            String name_prefix = dto.getApiFileName().substring(0, dto.getApiFileName().lastIndexOf("."));
-            //System.out.println(name_prefix);
-            String fileName = name_prefix + DateUtil.format(new Date(), DateUtil.DATE_TIME_SYSTEM_PATTERN) + ".cer";
-
+            // String fileName = dto.getApiFilePath().substring(dto.getApiFilePath().lastIndexOf(File.separator));
+            // String name_prefix = dto.getApiFileName().substring(0, dto.getApiFileName().lastIndexOf("."));
+            String fileName = dto.getApiFileName();
             response.setCharacterEncoding("utf-8");
             response.setContentType("application/force-download");
             response.setHeader("Content-Transfer-Encoding", "binary");
