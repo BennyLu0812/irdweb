@@ -1,6 +1,7 @@
 package com.ird.portal.core.service;
 
 import com.ird.portal.common.api.data.APIRequestDTO;
+import com.ird.portal.common.api.data.APIResponseDTO;
 import com.ird.portal.common.api.data.CLPApiHistoryDTO;
 import com.ird.portal.model.Page;
 
@@ -33,6 +34,13 @@ public interface CLPApiHistoryService {
      * @return
      */
     CLPApiHistoryDTO doSave(CLPApiHistoryDTO clpApiHistoryDTO);
+
+    /**
+     * 調用接口。
+     * @param apiRequestDTO
+     * @return
+     */
+    APIResponseDTO doTriggerAPI(APIRequestDTO apiRequestDTO);
 
 
 

@@ -46,33 +46,43 @@ require([
             initVue: function() {
                 var self = this;
                 this.vue = new Vue({
-                    el: '#renewCertResponseApp',
+                    el: '#renewCertApp',
                     data: {
                         dataCentreId: '',
                         description: '',
                         blackoutWindowBegin: '',
                         blackoutWindowEnd: '',
                         responseResult:'',
-                        fileuploaderror:''
+                        fileuploaderror:'',
+                        apiRequestDTO: {
+                            dataCentreId:'',
+                            x509CertFile:'',
+                            apiName: 'renewCert',
+                            fileName:'',
+                            filePath:''
+                        }
                     },
                     methods: {
                         doSubmit: function() {
                             var self = this;
                             if ($("#uploadCer").prop("files").length == 0) {
-                                var validator = $("#renewCertResponseForm").data('bootstrapValidator');
+                                var validator = $("#renewCertForm").data('bootstrapValidator');
                                 validator.updateStatus('uploadCer', 'INVALID', 'notEmpty');
                             }
-                            if (!$.formValidator('#renewCertResponseForm')) { // 驗證
+                            if (!$.formValidator('#renewCertForm')) { // 驗證
                                 return false;
                             }
 
                             $("#uploadCer").fileinput("upload");
+
+
+
                         }
                     },
                     computed: {
-                        examNoAndYear: function() {
+                        /*examNoAndYear: function() {
                             return this.examDetail.examNo + '/' + this.examDetail.examYear;
-                        }
+                        }*/
                     },
                     watch: {
 
@@ -109,13 +119,39 @@ require([
                     }
                 }).on('filebatchuploadsuccess', function (event, data) {
                     self.fileuploaderror='';
-                    console.log(data);
+                    self.vue.apiRequestDTO.x509CertFile=data.response.fileValue;
+                    self.vue.apiRequestDTO.fileName=data.response.fileName;
+                    self.vue.apiRequestDTO.filePath=data.response.filePath;
+                    self.vue.apiRequestDTO.dataCentreId = self.vue.dataCentreId;
+
+
+                    axios.post(basePath + '/triggerApi/doTriggerAPI', self.vue.apiRequestDTO).then(function(result){
+                        console.log(result);
+                    }).catch(function(error) {
+                        console.log(error);
+                    });
+
+
+                    /*axios.post(basePath + '/triggerApi/doTriggerAPI', {
+                        'dataCentreId' : self.vue.apiRequestDTO.dataCentreId,
+                        /!*'x509CertFile' : self.vue.apiRequestDTO.x509CertFile,*!/
+                        'apiName' : self.vue.apiRequestDTO.apiName,
+                        'fileName' : self.vue.apiRequestDTO.fileName,
+                        'filePath' : self.vue.apiRequestDTO.filePath
+                    }).then(function(response){
+                        console.log(response);
+                    }).catch(function(error) {
+                        console.log(error);
+                    });*/
+
+
+
                 }).on('fileuploaderror', function(event, data, msg) {
                     self.fileuploaderror=msg;
                 }).on('fileclear', function(event) {
                     self.fileuploaderror='';
-                    var $renewCertResponseForm = $("#renewCertResponseForm");
-                    var validator = $renewCertResponseForm.data('bootstrapValidator');
+                    var $renewCertForm = $("#renewCertForm");
+                    var validator = $renewCertForm.data('bootstrapValidator');
                     validator.updateMessage('uploadCer','callback', self.fileuploaderror);
                     validator.updateStatus('uploadCer', 'INVALID', 'notEmpty');
                 });
@@ -125,7 +161,7 @@ require([
             // 初始化校驗
             vaildate: function() {
                 var that = this;
-                $("#renewCertResponseForm").bootstrapValidator({
+                $("#renewCertForm").bootstrapValidator({
                     fields: {
                         dataCentreId: {
                             validators: {

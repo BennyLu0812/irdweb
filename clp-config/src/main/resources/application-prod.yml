@@ -185,5 +185,14 @@ enq:
 weblogic:
   webPrefix: @web-prefix@
 
-
+apiUrl:
+  alertBlackoutAPICreateRequest: www.baidu.com
+  alertBlackoutAPIUpdateRequest: www.baidu.com
+  alertBlackoutAPIQueryRequest: www.baidu.com
+  alertBlackoutRequestOutput: www.baidu.com
+  alertBlackoutAPICancelRequest: www.baidu.com
+  serviceFailureEventAPIRequest: www.baidu.com
+  securityEventAPIRequest: www.baidu.com
+  renewCert: www.baidu.com
+  heartBeatAPIRequest: www.baidu.com
 

@@ -1,6 +1,7 @@
 package com.ird.portal.api;
 
 import com.ird.portal.common.api.data.APIRequestDTO;
+import com.ird.portal.common.api.data.APIResponseDTO;
 import com.ird.portal.common.api.data.CLPApiHistoryDTO;
 import com.ird.portal.common.api.data.UploadFileDTO;
 import com.ird.portal.core.service.CLPApiHistoryService;
@@ -82,7 +83,7 @@ public class TriggerApiController {
     }
 
     @GetMapping("/renewCert.html")
-    public String renewCertResponse() {
+    public String renewCert() {
         return "triggerApi/renewCert";
     }
 
@@ -187,7 +188,7 @@ public class TriggerApiController {
      */
 
     @GetMapping("/downloadFile/{apiHistoryId}")
-    public void batchPrintLicense(@PathVariable("apiHistoryId") String apiHistoryId, HttpServletResponse response,HttpServletRequest request) throws Exception {
+    public void doDownloadFile(@PathVariable("apiHistoryId") String apiHistoryId, HttpServletResponse response,HttpServletRequest request) throws Exception {
 
         CLPApiHistoryDTO dto = clpApiHistoryService.getApiHistoryDTOById(apiHistoryId);
         if (dto != null && StringUtils.isNotBlank(dto.getApiFilePath()) && StringUtils.isNotBlank(dto.getApiFileName())) {
@@ -216,6 +217,13 @@ public class TriggerApiController {
         } else {
             throw new SysException(ErrorMessageHelper.getErrorMessageWithCode("F-0103", "Could not find X509CertFile"));
         }
+    }
+
+    @PostMapping("/doTriggerAPI")
+    @ResponseBody
+    public HttpEntity<APIResponseDTO> doTriggerAPI(@RequestBody APIRequestDTO apiRequestDTO) {
+        APIResponseDTO apiResponseDTO = clpApiHistoryService.doTriggerAPI(apiRequestDTO);
+        return new HttpEntity<APIResponseDTO>(apiResponseDTO);
     }
 
 }

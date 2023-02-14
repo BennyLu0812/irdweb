@@ -1,6 +1,7 @@
 package com.ird.portal.common.api.data;
 
 import com.ird.portal.data.BaseDTO;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 /**
  * @author Benny
@@ -8,6 +9,8 @@ import com.ird.portal.data.BaseDTO;
  * @date 2023/1/30
  */
 public class APIRequestDTO extends BaseDTO {
+
+    private static final long serialVersionUID = 3792168222169505545L;
 
     private String dataCentreId;
     private String blackoutWindowBegin;
@@ -26,6 +29,8 @@ public class APIRequestDTO extends BaseDTO {
     private String apiName;
     private String createDateFrom;
     private String createDateTo;
+    private String fileName;
+    private String filePath;
 
     public String getDataCentreId() {
         return dataCentreId;
@@ -162,4 +167,36 @@ public class APIRequestDTO extends BaseDTO {
     public void setCreateDateTo(String createDateTo) {
         this.createDateTo = createDateTo;
     }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.reflectionToString(this);
+    }
+
+    public String getRrenewCertInputParams() {
+        return "{" +
+                "dataCentreId=" + dataCentreId +
+                ", x509CertFile=" + x509CertFile +
+                ", timeStampSent=" + timeStampSent +
+                '}';
+    }
+
+
+
 }

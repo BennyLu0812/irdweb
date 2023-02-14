@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="fragments/head">head</div>
-    <title>renewCertResponse</title>
+    <title>renewCert</title>
     <style>
         @media (min-width: 992px) {
             .col-md-3 {
@@ -12,15 +12,15 @@
     </style>
 </head>
 <body >
-<div class="container-fluid padding-bottom-50" id="renewCertResponseApp">
+<div class="container-fluid padding-bottom-50" id="renewCertApp">
 
     <div class="container-fluid">
-        <div th:replace="fragments/layout :: content_header(|#{api.trigger.renewCertResponse.header.title}|, 'CLP-API-008')">
+        <div th:replace="fragments/layout :: content_header(|#{api.trigger.renewCert.header.title}|, 'CLP-API-008')">
             SCREEN-ID
         </div>
     </div>
 
-    <form id="renewCertResponseForm" class="form-horizontal bv-form">
+    <form id="renewCertForm" class="form-horizontal bv-form">
         <fieldset>
 
 

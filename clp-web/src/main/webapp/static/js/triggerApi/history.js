@@ -133,7 +133,7 @@ require([
                         } ],
                         columnDefs : [{
                             render : function(data, type, row) {
-                                if (row.apiName == 'renewCertResponse') {
+                                if (row.apiName == 'renewCert') {
                                     return atosUtil.formatHtml('historyDiv_enable_Download', [row.apiHistoryId]);
                                 } else {
                                     return atosUtil.formatHtml('historyDiv_not_Download', [row.apiHistoryId]);
@@ -182,8 +182,8 @@ require([
                         "id": "securityEventAPIRequest",
                         "text": "securityEventAPIRequest"
                     },{
-                        "id": "renewCertResponse",
-                        "text": "renewCertResponse"
+                        "id": "renewCert",
+                        "text": "renewCert"
                     },{
                         "id": "heartBeatAPIRequest",
                         "text": "heartBeatAPIRequest"
