@@ -129,7 +129,7 @@ spring:
       max-file-size: 20MB
       max-request-size: 200MB
 filter:
-  excludeUrls:  /login/login.html,/login/login,/pda/,/pda,/pda/api/login,/api/v1/login,/api/v1/logout,/api/v1/mobile/**,/auto/print/**,/ctr/center/select2/centerList,/inp/inpLine/select2/lineList,/inp/realTimeExamineController/**,/inp/protonRealtimeStatus/**,/equ/RealTime/**,/sys/service/getSysDateTime,/que/enroll/**,/sys/i18n/getByModules,/equ/queue/**,/inp/task/getCenterVehicle/**,/equ/monitor/**,/que/process/getWaitTime/**,/equ/led/**,/equ/led/**
+  excludeUrls:  /login/login.html,/login/login,/triggerApi/testTriggerAPI
 #CAS config
 cas:
   casEnabled: false

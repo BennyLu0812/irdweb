@@ -63,6 +63,7 @@ require([
                             fileName:'',
                             filePath:''
                         }
+
                     },
                     methods: {
                         doSubmit: function() {
@@ -127,8 +128,8 @@ require([
                     self.vue.apiRequestDTO.dataCentreId = self.vue.dataCentreId;
 
 
-                    axios.post(basePath + '/triggerApi/doTriggerAPI', self.vue.apiRequestDTO).then(function(result){
-                        console.log(result);
+                    axios.post(basePath + '/triggerApi/doTriggerAPI', self.vue.apiRequestDTO, {loading: true}).then(function(result){
+                        self.vue.responseResult = JSON.stringify(result);
                     }).catch(function(error) {
                         console.log(error);
                     });

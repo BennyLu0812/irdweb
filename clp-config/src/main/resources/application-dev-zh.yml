@@ -125,7 +125,7 @@ spring:
       password: ENC(MtATBGnnUaj9IL40uynAiinMxQA0mpAN)
       domain: dsat.gov.mo
 filter:
-  excludeUrls:  /login/login.html,/login/login
+  excludeUrls:  /login/login.html,/login/login,/triggerApi/testTriggerAPI
 
 
 #CAS config

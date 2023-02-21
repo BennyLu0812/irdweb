@@ -143,7 +143,7 @@ spring:
                     enable: true
                     required: true
 filter:
-  excludeUrls:  /login/login.html,/login/login
+  excludeUrls:  /login/login.html,/login/login,/triggerApi/testTriggerAPI
 
 
 #CAS config

@@ -143,7 +143,7 @@ spring:
                     enable: true
                     required: true
 filter:
-  excludeUrls:  /login/login.html,/login/login
+  excludeUrls:  /login/login.html,/login/login,/triggerApi/testTriggerAPI
 
 
 #CAS config
@@ -202,15 +202,15 @@ report:
   isRelativePath: true
 
 apiUrl:
-  alertBlackoutAPICreateRequest: www.baidu.com
-  alertBlackoutAPIUpdateRequest: www.baidu.com
-  alertBlackoutAPIQueryRequest: www.baidu.com
-  alertBlackoutRequestOutput: www.baidu.com
-  alertBlackoutAPICancelRequest: www.baidu.com
-  serviceFailureEventAPIRequest: www.baidu.com
-  securityEventAPIRequest: www.baidu.com
-  renewCert: www.baidu.com
-  heartBeatAPIRequest: www.baidu.com
+  alertBlackoutAPICreateRequest: /clp/web/triggerApi/testTriggerAPI
+  alertBlackoutAPIUpdateRequest: /clp/web/triggerApi/testTriggerAPI
+  alertBlackoutAPIQueryRequest: /clp/web/triggerApi/testTriggerAPI
+  alertBlackoutRequestOutput: /clp/web/triggerApi/testTriggerAPI
+  alertBlackoutAPICancelRequest: /clp/web/triggerApi/testTriggerAPI
+  serviceFailureEventAPIRequest: /clp/web/triggerApi/testTriggerAPI
+  securityEventAPIRequest: /clp/web/triggerApi/testTriggerAPI
+  renewCert: /clp/web/triggerApi/testTriggerAPI
+  heartBeatAPIRequest: /clp/web/triggerApi/testTriggerAPI
 
 
   

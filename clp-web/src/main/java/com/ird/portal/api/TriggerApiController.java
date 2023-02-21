@@ -237,4 +237,21 @@ public class TriggerApiController {
         return new HttpEntity<Select2Page>(page);
     }
 
+    /**
+     * test trigger API
+     * @param requestDTO requestDTO
+     * @return
+     * @throws Exception
+     */
+    @PostMapping(value = "/testTriggerAPI", produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public HttpEntity<APIResponseDTO> testTriggerAPI(@RequestBody APIRequestDTO requestDTO) throws Exception {
+
+        APIResponseDTO result = new APIResponseDTO();
+        result.setCode("200");
+        result.setMessage("successfully");
+        return new HttpEntity<APIResponseDTO>(result);
+
+    }
+
 }

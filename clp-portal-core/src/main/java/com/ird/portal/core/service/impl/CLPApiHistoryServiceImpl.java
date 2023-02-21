@@ -13,6 +13,7 @@ import com.ird.portal.user.UserContext;
 import com.ird.portal.util.BeanMapper;
 import com.ird.portal.util.DateUtil;
 import com.ird.portal.util.JsonUtil;
+import com.ird.portal.util.SysParamsConstant;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -128,7 +129,8 @@ public class CLPApiHistoryServiceImpl implements CLPApiHistoryService {
         String timeStampSent = DateUtil.format(new Date(), DateUtil.DATE_FORMAT_2);
         apiRequestDTO.setTimeStampSent(timeStampSent);
         if (apiRequestDTO != null && StringUtils.isNotBlank(apiRequestDTO.getApiName())) {
-            String url = apiUrlMap.get(apiRequestDTO.getApiName());
+            String domainName = SysParamsConstant.getParamValue("API_DOMAIN_NAME");
+            String url = domainName + apiUrlMap.get(apiRequestDTO.getApiName());
             CLPApiHistoryDTO clpApiHistoryDTO = new CLPApiHistoryDTO();
             clpApiHistoryDTO.setApiName(apiRequestDTO.getApiName());
             clpApiHistoryDTO.setApiRequestParams(apiRequestDTO.toString());
@@ -266,6 +268,8 @@ public class CLPApiHistoryServiceImpl implements CLPApiHistoryService {
                     clpApiHistoryDTO.setApiResponseValues(jsonValue);
                     resultDTO = JsonUtil.parse(jsonValue, APIResponseDTO.class);
                     clpApiHistoryDTO.setApiResponseStatus(resultDTO.getCode());
+                } else {
+                    clpApiHistoryDTO.setApiResponseStatus("404");
                 }
             } catch (Exception e) {
                 jsonValue = StringUtils.substring(e.getMessage(), 0, 500);
