@@ -25,7 +25,8 @@
 
 
             <div class="form-group">
-                <label class="control-label col-sm-2 control-label-required"  for="dataCentreId">dataCentreId:</label>
+                <label class="control-label col-sm-2 control-label-required"  for="dataCentreId">
+                    <span th:text="#{api.trigger.requestParams.label.dataCentreId}"></span></label>
                 <div class="col-sm-5">
 
                     <v-select lazy="true" v-model="dataCentreId" name="dataCentreId" ref="dataCentreIdSelect" :url="dataCentreIdUrl" :options="dataCentreIdOptions"></v-select>
@@ -37,7 +38,8 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2 control-label-required">upload x509CertFile:</label>
+                <label class="control-label col-sm-2 control-label-required">
+                    <span th:text="#{api.trigger.requestParams.label.x509CertFile}"></span></label>
                 <div class="col-sm-5"><!--參考LIC-117-->
                     <input id="uploadCer" name="uploadCer" type="file" class="form-control" accept=".cer" multiple="multiple"/>
                 </div>
@@ -53,10 +55,9 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2">result:</label>
+                <label class="control-label col-sm-2"><span th:text="#{api.trigger.responseResult}"></span></label>
                 <div class="col-sm-5">
-                    <textarea name="responseResult" v-model="responseResult" class="form-control" rows="10" disabled="disabled"
-                              th:placeholder="#{api.trigger.responseResult}"  style="width: 100%"></textarea>
+                    <pre name="apiResponseValues" disabled="disabled" style="height: 280px" ></pre >
                 </div>
             </div>
         </fieldset>

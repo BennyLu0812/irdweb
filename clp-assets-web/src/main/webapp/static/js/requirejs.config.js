@@ -21,6 +21,7 @@ require.config({
         'bootstrapValidator.config': '../static/js/bootstrapValidator.config',
         
         atosUtil : '../static/js/atos.util',
+        'jsonViewer' : '../static/js/jquery.json-viewer',
         formUtil : '../static/js/form.util',
         axios: 'axios/axios.min',
         'axios.config': '../static/js/axios.config',

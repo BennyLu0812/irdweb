@@ -7,9 +7,10 @@ package com.ird.portal.common.api.data;
  */
 public class APIResponseDTO {
 
-    private String eventUid;
-    private String message;
+
     private String code;
+    private String message;
+    private String eventUid;
     private String eventReference;
     private String thumbprint;
     private String validFrom;

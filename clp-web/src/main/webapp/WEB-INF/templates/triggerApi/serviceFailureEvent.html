@@ -25,7 +25,9 @@
 
 
             <div class="form-group">
-                <label class="control-label col-sm-2 control-label-required"  for="dataCentreId">dataCentreId:</label>
+                <label class="control-label col-sm-2 control-label-required"  for="dataCentreId">
+                    <span th:text="#{api.trigger.requestParams.label.dataCentreId}"></span>
+                </label>
                 <div class="col-sm-5">
                     <!--<input  name="dataCentreId"
                             v-model="dataCentreId" th:placeholder="#{api.trigger.requestParams.dataCentreId}"
@@ -36,7 +38,9 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2 control-label-required" for="severity">severity：</label>
+                <label class="control-label col-sm-2 control-label-required" for="severity">
+                    <span th:text="#{api.trigger.requestParams.label.severity}"></span>
+                </label>
                 <div class="col-sm-5">
                     <v-select name="severity" th:placeholder="#{global.pleaseSelect}"
                               sys-code-type="2002" :options="severityOptions"></v-select>
@@ -46,7 +50,8 @@
 
 
             <div class="form-group">
-                <label class="control-label col-sm-2 control-label-required" for="failure" control-label-required>failure:</label>
+                <label class="control-label col-sm-2 control-label-required" for="failure" control-label-required>
+                    <span th:text="#{api.trigger.requestParams.label.failure}"></span></label>
                 <div class="col-sm-5">
                     <textarea name="failure" v-model="failure" class="form-control" rows="5"
                               th:placeholder="#{api.trigger.requestParams.failure}"  style="width: 100%"></textarea>
@@ -55,7 +60,9 @@
 
 
             <div class="form-group">
-                <label class="control-label col-sm-2 control-label-required">timeStampEvent:</label>
+                <label class="control-label col-sm-2 control-label-required">
+                    <span th:text="#{api.trigger.requestParams.label.timeStampEvent}"></span>
+                </label>
                 <div class="col-sm-5">
 
                         <input type="text" id="serviceFailureEvent-timeStampEvent" name="timeStampEvent" v-model="timeStampEvent"
@@ -65,7 +72,8 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2 control-label-required" for="servicesAffected" control-label-required>servicesAffected:</label>
+                <label class="control-label col-sm-2 control-label-required" for="servicesAffected" control-label-required>
+                    <span th:text="#{api.trigger.requestParams.label.servicesAffected}"></span></label></label>
                 <div class="col-sm-5">
                     <textarea name="servicesAffected" v-model="servicesAffected" class="form-control" rows="5"
                               th:placeholder="#{api.trigger.requestParams.servicesAffected}"  style="width: 100%"></textarea>
@@ -83,10 +91,9 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2">result:</label>
+                <label class="control-label col-sm-2"><span th:text="#{api.trigger.responseResult}">result:</span></label>
                 <div class="col-sm-5">
-                    <textarea name="responseResult" v-model="responseResult" class="form-control" rows="10" disabled="disabled"
-                              th:placeholder="#{api.trigger.responseResult}"  style="width: 100%"></textarea>
+                    <pre name="apiResponseValues" disabled="disabled" style="height: 280px" ></pre >
                 </div>
             </div>
         </fieldset>

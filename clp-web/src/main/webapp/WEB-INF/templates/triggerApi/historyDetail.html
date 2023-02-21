@@ -12,19 +12,27 @@
         <fieldset>
 
             <div class="form-group">
-                <label class="control-label col-sm-2 control-label-required" for="apiRequestParams" control-label-required>Request Params:</label>
+                <label class="control-label col-sm-2 control-label-required" for="apiRequestParams" control-label-required>
+                    <span th:text="#{api.trigger.requestParams}"></span></label>
                 <div class="col-sm-5">
-                    <textarea name="apiRequestParams" v-model="apiRequestParams" class="form-control" rows="10" disabled="disabled"
-                                style="width: 100%"></textarea>
+                    <!--<textarea name="apiRequestParams" v-model="apiRequestParams" class="form-control" rows="10" disabled="disabled"
+                              style="overflow: auto;word-break: break-all;width: 100%;" ></textarea>-->
+
+                    <pre name="apiRequestParams" disabled="disabled" ></pre >
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2 control-label-required" for="apiResponseValues" control-label-required>Response Values:</label>
+                <label class="control-label col-sm-2 control-label-required" for="apiResponseValues" control-label-required>
+                    <span th:text="#{api.trigger.responseResult}"></span></label>
                 <div class="col-sm-5">
-                    <textarea name="apiResponseValues" v-model="apiResponseValues" class="form-control" rows="15" disabled="disabled"
-                                style="width: 100%"></textarea>
+                    <!--<textarea name="apiResponseValues" v-model="apiResponseValues" class="form-control" rows="15" disabled="disabled"
+                                style="width: 100%"></textarea>-->
+
+                    <pre name="apiResponseValues" disabled="disabled" ></pre >
                 </div>
+
+
             </div>
 
         </fieldset>

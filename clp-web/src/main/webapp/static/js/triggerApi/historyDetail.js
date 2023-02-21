@@ -23,7 +23,8 @@ require([
         'select2.config',
         'bootstrapValidator.config',
         'datetimepicker.config',
-        'fileinput'
+        'fileinput',
+        'jsonViewer'
     ],
     function($, Vue, atosBaseController, moment, momentConfig, atosUtil, axios, tinyImgUpload) {
 
@@ -75,8 +76,15 @@ require([
                                 apiHistoryId: vModel.apiHistoryId
                             }
                         }).then(function(response) {
-                            self.apiRequestParams = response.apiRequestParams;
-                            self.apiResponseValues = response.apiResponseValues;
+                            var options = {
+                                rootCollapsable: false,
+                                withQuotes: true,
+                                withLinks: true
+                            };
+                            var requestParamsValues = eval('(' + response.apiRequestParams + ')');
+                            $("pre[name=apiRequestParams]").jsonViewer(requestParamsValues, options);
+                            var responseValues = eval('(' + response.apiResponseValues + ')');
+                            $("pre[name=apiResponseValues]").jsonViewer(responseValues, options);
                         }).catch(function(error) {
                             console.log(error);
                         });

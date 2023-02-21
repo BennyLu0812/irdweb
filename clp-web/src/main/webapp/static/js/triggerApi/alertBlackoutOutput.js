@@ -23,7 +23,8 @@ require([
         'select2.config',
         'bootstrapValidator.config',
         'datetimepicker.config',
-        'fileinput'
+        'fileinput',
+        'jsonViewer'
     ],
     function($, Vue, atosBaseController, moment, momentConfig, atosUtil, axios, tinyImgUpload) {
 
