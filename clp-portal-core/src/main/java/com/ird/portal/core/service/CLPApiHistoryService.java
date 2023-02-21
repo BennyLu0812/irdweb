@@ -4,6 +4,7 @@ import com.ird.portal.common.api.data.APIRequestDTO;
 import com.ird.portal.common.api.data.APIResponseDTO;
 import com.ird.portal.common.api.data.CLPApiHistoryDTO;
 import com.ird.portal.model.Page;
+import com.ird.portal.select2.Select2Page;
 
 /**
  * @version 1.0
@@ -41,6 +42,15 @@ public interface CLPApiHistoryService {
      * @return
      */
     APIResponseDTO doTriggerAPI(APIRequestDTO apiRequestDTO);
+
+    /**
+     * 將系統參數值作為下拉框（用逗號當分隔符）。
+     * @param keyword 查詢值
+     * @param pageSize pageSize
+     * @param pageNumber pageNumber
+     * @return
+     */
+    Select2Page getSystemParamSelectPage(String keyword, int pageSize, int pageNumber);
 
 
 

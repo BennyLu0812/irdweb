@@ -53,7 +53,9 @@ require([
                         blackoutWindowBegin: '',
                         blackoutWindowEnd: '',
                         responseResult:'',
-                        eventUid:''
+                        eventUid:'',
+                        dataCentreIdOptions : [],
+                        dataCentreIdUrl : basePath + "/triggerApi/getSystemParamSelectPage"
                     },
                     methods: {
                         doSave: function() {

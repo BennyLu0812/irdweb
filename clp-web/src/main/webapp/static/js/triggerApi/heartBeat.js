@@ -52,7 +52,9 @@ require([
                         description: '',
                         blackoutWindowBegin: '',
                         blackoutWindowEnd: '',
-                        responseResult:''
+                        responseResult:'',
+                        dataCentreIdOptions : [],
+                        dataCentreIdUrl : basePath + "/triggerApi/getSystemParamSelectPage"
                     },
                     methods: {
                         doSave: function() {

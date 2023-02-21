@@ -27,10 +27,11 @@
             <div class="form-group">
                 <label class="control-label col-sm-2 control-label-required"  for="dataCentreId">dataCentreId:</label>
                 <div class="col-sm-5">
-                    <input  name="dataCentreId"
+                    <!--<input  name="dataCentreId"
                             v-model="dataCentreId" th:placeholder="#{api.trigger.requestParams.dataCentreId}"
                             type="text" class="form-control"  style="width: 100%" ref = "dataCentreId"
-                    />
+                    />-->
+                    <v-select lazy="true" v-model="dataCentreId" name="dataCentreId" ref="dataCentreIdSelect" :url="dataCentreIdUrl" :options="dataCentreIdOptions"></v-select>
                 </div>
             </div>
 

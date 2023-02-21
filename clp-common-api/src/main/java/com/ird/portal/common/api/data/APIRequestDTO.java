@@ -189,6 +189,83 @@ public class APIRequestDTO extends BaseDTO {
         return ReflectionToStringBuilder.reflectionToString(this);
     }
 
+
+    public String getAlertBlackoutAPICreateRequestInputParams() {
+        return "{" +
+                "dataCentreId=" + dataCentreId +
+                ", blackoutWindowBegin=" + blackoutWindowBegin +
+                ", blackoutWindowEnd=" + blackoutWindowEnd +
+                ", description=" + description +
+                ", timeStampSent=" + timeStampSent +
+                '}';
+    }
+
+    public String getAlertBlackoutAPIUpdateRequestInputParams() {
+        return "{" +
+                "dataCentreId=" + dataCentreId +
+                ", blackoutWindowBegin=" + blackoutWindowBegin +
+                ", blackoutWindowEnd=" + blackoutWindowEnd +
+                ", description=" + description +
+                ", timeStampSent=" + timeStampSent +
+                ", eventUid=" + eventUid +
+                '}';
+    }
+
+    public String getAlertBlackoutAPIQueryRequestInputParams() {
+        return "{" +
+                "dataCentreId=" + dataCentreId +
+                ", timeStampSent=" + timeStampSent +
+                '}';
+    }
+
+    public String getAlertBlackoutRequestOutputInputParams() {
+        return "{" +
+                "dataCentreId=" + dataCentreId +
+                ", eventUid=" + eventUid +
+                ", blackoutWindowBegin=" + blackoutWindowBegin +
+                ", blackoutWindowEnd=" + blackoutWindowEnd +
+                ", description=" + description +
+                ", timeStampSent=" + timeStampSent +
+                '}';
+    }
+
+    public String getAlertBlackoutAPICancelRequestInputParams() {
+        return "{" +
+                "dataCentreId=" + dataCentreId +
+                ", blackoutWindowBegin=" + blackoutWindowBegin +
+                ", blackoutWindowEnd=" + blackoutWindowEnd +
+                ", timeStampSent=" + timeStampSent +
+                ", cancleReason=" + cancleReason +
+                ", eventUid=" + eventUid +
+                '}';
+    }
+
+    public String getServiceFailureEventAPIRequestInputParams() {
+        return "{" +
+                "dataCentreId=" + dataCentreId +
+                ", severity=" + severity +
+                ", failure=" + failure +
+                ", servicesAffected=" + servicesAffected +
+                ", timeStampSent=" + timeStampSent +
+                ", timeStampEvent=" + timeStampEvent +
+                '}';
+    }
+
+    public String getSecurityEventAPIRequestInputParams() {
+        return "{" +
+                "dataCentreId=" + dataCentreId +
+                ", eventType=" + eventType +
+                ", severity=" + severity +
+                ", securityAlertId=" + securityAlertId +
+                ", servicesAffected=" + servicesAffected +
+                ", timeStampSent=" + timeStampSent +
+                ", timeStampEvent=" + timeStampEvent +
+                '}';
+    }
+
+
+
+
     public String getRrenewCertInputParams() {
         return "{" +
                 "dataCentreId=" + dataCentreId +
@@ -197,6 +274,11 @@ public class APIRequestDTO extends BaseDTO {
                 '}';
     }
 
-
+    public String getHeartBeatAPIRequestInputParams() {
+        return "{" +
+                "dataCentreId=" + dataCentreId +
+                ", timeStampSent=" + timeStampSent +
+                '}';
+    }
 
 }

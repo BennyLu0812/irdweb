@@ -164,7 +164,10 @@
                SELECT
                       ROW_NUMBER()over(ORDER BY code_type, ISNULL(code_order, 999999), code_key) as num,
                       code_Key AS "id",
-                      code_cname AS "text",
+                      (CASE
+                       WHEN code_pname is not null THEN code_key+' - '+code_cname+' - '+code_pname
+                       ELSE code_cname
+                       END) AS "text",
                       --dbo.FUNC_CODE_DESC(code_type, code_Key,'A') AS "text",
                       code_pname AS "pname",
                       code_cname AS "cname"

@@ -8,6 +8,7 @@ import com.ird.portal.core.service.CLPApiHistoryService;
 import com.ird.portal.exception.ErrorMessageHelper;
 import com.ird.portal.exception.SysException;
 import com.ird.portal.model.Page;
+import com.ird.portal.select2.Select2Page;
 import com.ird.portal.util.DateUtil;
 import com.ird.portal.util.SysParamsConstant;
 import org.apache.commons.lang3.StringUtils;
@@ -224,6 +225,16 @@ public class TriggerApiController {
     public HttpEntity<APIResponseDTO> doTriggerAPI(@RequestBody APIRequestDTO apiRequestDTO) {
         APIResponseDTO apiResponseDTO = clpApiHistoryService.doTriggerAPI(apiRequestDTO);
         return new HttpEntity<APIResponseDTO>(apiResponseDTO);
+    }
+
+    @GetMapping("/getSystemParamSelectPage")
+    @ResponseBody
+    public HttpEntity<Select2Page> getSystemParamSelectPage(String keyword,
+        @RequestParam(value = "pageSize", defaultValue = "3") int pageSize,
+        @RequestParam(value = "pageNumber", defaultValue = "1") int pageNumber) {
+
+        Select2Page page = clpApiHistoryService.getSystemParamSelectPage(keyword, pageSize, pageNumber);
+        return new HttpEntity<Select2Page>(page);
     }
 
 }

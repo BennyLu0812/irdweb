@@ -49,7 +49,9 @@ require([
                     el: '#alertBlackoutAPIQueryRequestApp',
                     data: {
                         dataCentreId: '',
-                        responseResult: ''
+                        responseResult: '',
+                        dataCentreIdOptions : [],
+                        dataCentreIdUrl : basePath + "/triggerApi/getSystemParamSelectPage"
                     },
                     methods: {
                         doSave: function() {

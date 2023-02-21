@@ -54,7 +54,9 @@ require([
                         servicesAffected: '',
                         timeStampEvent:'',
                         responseResult:'',
-                        severityOptions: []
+                        severityOptions: [],
+                        dataCentreIdOptions : [],
+                        dataCentreIdUrl : basePath + "/triggerApi/getSystemParamSelectPage",
                     },
                     methods: {
                         doSave: function() {
@@ -85,6 +87,22 @@ require([
             // 初始化事件
             initEvent: function() {
                 var self = this;
+
+                $('#serviceFailureEvent-timeStampEvent').datetimepicker({
+                    //language:  'cn',
+                    //minView: "month",//设置只显示到月份
+                    defaultDate: new Date(),
+                    format: "yyyy-mm-dd hh:ii:ss",//日期格式  yyyy-MM-dd'T'HH:mm:ss.SSS+08:00
+                    autoclose: true,//选中关闭
+                    todayBtn: true,//今日按钮
+                    clearBtn: true,//清除按钮
+                    todayHighlight: true,
+                    startView: 1,
+                    //forceParse: 0
+                }).on('changeDate', function (ev) {
+                    var starttime = $("#serviceFailureEvent-timeStampEvent").val();
+                    self.timeStampEvent = starttime;
+                });
 
             },
             // 初始化校驗

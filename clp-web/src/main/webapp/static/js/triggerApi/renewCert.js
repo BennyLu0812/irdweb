@@ -54,6 +54,8 @@ require([
                         blackoutWindowEnd: '',
                         responseResult:'',
                         fileuploaderror:'',
+                        dataCentreIdOptions : [],
+                        dataCentreIdUrl : basePath + "/triggerApi/getSystemParamSelectPage",
                         apiRequestDTO: {
                             dataCentreId:'',
                             x509CertFile:'',
@@ -130,20 +132,6 @@ require([
                     }).catch(function(error) {
                         console.log(error);
                     });
-
-
-                    /*axios.post(basePath + '/triggerApi/doTriggerAPI', {
-                        'dataCentreId' : self.vue.apiRequestDTO.dataCentreId,
-                        /!*'x509CertFile' : self.vue.apiRequestDTO.x509CertFile,*!/
-                        'apiName' : self.vue.apiRequestDTO.apiName,
-                        'fileName' : self.vue.apiRequestDTO.fileName,
-                        'filePath' : self.vue.apiRequestDTO.filePath
-                    }).then(function(response){
-                        console.log(response);
-                    }).catch(function(error) {
-                        console.log(error);
-                    });*/
-
 
 
                 }).on('fileuploaderror', function(event, data, msg) {
