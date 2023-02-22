@@ -1,134 +1,106 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <parent>
-        <artifactId>dls-parent</artifactId>
-        <groupId>mo.gov.dsat</groupId>
+        <artifactId>clp-parent</artifactId>
+        <groupId>com.ird.portal</groupId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath>../dls-parent</relativePath>
+        <relativePath>../clp-parent</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>dls-war-ear</artifactId>
-    <packaging>ear</packaging>
+    <artifactId>clp-war-ear</artifactId>
+    <packaging>war</packaging>
 
     <dependencies>
         <dependency>
-            <groupId>mo.gov.dsat</groupId>
-            <artifactId>dls-assets-web</artifactId>
+            <groupId>com.ird.portal</groupId>
+            <artifactId>clp-assets-web</artifactId>
             <type>war</type>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>mo.gov.dsat</groupId>
-            <artifactId>dls-web</artifactId>
-            <type>war</type>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>mo.gov.dsat</groupId>
-            <artifactId>dls-ws</artifactId>
+            <groupId>com.ird.portal</groupId>
+            <artifactId>clp-web</artifactId>
             <type>war</type>
             <version>${project.version}</version>
         </dependency>
 
+
         <dependency>
-            <groupId>mo.gov.dsat</groupId>
-            <artifactId>dls-common-base</artifactId>
-            <type>jar</type>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>mo.gov.dsat</groupId>
-            <artifactId>dls-common-api</artifactId>
-            <type>jar</type>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>mo.gov.dsat</groupId>
-            <artifactId>dls-common-web</artifactId>
+            <groupId>com.ird.portal</groupId>
+            <artifactId>clp-api-core</artifactId>
             <type>jar</type>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>mo.gov.dsat</groupId>
-            <artifactId>dls-sch-api</artifactId>
-            <type>jar</type>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>mo.gov.dsat</groupId>
-            <artifactId>dls-sch-core</artifactId>
-            <type>jar</type>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>mo.gov.dsat</groupId>
-            <artifactId>dls-user-core</artifactId>
+            <groupId>com.ird.portal</groupId>
+            <artifactId>clp-common-api</artifactId>
             <type>jar</type>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>mo.gov.dsat</groupId>
-            <artifactId>dls-sys-core</artifactId>
-            <type>jar</type>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>mo.gov.dsat</groupId>
-            <artifactId>dls-alt-core</artifactId>
-            <type>jar</type>
-            <version>${project.version}</version>
-         </dependency>
-         <dependency>
-            <groupId>mo.gov.dsat</groupId>
-            <artifactId>dls-dis-core</artifactId>
-            <type>jar</type>
-            <version>${project.version}</version>
-         </dependency>
-         <dependency>
-            <groupId>mo.gov.dsat</groupId>
-            <artifactId>dls-enq-core</artifactId>
-            <type>jar</type>
-            <version>${project.version}</version>
-        </dependency>
-       <dependency>
-            <groupId>mo.gov.dsat</groupId>
-            <artifactId>dls-pdm-core</artifactId>
-            <type>jar</type>
-            <version>${project.version}</version>
-        </dependency>
-         <dependency>
-            <groupId>mo.gov.dsat</groupId>
-            <artifactId>dls-exl-core</artifactId>
-            <type>jar</type>
-            <version>${project.version}</version>
-        </dependency>
-         <dependency>
-            <groupId>mo.gov.dsat</groupId>
-            <artifactId>dls-lic-core</artifactId>
-            <type>jar</type>
-            <version>${project.version}</version>
-        </dependency>
-         <dependency>
-            <groupId>mo.gov.dsat</groupId>
-            <artifactId>dls-rpt-core</artifactId>
-            <type>jar</type>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>mo.gov.dsat</groupId>
-            <artifactId>dls-pdm-core</artifactId>
+            <groupId>com.ird.portal</groupId>
+            <artifactId>clp-common-base</artifactId>
             <type>jar</type>
             <version>${project.version}</version>
         </dependency>
 
-        <!--系统配置文件 dls-config 统一配置 -->
         <dependency>
-            <groupId>mo.gov.dsat</groupId>
-            <artifactId>dls-config</artifactId>
+            <groupId>com.ird.portal</groupId>
+            <artifactId>clp-common-web</artifactId>
+            <type>jar</type>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!--系统配置文件 clp-config 统一配置 -->
+        <dependency>
+            <groupId>com.ird.portal</groupId>
+            <artifactId>clp-config</artifactId>
             <version>0.0.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.ird.portal</groupId>
+            <artifactId>clp-portal-core</artifactId>
+            <type>jar</type>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.ird.portal</groupId>
+            <artifactId>clp-rpt-core</artifactId>
+            <type>jar</type>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.ird.portal</groupId>
+            <artifactId>clp-sch-api</artifactId>
+            <type>jar</type>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.ird.portal</groupId>
+            <artifactId>clp-sch-core</artifactId>
+            <type>jar</type>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.ird.portal</groupId>
+            <artifactId>clp-sys-core</artifactId>
+            <type>jar</type>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.ird.portal</groupId>
+            <artifactId>clp-user-core</artifactId>
+            <type>jar</type>
+            <version>${project.version}</version>
         </dependency>
 
 
@@ -443,97 +415,70 @@
                             <addClasspath>true</addClasspath>
                         </manifest>
                     </archive>
-<!--                     <packagingIncludes>META-INF/**,**/*.jar,**/dls-admin-web-*.war,**/dls-web-*.war,**/dls-assets-web-*.war,**/dls-ws-*.war</packagingIncludes> -->
-                    <packagingIncludes>META-INF/**,**/*.jar,**/dls-web-*.war,**/dls-assets-web-*.war,**/dls-ws-*.war</packagingIncludes>
+<!--                     <packagingIncludes>META-INF/**,**/*.jar,**/dls-web-*.war,**/dls-assets-web-*.war</packagingIncludes> -->
+                    <packagingIncludes>META-INF/**,**/*.jar,**/clp-web-*.war,**/clp-assets-web-*.war</packagingIncludes>
                     <defaultLibBundleDir>lib/</defaultLibBundleDir>
                     <skinnyWars>true</skinnyWars>
 
                     <modules>
                         <webModule>
-                            <groupId>mo.gov.dsat</groupId>
-                            <artifactId>dls-assets-web</artifactId>
+                            <groupId>com.ird.portal</groupId>
+                            <artifactId>clp-assets-web</artifactId>
                             <contextRoot>${web-prefix}/assets</contextRoot>
                         </webModule>
                         <webModule>
-                            <groupId>mo.gov.dsat</groupId>
-                            <artifactId>dls-web</artifactId>
+                            <groupId>com.ird.portal</groupId>
+                            <artifactId>clp-web</artifactId>
                             <contextRoot>${web-prefix}/web</contextRoot>
                         </webModule>
-                        <webModule>
-                            <groupId>mo.gov.dsat</groupId>
-                            <artifactId>dls-ws</artifactId>
-                            <contextRoot>${web-prefix}/ws</contextRoot>
-                        </webModule>
+
+
                         <jarModule>
-                            <groupId>mo.gov.dsat</groupId>
-                            <artifactId>dls-common-base</artifactId>
+                            <groupId>com.ird.portal</groupId>
+                            <artifactId>clp-api-core</artifactId>
                         </jarModule>
 
                         <jarModule>
-                            <groupId>mo.gov.dsat</groupId>
-                            <artifactId>dls-common-api</artifactId>
+                            <groupId>com.ird.portal</groupId>
+                            <artifactId>clp-common-api</artifactId>
                         </jarModule>
                         <jarModule>
-                            <groupId>mo.gov.dsat</groupId>
-                            <artifactId>dls-common-web</artifactId>
+                            <groupId>com.ird.portal</groupId>
+                            <artifactId>clp-common-base</artifactId>
+                        </jarModule>
+                        <jarModule>
+                            <groupId>com.ird.portal</groupId>
+                            <artifactId>clp-common-web</artifactId>
+                        </jarModule>
+                        <jarModule>
+                            <groupId>com.ird.portal</groupId>
+                            <artifactId>clp-config</artifactId>
+                        </jarModule>
+                        <jarModule>
+                            <groupId>com.ird.portal</groupId>
+                            <artifactId>clp-portal-core</artifactId>
+                        </jarModule>
+                        <jarModule>
+                            <groupId>com.ird.portal</groupId>
+                            <artifactId>clp-rpt-core</artifactId>
+                        </jarModule>
+                        <jarModule>
+                            <groupId>com.ird.portal</groupId>
+                            <artifactId>clp-sch-core</artifactId>
+                        </jarModule>
+                        <jarModule>
+                            <groupId>com.ird.portal</groupId>
+                            <artifactId>clp-sch-api</artifactId>
+                        </jarModule>
+                        <jarModule>
+                            <groupId>com.ird.portal</groupId>
+                            <artifactId>clp-sys-core</artifactId>
+                        </jarModule>
+                        <jarModule>
+                            <groupId>com.ird.portal</groupId>
+                            <artifactId>clp-user-core</artifactId>
                         </jarModule>
 
-                        <jarModule>
-                            <groupId>mo.gov.dsat</groupId>
-                            <artifactId>dls-sch-api</artifactId>
-                        </jarModule>
-                        <jarModule>
-                            <groupId>mo.gov.dsat</groupId>
-                            <artifactId>dls-sch-core</artifactId>
-                        </jarModule>
-                        <jarModule>
-                            <groupId>mo.gov.dsat</groupId>
-                            <artifactId>dls-user-core</artifactId>
-                        </jarModule>
-
-                        <jarModule>
-                            <groupId>mo.gov.dsat</groupId>
-                            <artifactId>dls-sys-core</artifactId>
-                        </jarModule>
-
-                        <jarModule>
-                            <groupId>mo.gov.dsat</groupId>
-                            <artifactId>dls-config</artifactId>
-                        </jarModule>
-                        <jarModule>
-                            <groupId>mo.gov.dsat</groupId>
-                            <artifactId>dls-alt-core</artifactId>
-                        </jarModule>
-                        
-                        <jarModule>
-                            <groupId>mo.gov.dsat</groupId>
-                            <artifactId>dls-dis-core</artifactId>
-                        </jarModule>
-                        
-                        <jarModule>
-                            <groupId>mo.gov.dsat</groupId>
-                            <artifactId>dls-enq-core</artifactId>
-                        </jarModule>
-                        
-                        <jarModule>
-                            <groupId>mo.gov.dsat</groupId>
-                            <artifactId>dls-pdm-core</artifactId>
-                        </jarModule>
-                        
-                        <jarModule>
-                            <groupId>mo.gov.dsat</groupId>
-                            <artifactId>dls-exl-core</artifactId>
-                        </jarModule>
-                        
-                        <jarModule>
-                            <groupId>mo.gov.dsat</groupId>
-                            <artifactId>dls-lic-core</artifactId>
-                        </jarModule>
-                        
-                        <jarModule>
-                            <groupId>mo.gov.dsat</groupId>
-                            <artifactId>dls-rpt-core</artifactId>
-                        </jarModule>
 
                     </modules>
                 </configuration>
