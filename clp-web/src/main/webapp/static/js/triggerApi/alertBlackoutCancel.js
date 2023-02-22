@@ -32,7 +32,7 @@ require([
         var controller = atosBaseController(momentConfig, {
             variables: {
                 vue: null,
-                i18n: {},
+                i18n: {}
             },
             init: function() {
                 var self = this;
@@ -56,20 +56,34 @@ require([
                         responseResult:'',
                         eventUid:'',
                         dataCentreIdOptions : [],
-                        dataCentreIdUrl : basePath + "/triggerApi/getSystemParamSelectPage"
+                        dataCentreIdUrl : basePath + "/triggerApi/getSystemParamSelectPage",
+                        apiName:'alertBlackoutAPICancelRequest'
                     },
                     methods: {
-                        doSave: function() {
+                        doSubmit: function() {
                             var self = this;
                             if (!$.formValidator('#alertBlackoutAPICancelRequestForm')) { // 驗證
                                 return false;
                             }
+
+                            var requestDTO = JSON.stringify($('#alertBlackoutAPICancelRequestForm').serializeObject());
+
+                            atosUtil.showLoading();
+                            axios.post(basePath + '/triggerApi/doTriggerAPI', requestDTO, {loading: true}).then(function(result){
+                                var options = {
+                                    rootCollapsable: false,
+                                    withQuotes: true,
+                                    withLinks: true
+                                };
+                                var responseValues = eval('(' + JSON.stringify(result) + ')');
+                                $("pre[name=apiResponseValues]").jsonViewer(responseValues, options);
+                            }).catch(function(error) {
+                                console.log(error);
+                            });
                         }
                     },
                     computed: {
-                        examNoAndYear: function() {
-                            return this.examDetail.examNo + '/' + this.examDetail.examYear;
-                        }
+
                     },
                     watch: {
 
@@ -88,6 +102,9 @@ require([
             initEvent: function() {
                 var self = this;
 
+                var sysDateText = atosUtil.getSysDate(); // 獲取系統時間字符串
+                var sysDate = atosUtil.dateToDate(sysDateText); // 變成date類型
+
                 $('#blackoutWindowBegin').datetimepicker({
                     //language:  'cn',
                     //minView: "month",//设置只显示到月份
@@ -103,7 +120,6 @@ require([
                     var starttime = $("#blackoutWindowBegin").val();
                     $("#blackoutWindowEnd").datetimepicker('setStartDate', starttime);
                     $("#blackoutWindowBegin").datetimepicker('hide');
-                    self.blackoutWindowBegin = starttime;
                 });
 
                 $('#blackoutWindowEnd').datetimepicker({
@@ -121,7 +137,6 @@ require([
                     var endtime = $("#blackoutWindowEnd").val();
                     $("#blackoutWindowBegin").datetimepicker('setEndDate', endtime);
                     $("#blackoutWindowEnd").datetimepicker('hide');
-                    self.blackoutWindowEnd = endtime;
                 });
 
 
@@ -167,6 +182,46 @@ require([
                                     min : 36,
                                     max : 36,
                                     message : that.getI18nMessage('api.vaildate.msg.errorLength',['36'])
+                                }
+                            }
+                        },
+                        blackoutWindowBegin: {
+                            trigger: 'change',
+                            validators: {
+                                notEmpty: {
+                                    message: that.getI18nMessage('api.vaildate.msg.dateEmpty')
+                                },
+                                callback:{
+                                    callback:function (value,validator) {
+                                        // 如果填寫了特別複檢期，發出日期，並且當前的value 為空
+                                        if (!value) {
+                                            validator.updateStatus("validDate", "INVALID", "callback");
+                                            validator.updateMessage("validDate", "callback", atosUtil.getI18nMessage("api.vaildate.msg.dateEmpty"));
+                                            return false
+                                        }
+                                        validator.updateStatus("validDate","VALID");
+                                        return true;
+                                    }
+                                }
+                            }
+                        },
+                        blackoutWindowEnd: {
+                            trigger: 'change',
+                            validators: {
+                                notEmpty: {
+                                    message: that.getI18nMessage('api.vaildate.msg.dateEmpty')
+                                },
+                                callback:{
+                                    callback:function (value,validator) {
+                                        // 如果填寫了特別複檢期，發出日期，並且當前的value 為空
+                                        if (!value) {
+                                            validator.updateStatus("validDate", "INVALID", "callback");
+                                            validator.updateMessage("validDate", "callback", atosUtil.getI18nMessage("api.vaildate.msg.dateEmpty"));
+                                            return false
+                                        }
+                                        validator.updateStatus("validDate","VALID");
+                                        return true;
+                                    }
                                 }
                             }
                         }

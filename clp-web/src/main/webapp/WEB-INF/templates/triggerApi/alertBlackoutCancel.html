@@ -23,6 +23,7 @@
     <form id="alertBlackoutAPICancelRequestForm" class="form-horizontal bv-form">
         <fieldset>
 
+            <input type="hidden" name="apiName" v-model="apiName"   class="form-control" />
 
             <div class="form-group">
                 <label class="control-label col-sm-2 control-label-required"  for="dataCentreId">
@@ -33,7 +34,7 @@
                             type="text" class="form-control"  style="width: 100%" ref = "dataCentreId"
                     />-->
                     <v-select lazy="true" v-model="dataCentreId" name="dataCentreId" ref="dataCentreIdSelect"
-                              :url="dataCentreIdUrl" :options="dataCentreIdOptions"></v-select>
+                              th:placeholder="#{global.pleaseSelect}" :url="dataCentreIdUrl" :options="dataCentreIdOptions"></v-select>
                 </div>
             </div>
 
@@ -42,10 +43,10 @@
                     <span th:text="#{api.trigger.requestParams.blackoutWindow}"></span></label>
                 <div class="col-sm-5">
                     <div class="input-group">
-                        <input type="text" id="blackoutWindowBegin" name="blackoutWindowBegin" v-model="blackoutWindowBegin"
+                        <input type="text" id="blackoutWindowBegin" name="blackoutWindowBegin" value=""
                                class="form-control form_datetime"  autocomplete="off" placeholder="yyyy-mm-dd hh:ii:ss" >
                         <span class="input-group-addon">-</span>
-                        <input type="text" id="blackoutWindowEnd" name="blackoutWindowEnd" v-model="blackoutWindowEnd"
+                        <input type="text" id="blackoutWindowEnd" name="blackoutWindowEnd" value=""
                                class="form-control form_datetime" autocomplete="off" placeholder="yyyy-mm-dd hh:ii:ss" >
                     </div>
                 </div>
@@ -79,7 +80,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-2"></label>
                 <div class="col-sm-5">
-                    <button type="button" class="btn btn-primary" draw-confirm  >
+                    <button type="button" class="btn btn-primary" draw-confirm  @click="doSubmit">
                         <span th:text="#{global.submit}">提交</span>
                     </button>
                 </div>
