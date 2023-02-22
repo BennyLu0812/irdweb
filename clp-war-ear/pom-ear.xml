@@ -1,0 +1,544 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <artifactId>dls-parent</artifactId>
+        <groupId>mo.gov.dsat</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../dls-parent</relativePath>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>dls-war-ear</artifactId>
+    <packaging>ear</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>mo.gov.dsat</groupId>
+            <artifactId>dls-assets-web</artifactId>
+            <type>war</type>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>mo.gov.dsat</groupId>
+            <artifactId>dls-web</artifactId>
+            <type>war</type>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>mo.gov.dsat</groupId>
+            <artifactId>dls-ws</artifactId>
+            <type>war</type>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>mo.gov.dsat</groupId>
+            <artifactId>dls-common-base</artifactId>
+            <type>jar</type>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>mo.gov.dsat</groupId>
+            <artifactId>dls-common-api</artifactId>
+            <type>jar</type>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>mo.gov.dsat</groupId>
+            <artifactId>dls-common-web</artifactId>
+            <type>jar</type>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>mo.gov.dsat</groupId>
+            <artifactId>dls-sch-api</artifactId>
+            <type>jar</type>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>mo.gov.dsat</groupId>
+            <artifactId>dls-sch-core</artifactId>
+            <type>jar</type>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>mo.gov.dsat</groupId>
+            <artifactId>dls-user-core</artifactId>
+            <type>jar</type>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>mo.gov.dsat</groupId>
+            <artifactId>dls-sys-core</artifactId>
+            <type>jar</type>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>mo.gov.dsat</groupId>
+            <artifactId>dls-alt-core</artifactId>
+            <type>jar</type>
+            <version>${project.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>mo.gov.dsat</groupId>
+            <artifactId>dls-dis-core</artifactId>
+            <type>jar</type>
+            <version>${project.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>mo.gov.dsat</groupId>
+            <artifactId>dls-enq-core</artifactId>
+            <type>jar</type>
+            <version>${project.version}</version>
+        </dependency>
+       <dependency>
+            <groupId>mo.gov.dsat</groupId>
+            <artifactId>dls-pdm-core</artifactId>
+            <type>jar</type>
+            <version>${project.version}</version>
+        </dependency>
+         <dependency>
+            <groupId>mo.gov.dsat</groupId>
+            <artifactId>dls-exl-core</artifactId>
+            <type>jar</type>
+            <version>${project.version}</version>
+        </dependency>
+         <dependency>
+            <groupId>mo.gov.dsat</groupId>
+            <artifactId>dls-lic-core</artifactId>
+            <type>jar</type>
+            <version>${project.version}</version>
+        </dependency>
+         <dependency>
+            <groupId>mo.gov.dsat</groupId>
+            <artifactId>dls-rpt-core</artifactId>
+            <type>jar</type>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>mo.gov.dsat</groupId>
+            <artifactId>dls-pdm-core</artifactId>
+            <type>jar</type>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!--系统配置文件 dls-config 统一配置 -->
+        <dependency>
+            <groupId>mo.gov.dsat</groupId>
+            <artifactId>dls-config</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+
+
+        <!--Apache Common JAR BEGIN -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-configuration2</artifactId>
+        </dependency>
+        <!-- Apache Common JAR END -->
+
+        <!-- Dozer -->
+        <dependency>
+            <groupId>net.sf.dozer</groupId>
+            <artifactId>dozer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.dozer</groupId>
+            <artifactId>dozer-spring</artifactId>
+        </dependency>
+
+        <!-- druid datasource -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-configuration2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+        </dependency>
+
+
+        <!-- CAS -->
+        <dependency>
+            <groupId>org.jasig.cas.client</groupId>
+            <artifactId>cas-client-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+
+        <!-- quartz -->
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz-jobs</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+        </dependency>
+
+
+        <!-- Spring Boot Hibernate 依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <!-- Spring Boot Web 依賴 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>hibernate-validator</artifactId>
+                    <groupId>org.hibernate</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- Thymeleaf 依賴 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
+        <!-- slf4j logback begin -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-access</artifactId>
+        </dependency>
+        <!-- slf4j logback end -->
+
+
+        <!-- AspectJ -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-expression</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc6</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>6.2.2-atos</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports-functions</artifactId>
+            <version>6.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports-fonts</artifactId>
+            <version>6.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>itext-asian</artifactId>
+            <version>5.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.barcode4j</groupId>
+            <artifactId>barcode4j</artifactId>
+            <version>2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>batik-svg-dom</artifactId>
+            <version>1.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>batik-anim</artifactId>
+            <version>1.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>batik-dom</artifactId>
+            <version>1.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>batik-bridge</artifactId>
+            <version>1.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>batik-gvt</artifactId>
+            <version>1.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>batik-util</artifactId>
+            <version>1.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>batik-css</artifactId>
+            <version>1.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.birt.runtime.3_7_1</groupId>
+            <artifactId>org.w3c.dom.svg</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>batik-ext</artifactId>
+            <version>1.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>batik-xml</artifactId>
+            <version>1.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>batik-parser</artifactId>
+            <version>1.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>batik-script</artifactId>
+            <version>1.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>xmlgraphics-commons</artifactId>
+            <version>2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.14</version>
+        </dependency>
+
+
+    </dependencies>
+
+    <build>
+        <finalName>${finalName}</finalName>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
+                <version>2.10.1</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                        </manifest>
+                    </archive>
+<!--                     <packagingIncludes>META-INF/**,**/*.jar,**/dls-admin-web-*.war,**/dls-web-*.war,**/dls-assets-web-*.war,**/dls-ws-*.war</packagingIncludes> -->
+                    <packagingIncludes>META-INF/**,**/*.jar,**/dls-web-*.war,**/dls-assets-web-*.war,**/dls-ws-*.war</packagingIncludes>
+                    <defaultLibBundleDir>lib/</defaultLibBundleDir>
+                    <skinnyWars>true</skinnyWars>
+
+                    <modules>
+                        <webModule>
+                            <groupId>mo.gov.dsat</groupId>
+                            <artifactId>dls-assets-web</artifactId>
+                            <contextRoot>${web-prefix}/assets</contextRoot>
+                        </webModule>
+                        <webModule>
+                            <groupId>mo.gov.dsat</groupId>
+                            <artifactId>dls-web</artifactId>
+                            <contextRoot>${web-prefix}/web</contextRoot>
+                        </webModule>
+                        <webModule>
+                            <groupId>mo.gov.dsat</groupId>
+                            <artifactId>dls-ws</artifactId>
+                            <contextRoot>${web-prefix}/ws</contextRoot>
+                        </webModule>
+                        <jarModule>
+                            <groupId>mo.gov.dsat</groupId>
+                            <artifactId>dls-common-base</artifactId>
+                        </jarModule>
+
+                        <jarModule>
+                            <groupId>mo.gov.dsat</groupId>
+                            <artifactId>dls-common-api</artifactId>
+                        </jarModule>
+                        <jarModule>
+                            <groupId>mo.gov.dsat</groupId>
+                            <artifactId>dls-common-web</artifactId>
+                        </jarModule>
+
+                        <jarModule>
+                            <groupId>mo.gov.dsat</groupId>
+                            <artifactId>dls-sch-api</artifactId>
+                        </jarModule>
+                        <jarModule>
+                            <groupId>mo.gov.dsat</groupId>
+                            <artifactId>dls-sch-core</artifactId>
+                        </jarModule>
+                        <jarModule>
+                            <groupId>mo.gov.dsat</groupId>
+                            <artifactId>dls-user-core</artifactId>
+                        </jarModule>
+
+                        <jarModule>
+                            <groupId>mo.gov.dsat</groupId>
+                            <artifactId>dls-sys-core</artifactId>
+                        </jarModule>
+
+                        <jarModule>
+                            <groupId>mo.gov.dsat</groupId>
+                            <artifactId>dls-config</artifactId>
+                        </jarModule>
+                        <jarModule>
+                            <groupId>mo.gov.dsat</groupId>
+                            <artifactId>dls-alt-core</artifactId>
+                        </jarModule>
+                        
+                        <jarModule>
+                            <groupId>mo.gov.dsat</groupId>
+                            <artifactId>dls-dis-core</artifactId>
+                        </jarModule>
+                        
+                        <jarModule>
+                            <groupId>mo.gov.dsat</groupId>
+                            <artifactId>dls-enq-core</artifactId>
+                        </jarModule>
+                        
+                        <jarModule>
+                            <groupId>mo.gov.dsat</groupId>
+                            <artifactId>dls-pdm-core</artifactId>
+                        </jarModule>
+                        
+                        <jarModule>
+                            <groupId>mo.gov.dsat</groupId>
+                            <artifactId>dls-exl-core</artifactId>
+                        </jarModule>
+                        
+                        <jarModule>
+                            <groupId>mo.gov.dsat</groupId>
+                            <artifactId>dls-lic-core</artifactId>
+                        </jarModule>
+                        
+                        <jarModule>
+                            <groupId>mo.gov.dsat</groupId>
+                            <artifactId>dls-rpt-core</artifactId>
+                        </jarModule>
+
+                    </modules>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
