@@ -84,9 +84,7 @@ require([
                         }
                     },
                     computed: {
-                        /*examNoAndYear: function() {
-                            return this.examDetail.examNo + '/' + this.examDetail.examYear;
-                        }*/
+
                     },
                     watch: {
 

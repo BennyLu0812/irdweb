@@ -55,29 +55,39 @@ require([
                         blackoutWindowEnd: '',
                         responseResult:'',
                         dataCentreIdOptions : [],
-                        dataCentreIdUrl : basePath + "/triggerApi/getSystemParamSelectPage"
+                        dataCentreIdUrl : basePath + "/triggerApi/getSystemParamSelectPage",
+                        apiName:'alertBlackoutAPICreateRequest'
                     },
                     methods: {
-                        doSave: function() {
+                        doSubmit: function() {
                             var self = this;
                             if (!$.formValidator('#alertBlackoutAPICreateRequestForm')) { // 驗證
                                 return false;
                             }
+
+                            var requestDTO = JSON.stringify($('#alertBlackoutAPICreateRequestForm').serializeObject());
+
+                            atosUtil.showLoading();
+                            axios.post(basePath + '/triggerApi/doTriggerAPI', requestDTO, {loading: true}).then(function(result){
+                                var options = {
+                                    rootCollapsable: false,
+                                    withQuotes: true,
+                                    withLinks: true
+                                };
+                                var responseValues = eval('(' + JSON.stringify(result) + ')');
+                                $("pre[name=apiResponseValues]").jsonViewer(responseValues, options);
+                            }).catch(function(error) {
+                                console.log(error);
+                            });
                         }
                     },
                     computed: {
-                        examNoAndYear: function() {
-                            return this.examDetail.examNo + '/' + this.examDetail.examYear;
-                        }
+
                     },
                     watch: {
-
                     },
                     mounted:function(){
                         var self = this;
-                        /*setTimeout(function(){
-                            controller.vaildate(); // vue 初始化結束后啓動校驗
-                        },1000);*/
                     },
                     created: function() { // 初始化页面
                     }
@@ -86,11 +96,13 @@ require([
             // 初始化事件
             initEvent: function() {
                 var self = this;
+                var sysDateText = atosUtil.getSysDate(); // 獲取系統時間字符串
+                var sysDate = atosUtil.dateToDate(sysDateText); // 變成date類型
 
                 $('#blackoutWindowBegin').datetimepicker({
                     //language:  'cn',
-                    //minView: "month",//设置只显示到月份
-                    defaultDate: new Date(),
+                    //minView: "month",//设置只显示到月
+                    startDate: sysDate,
                     format: "yyyy-mm-dd hh:ii:ss",//日期格式  yyyy-MM-dd'T'HH:mm:ss.SSS+08:00
                     autoclose: true,//选中关闭
                     todayBtn: true,//今日按钮
@@ -102,13 +114,12 @@ require([
                     var starttime = $("#blackoutWindowBegin").val();
                     $("#blackoutWindowEnd").datetimepicker('setStartDate', starttime);
                     $("#blackoutWindowBegin").datetimepicker('hide');
-                    self.blackoutWindowBegin = starttime;
                 });
 
                 $('#blackoutWindowEnd').datetimepicker({
                     //language:  'cn',
                     //minView: "month",//设置只显示到月份
-                    defaultDate: new Date(),
+                    startDate: sysDate,
                     format: "yyyy-mm-dd hh:ii:ss",//日期格式
                     autoclose: true,//选中关闭
                     todayBtn: true,//今日按钮
@@ -120,43 +131,7 @@ require([
                     var endtime = $("#blackoutWindowEnd").val();
                     $("#blackoutWindowBegin").datetimepicker('setEndDate', endtime);
                     $("#blackoutWindowEnd").datetimepicker('hide');
-                    self.blackoutWindowEnd = endtime;
                 });
-
-                $('#uploadCer').fileinput({
-                    uploadUrl: basePath + '/#', // you must set a valid URL here else you will get an error
-                    uploadAsync: false,
-                    showPreview: false,
-                    dropZoneEnabled: false,
-                    //showCaption: true,
-                    showUpload: false,
-                    showRemove: true,
-                    minFileCount: 0,
-                    maxFileCount: 1,
-                    maxFileSize: 1024,
-                    enctype: 'multipart/form-data',
-                    allowedFileExtensions: ['cer'],
-                    //initialCaption: self.getI18nMessage('api.trigger.requestParams.x509CertFile'),
-                    layoutTemplates: {
-                        actionUpload: ''
-                    },
-                    uploadExtraData: function () {
-                        return {
-                            /*foreignLicenseId: controller.vue.licExchange.foreignLicenseId,
-                            licNo: controller.vue.licExchange.licCatDto.licNo,
-                            spNo: controller.vue.licExchange.spNo,
-                            licType: controller.vue.licExchange.licCatDto.licType*/
-                        };
-                    }
-                }).on('filebatchuploadsuccess', function (event, data) {
-                    /*if (vModel.foreignLicenseId && vModel.licCatId) {
-                        parent.controller.reloadDatatable();
-                        parent.controller.variables.vue.getForeignLic();
-                        parent.$.fancybox.close();
-
-                    }*/
-                });
-
 
             },
             // 初始化校驗
@@ -165,6 +140,7 @@ require([
                 $("#alertBlackoutAPICreateRequestForm").bootstrapValidator({
                     fields: {
                         dataCentreId: {
+                            trigger: 'change',
                             validators: {
                                 notEmpty: {
                                     enabled : true,
@@ -178,6 +154,7 @@ require([
                             }
                         },
                         description: {
+                            trigger: 'change',
                             validators: {
                                 notEmpty: {
                                     message: that.getI18nMessage('api.vaildate.msg.notEmpty')
@@ -186,6 +163,46 @@ require([
                                     min : 1,
                                     max : 4000,
                                     message : that.getI18nMessage('api.vaildate.msg.errorLength',['1~4000'])
+                                }
+                            }
+                        },
+                        blackoutWindowBegin: {
+                            trigger: 'change',
+                            validators: {
+                                notEmpty: {
+                                    message: that.getI18nMessage('api.vaildate.msg.dateEmpty')
+                                },
+                                callback:{
+                                    callback:function (value,validator) {
+                                        // 如果填寫了特別複檢期，發出日期，並且當前的value 為空
+                                        if (!value) {
+                                            validator.updateStatus("validDate", "INVALID", "callback");
+                                            validator.updateMessage("validDate", "callback", atosUtil.getI18nMessage("api.vaildate.msg.dateEmpty"));
+                                            return false
+                                        }
+                                        validator.updateStatus("validDate","VALID");
+                                        return true;
+                                    }
+                                }
+                            }
+                        },
+                        blackoutWindowEnd: {
+                            trigger: 'change',
+                            validators: {
+                                notEmpty: {
+                                    message: that.getI18nMessage('api.vaildate.msg.dateEmpty')
+                                },
+                                callback:{
+                                    callback:function (value,validator) {
+                                        // 如果填寫了特別複檢期，發出日期，並且當前的value 為空
+                                        if (!value) {
+                                            validator.updateStatus("validDate", "INVALID", "callback");
+                                            validator.updateMessage("validDate", "callback", atosUtil.getI18nMessage("api.vaildate.msg.dateEmpty"));
+                                            return false
+                                        }
+                                        validator.updateStatus("validDate","VALID");
+                                        return true;
+                                    }
                                 }
                             }
                         }

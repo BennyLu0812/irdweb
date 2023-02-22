@@ -133,7 +133,7 @@ public class CLPApiHistoryServiceImpl implements CLPApiHistoryService {
             String url = domainName + apiUrlMap.get(apiRequestDTO.getApiName());
             CLPApiHistoryDTO clpApiHistoryDTO = new CLPApiHistoryDTO();
             clpApiHistoryDTO.setApiName(apiRequestDTO.getApiName());
-            clpApiHistoryDTO.setApiRequestParams(apiRequestDTO.toString());
+            clpApiHistoryDTO.setApiRequestParams(apiRequestDTO.getRequestInputParams());
 
             // 配置請求參數
             Map<String, String> params = new HashMap<String, String>();
@@ -246,8 +246,10 @@ public class CLPApiHistoryServiceImpl implements CLPApiHistoryService {
                     // 存入參
                     APIRequestDTO inputParams = new APIRequestDTO();
                     beanMapper.map(apiRequestDTO, inputParams);
+                    inputParams.setFileName(null);
+                    inputParams.setFilePath(null);
                     inputParams.setX509CertFile(apiRequestDTO.getFileName());
-                    clpApiHistoryDTO.setApiRequestParams(inputParams.getRrenewCertInputParams());
+                    clpApiHistoryDTO.setApiRequestParams(inputParams.getRequestInputParams());
 
                     params.put("x509CertFile", apiRequestDTO.getX509CertFile());
                     clpApiHistoryDTO.setApiMediaType(MediaType.MULTIPART_FORM_DATA_VALUE);

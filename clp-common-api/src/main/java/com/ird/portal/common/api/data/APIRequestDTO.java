@@ -1,6 +1,7 @@
 package com.ird.portal.common.api.data;
 
 import com.ird.portal.data.BaseDTO;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 /**
@@ -190,95 +191,72 @@ public class APIRequestDTO extends BaseDTO {
     }
 
 
-    public String getAlertBlackoutAPICreateRequestInputParams() {
-        return "{" +
-                "dataCentreId:\"" + dataCentreId +
-                "\", blackoutWindowBegin:\"" + blackoutWindowBegin +
-                "\", blackoutWindowEnd:\"" + blackoutWindowEnd +
-                "\", description:\"" + description +
-                "\", timeStampSent:\"" + timeStampSent +
-                "\"}";
-    }
+    public String getRequestInputParams() {
+        StringBuffer requestInputParams = new StringBuffer();
+        requestInputParams.append("{");
+        requestInputParams.append(" dataCentreId:\""+ this.dataCentreId);
 
-    public String getAlertBlackoutAPIUpdateRequestInputParams() {
-        return "{" +
-                "dataCentreId:\"" + dataCentreId +
-                "\", blackoutWindowBegin: \"" + blackoutWindowBegin +
-                "\", blackoutWindowEnd: \"" + blackoutWindowEnd +
-                "\", description: \"" + description +
-                "\", timeStampSent: \"" + timeStampSent +
-                "\", eventUid:\"" + eventUid +
-                "\"}";
-    }
-
-    public String getAlertBlackoutAPIQueryRequestInputParams() {
-        return "{" +
-                "dataCentreId:\"" + dataCentreId +
-                "\", timeStampSent:\"" + timeStampSent +
-                "\"}";
-    }
-
-    public String getAlertBlackoutRequestOutputInputParams() {
-        return "{" +
-                "dataCentreId:\"" + dataCentreId +
-                "\", eventUid:\"" + eventUid +
-                "\", blackoutWindowBegin:\"" + blackoutWindowBegin +
-                "\", blackoutWindowEnd:\"" + blackoutWindowEnd +
-                "\", description:\"" + description +
-                "\", timeStampSent:\"" + timeStampSent +
-                "\"}";
-    }
-
-    public String getAlertBlackoutAPICancelRequestInputParams() {
-        return "{" +
-                "dataCentreId:\"" + dataCentreId +
-                "\", blackoutWindowBegin:\"" + blackoutWindowBegin +
-                "\", blackoutWindowEnd:\"" + blackoutWindowEnd +
-                "\", timeStampSent:\"" + timeStampSent +
-                "\", cancleReason:\"" + cancleReason +
-                "\", eventUid:\"" + eventUid +
-                "\"}";
-    }
-
-    public String getServiceFailureEventAPIRequestInputParams() {
-        return "{" +
-                "dataCentreId:\"" + dataCentreId +
-                "\", severity:\"" + severity +
-                "\", failure:\"" + failure +
-                "\", servicesAffected:\"" + servicesAffected +
-                "\", timeStampSent:\"" + timeStampSent +
-                "\", timeStampEvent:\"" + timeStampEvent +
-                "\"}";
-    }
-
-    public String getSecurityEventAPIRequestInputParams() {
-        return "{" +
-                "dataCentreId:\"" + dataCentreId +
-                "\", eventType:\"" + eventType +
-                "\", severity:\"" + severity +
-                "\", securityAlertId:\"" + securityAlertId +
-                "\", servicesAffected:\"" + servicesAffected +
-                "\", timeStampSent:\"" + timeStampSent +
-                "\", timeStampEvent:\"" + timeStampEvent +
-                "\"}";
+        if (StringUtils.isNotBlank(this.blackoutWindowBegin)) {
+            requestInputParams.append("\", blackoutWindowBegin:\"" + this.blackoutWindowBegin);
+        }
+        if (StringUtils.isNotBlank(this.blackoutWindowEnd)) {
+            requestInputParams.append("\", blackoutWindowEnd: \"" + this.blackoutWindowEnd);
+        }
+        if (StringUtils.isNotBlank(this.description)) {
+            requestInputParams.append("\", description: \"" + this.description);
+        }
+        if (StringUtils.isNotBlank(this.timeStampSent)) {
+            requestInputParams.append("\", timeStampSent: \"" + this.timeStampSent);
+        }
+        if (StringUtils.isNotBlank(this.eventUid)) {
+            requestInputParams.append("\", eventUid:\"" + this.eventUid);
+        }
+        if (StringUtils.isNotBlank(this.cancleReason)) {
+            requestInputParams.append("\", cancleReason:\"" + this.cancleReason);
+        }
+        if (StringUtils.isNotBlank(this.severity)) {
+            requestInputParams.append("\", severity:\"" + this.severity);
+        }
+        if (StringUtils.isNotBlank(this.failure)) {
+            requestInputParams.append("\", failure:\"" + this.failure);
+        }
+        if (StringUtils.isNotBlank(this.servicesAffected)) {
+            requestInputParams.append("\", servicesAffected:\"" + this.servicesAffected);
+        }
+        if (StringUtils.isNotBlank(this.timeStampEvent)) {
+            requestInputParams.append("\", timeStampEvent:\"" + this.timeStampEvent);
+        }
+        if (StringUtils.isNotBlank(this.eventType)) {
+            requestInputParams.append("\", eventType:\"" + this.eventType);
+        }
+        if (StringUtils.isNotBlank(this.securityAlertId)) {
+            requestInputParams.append("\", securityAlertId:\"" + this.securityAlertId);
+        }
+        if (StringUtils.isNotBlank(this.x509CertFile)) {
+            requestInputParams.append("\", x509CertFile:\"" + this.x509CertFile);
+        }
+        if (StringUtils.isNotBlank(this.createDateFrom)) {
+            requestInputParams.append("\", createDateFrom:\"" + this.createDateFrom);
+        }
+        if (StringUtils.isNotBlank(this.createDateTo)) {
+            requestInputParams.append("\", createDateTo:\"" + this.createDateTo);
+        }
+        if (StringUtils.isNotBlank(this.fileName)) {
+            requestInputParams.append("\", fileName:\"" + this.fileName);
+        }
+        if (StringUtils.isNotBlank(this.filePath)) {
+            requestInputParams.append("\", filePath:\"" + this.filePath);
+        }
+        requestInputParams.append("\"}");
+        return requestInputParams.toString();
     }
 
 
 
 
-    public String getRrenewCertInputParams() {
-        return "{" +
-                "dataCentreId:\"" + dataCentreId +
-                "\", x509CertFile:\"" + x509CertFile +
-                "\", timeStampSent:\"" + timeStampSent +
-                "\"}";
-    }
 
-    public String getHeartBeatAPIRequestInputParams() {
-        return "{" +
-                "dataCentreId:\"" + dataCentreId +
-                "\", timeStampSent:\"" + timeStampSent +
-                "\"}";
-    }
+
+
+
 
 }
