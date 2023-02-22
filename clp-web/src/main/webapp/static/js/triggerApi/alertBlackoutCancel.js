@@ -105,7 +105,7 @@ require([
                 var sysDateText = atosUtil.getSysDate(); // 獲取系統時間字符串
                 var sysDate = atosUtil.dateToDate(sysDateText); // 變成date類型
 
-                $('#blackoutWindowBegin').datetimepicker({
+                $('#cancel-blackoutWindowBegin').datetimepicker({
                     //language:  'cn',
                     //minView: "month",//设置只显示到月份
                     startDate: sysDate,
@@ -117,12 +117,12 @@ require([
                     startView: 1,
                     //forceParse: 0
                 }).on('changeDate', function (ev) {
-                    var starttime = $("#blackoutWindowBegin").val();
-                    $("#blackoutWindowEnd").datetimepicker('setStartDate', starttime);
-                    $("#blackoutWindowBegin").datetimepicker('hide');
+                    var starttime = $("#cancel-blackoutWindowBegin").val();
+                    $("#cancel-blackoutWindowEnd").datetimepicker('setStartDate', starttime);
+                    $("#cancel-blackoutWindowBegin").datetimepicker('hide');
                 });
 
-                $('#blackoutWindowEnd').datetimepicker({
+                $('#cancel-blackoutWindowEnd').datetimepicker({
                     //language:  'cn',
                     //minView: "month",//设置只显示到月份
                     startDate: sysDate,
@@ -134,9 +134,9 @@ require([
                     startView: 1,
                     //forceParse: 0
                 }).on('changeDate', function (ev) {
-                    var endtime = $("#blackoutWindowEnd").val();
-                    $("#blackoutWindowBegin").datetimepicker('setEndDate', endtime);
-                    $("#blackoutWindowEnd").datetimepicker('hide');
+                    var endtime = $("#cancel-blackoutWindowEnd").val();
+                    $("#cancel-blackoutWindowBegin").datetimepicker('setEndDate', endtime);
+                    $("#cancel-blackoutWindowEnd").datetimepicker('hide');
                 });
 
 
