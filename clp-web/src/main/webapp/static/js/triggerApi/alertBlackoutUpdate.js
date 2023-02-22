@@ -196,7 +196,6 @@ require([
                                 },
                                 callback:{
                                     callback:function (value,validator) {
-                                        // 如果填寫了特別複檢期，發出日期，並且當前的value 為空
                                         if (!value) {
                                             validator.updateStatus("validDate", "INVALID", "callback");
                                             validator.updateMessage("validDate", "callback", atosUtil.getI18nMessage("api.vaildate.msg.dateEmpty"));
@@ -216,7 +215,6 @@ require([
                                 },
                                 callback:{
                                     callback:function (value,validator) {
-                                        // 如果填寫了特別複檢期，發出日期，並且當前的value 為空
                                         if (!value) {
                                             validator.updateStatus("validDate", "INVALID", "callback");
                                             validator.updateMessage("validDate", "callback", atosUtil.getI18nMessage("api.vaildate.msg.dateEmpty"));

@@ -108,7 +108,7 @@ require([
                 $('#blackoutWindowBegin').datetimepicker({
                     //language:  'cn',
                     //minView: "month",//设置只显示到月份
-                    defaultDate: new Date(),
+                    startDate: sysDate,
                     format: "yyyy-mm-dd hh:ii:ss",//日期格式  yyyy-MM-dd'T'HH:mm:ss.SSS+08:00
                     autoclose: true,//选中关闭
                     todayBtn: true,//今日按钮
@@ -125,7 +125,7 @@ require([
                 $('#blackoutWindowEnd').datetimepicker({
                     //language:  'cn',
                     //minView: "month",//设置只显示到月份
-                    defaultDate: new Date(),
+                    startDate: sysDate,
                     format: "yyyy-mm-dd hh:ii:ss",//日期格式
                     autoclose: true,//选中关闭
                     todayBtn: true,//今日按钮
