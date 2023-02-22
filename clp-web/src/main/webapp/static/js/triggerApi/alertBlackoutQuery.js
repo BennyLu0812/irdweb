@@ -52,20 +52,34 @@ require([
                         dataCentreId: '',
                         responseResult: '',
                         dataCentreIdOptions : [],
-                        dataCentreIdUrl : basePath + "/triggerApi/getSystemParamSelectPage"
+                        dataCentreIdUrl : basePath + "/triggerApi/getSystemParamSelectPage",
+                        apiName:'alertBlackoutAPIQueryRequest'
                     },
                     methods: {
-                        doSave: function() {
+                        doSubmit: function() {
                             var self = this;
                             if (!$.formValidator('#alertBlackoutAPIQueryRequestForm')) { // 驗證
                                 return false;
                             }
+
+                            var requestDTO = JSON.stringify($('#alertBlackoutAPIQueryRequestForm').serializeObject());
+
+                            atosUtil.showLoading();
+                            axios.post(basePath + '/triggerApi/doTriggerAPI', requestDTO, {loading: true}).then(function(result){
+                                var options = {
+                                    rootCollapsable: false,
+                                    withQuotes: true,
+                                    withLinks: true
+                                };
+                                var responseValues = eval('(' + JSON.stringify(result) + ')');
+                                $("pre[name=apiResponseValues]").jsonViewer(responseValues, options);
+                            }).catch(function(error) {
+                                console.log(error);
+                            });
                         }
                     },
                     computed: {
-                        examNoAndYear: function() {
-                            return this.examDetail.examNo + '/' + this.examDetail.examYear;
-                        }
+
                     },
                     watch: {
 
@@ -92,6 +106,7 @@ require([
                 $("#alertBlackoutAPIQueryRequestForm").bootstrapValidator({
                     fields: {
                         dataCentreId: {
+                            trigger: 'change',
                             validators: {
                                 notEmpty: {
                                     enabled : true,
