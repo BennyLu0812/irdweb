@@ -32,7 +32,7 @@ require([
         var controller = atosBaseController(momentConfig, {
             variables: {
                 vue: null,
-                i18n: {},
+                i18n: {}
             },
             init: function() {
                 var self = this;
@@ -55,20 +55,34 @@ require([
                         blackoutWindowEnd: '',
                         responseResult:'',
                         dataCentreIdOptions : [],
-                        dataCentreIdUrl : basePath + "/triggerApi/getSystemParamSelectPage"
+                        dataCentreIdUrl : basePath + "/triggerApi/getSystemParamSelectPage",
+                        apiName:'heartBeatAPIRequest'
                     },
                     methods: {
-                        doSave: function() {
+                        doSubmit: function() {
                             var self = this;
                             if (!$.formValidator('#heartBeatAPIRequestForm')) { // 驗證
                                 return false;
                             }
+
+                            var requestDTO = JSON.stringify($('#heartBeatAPIRequestForm').serializeObject());
+
+                            atosUtil.showLoading();
+                            axios.post(basePath + '/triggerApi/doTriggerAPI', requestDTO, {loading: true}).then(function(result){
+                                var options = {
+                                    rootCollapsable: false,
+                                    withQuotes: true,
+                                    withLinks: true
+                                };
+                                var responseValues = eval('(' + JSON.stringify(result) + ')');
+                                $("pre[name=apiResponseValues]").jsonViewer(responseValues, options);
+                            }).catch(function(error) {
+                                console.log(error);
+                            });
                         }
                     },
                     computed: {
-                        examNoAndYear: function() {
-                            return this.examDetail.examNo + '/' + this.examDetail.examYear;
-                        }
+
                     },
                     watch: {
 

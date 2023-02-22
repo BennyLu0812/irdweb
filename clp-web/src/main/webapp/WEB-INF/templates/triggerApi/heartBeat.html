@@ -23,6 +23,8 @@
     <form id="heartBeatAPIRequestForm" class="form-horizontal bv-form">
         <fieldset>
 
+            <input type="hidden" name="apiName" v-model="apiName"   class="form-control" />
+
             <div class="form-group">
                 <label class="control-label col-sm-2 control-label-required"  for="dataCentreId">
                     <span th:text="#{api.trigger.requestParams.label.dataCentreId}"></span></label>
@@ -31,14 +33,15 @@
                             v-model="dataCentreId" th:placeholder="#{api.trigger.requestParams.dataCentreId}"
                             type="text" class="form-control"  style="width: 100%" ref = "dataCentreId"
                     />-->
-                    <v-select lazy="true" v-model="dataCentreId" name="dataCentreId" ref="dataCentreIdSelect" :url="dataCentreIdUrl" :options="dataCentreIdOptions"></v-select>
+                    <v-select lazy="true" v-model="dataCentreId" name="dataCentreId" ref="dataCentreIdSelect"
+                              th:placeholder="#{global.pleaseSelect}" :url="dataCentreIdUrl" :options="dataCentreIdOptions"></v-select>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="control-label col-sm-2"></label>
                 <div class="col-sm-5">
-                    <button type="button" class="btn btn-primary" draw-confirm  >
+                    <button type="button" class="btn btn-primary" draw-confirm @click="doSubmit" >
                         <span th:text="#{global.submit}">提交</span>
                     </button>
                 </div>
