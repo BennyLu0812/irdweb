@@ -133,7 +133,7 @@ public class CLPApiHistoryServiceImpl implements CLPApiHistoryService {
             String url = domainName + apiUrlMap.get(apiRequestDTO.getApiName());
             CLPApiHistoryDTO clpApiHistoryDTO = new CLPApiHistoryDTO();
             clpApiHistoryDTO.setApiName(apiRequestDTO.getApiName());
-            clpApiHistoryDTO.setApiRequestParams(apiRequestDTO.getRequestInputParams());
+
 
             // 配置請求參數
             Map<String, String> params = new HashMap<String, String>();
@@ -142,36 +142,16 @@ public class CLPApiHistoryServiceImpl implements CLPApiHistoryService {
             String jsonValue = "";
             switch (apiRequestDTO.getApiName()) {
                 case "alertBlackoutAPICreateRequest":
-                    if (StringUtils.isNotBlank(apiRequestDTO.getBlackoutWindowBegin())) {
-                        Date blackoutWindowBeginDate = DateUtil.parse(apiRequestDTO.getBlackoutWindowBegin(), DateUtil.DATE_FORMAT);
-                        String blackoutWindowBeginText = DateUtil.format(blackoutWindowBeginDate, DateUtil.DATE_FORMAT_2);
-                        params.put("blackoutWindowBegin", blackoutWindowBeginText);
-                    }
-
-                    if (StringUtils.isNotBlank(apiRequestDTO.getBlackoutWindowEnd())) {
-                        Date blackoutWindowEndDate = DateUtil.parse(apiRequestDTO.getBlackoutWindowEnd(), DateUtil.DATE_FORMAT);
-                        String blackoutWindowEndText = DateUtil.format(blackoutWindowEndDate, DateUtil.DATE_FORMAT_2);
-                        params.put("blackoutWindowEnd", blackoutWindowEndText);
-                    }
+                    // 格式化BlackoutWindowDate
+                    doFormatDate(apiRequestDTO, params);
                     params.put("description", apiRequestDTO.getDescription());
-
                     clpApiHistoryDTO.setApiMediaType(MediaType.APPLICATION_JSON_VALUE);
                     break;
                 case "alertBlackoutAPIUpdateRequest":
-                    if (StringUtils.isNotBlank(apiRequestDTO.getBlackoutWindowBegin())) {
-                        Date blackoutWindowBeginDate = DateUtil.parse(apiRequestDTO.getBlackoutWindowBegin(), DateUtil.DATE_FORMAT);
-                        String blackoutWindowBeginText = DateUtil.format(blackoutWindowBeginDate, DateUtil.DATE_FORMAT_2);
-                        params.put("blackoutWindowBegin", blackoutWindowBeginText);
-                    }
-
-                    if (StringUtils.isNotBlank(apiRequestDTO.getBlackoutWindowEnd())) {
-                        Date blackoutWindowEndDate = DateUtil.parse(apiRequestDTO.getBlackoutWindowEnd(), DateUtil.DATE_FORMAT);
-                        String blackoutWindowEndText = DateUtil.format(blackoutWindowEndDate, DateUtil.DATE_FORMAT_2);
-                        params.put("blackoutWindowEnd", blackoutWindowEndText);
-                    }
+                    // 格式化BlackoutWindowDate
+                    doFormatDate(apiRequestDTO, params);
                     params.put("description", apiRequestDTO.getDescription());
                     params.put("eventUid", apiRequestDTO.getEventUid());
-
                     clpApiHistoryDTO.setApiMediaType(MediaType.APPLICATION_JSON_VALUE);
                     break;
                 case "alertBlackoutAPIQueryRequest":
@@ -179,47 +159,24 @@ public class CLPApiHistoryServiceImpl implements CLPApiHistoryService {
                     break;
                 case "alertBlackoutRequestOutput":
                     params.put("eventUid", apiRequestDTO.getEventUid());
-                    if (StringUtils.isNotBlank(apiRequestDTO.getBlackoutWindowBegin())) {
-                        Date blackoutWindowBeginDate = DateUtil.parse(apiRequestDTO.getBlackoutWindowBegin(), DateUtil.DATE_FORMAT);
-                        String blackoutWindowBeginText = DateUtil.format(blackoutWindowBeginDate, DateUtil.DATE_FORMAT_2);
-                        params.put("blackoutWindowBegin", blackoutWindowBeginText);
-                    }
-
-                    if (StringUtils.isNotBlank(apiRequestDTO.getBlackoutWindowEnd())) {
-                        Date blackoutWindowEndDate = DateUtil.parse(apiRequestDTO.getBlackoutWindowEnd(), DateUtil.DATE_FORMAT);
-                        String blackoutWindowEndText = DateUtil.format(blackoutWindowEndDate, DateUtil.DATE_FORMAT_2);
-                        params.put("blackoutWindowEnd", blackoutWindowEndText);
-                    }
+                    // 格式化BlackoutWindowDate
+                    doFormatDate(apiRequestDTO, params);
                     params.put("description", apiRequestDTO.getDescription());
-
                     clpApiHistoryDTO.setApiMediaType(MediaType.APPLICATION_JSON_VALUE);
                     break;
                 case "alertBlackoutAPICancelRequest":
-                    if (StringUtils.isNotBlank(apiRequestDTO.getBlackoutWindowBegin())) {
-                        Date blackoutWindowBeginDate = DateUtil.parse(apiRequestDTO.getBlackoutWindowBegin(), DateUtil.DATE_FORMAT);
-                        String blackoutWindowBeginText = DateUtil.format(blackoutWindowBeginDate, DateUtil.DATE_FORMAT_2);
-                        params.put("blackoutWindowBegin", blackoutWindowBeginText);
-                    }
-
-                    if (StringUtils.isNotBlank(apiRequestDTO.getBlackoutWindowEnd())) {
-                        Date blackoutWindowEndDate = DateUtil.parse(apiRequestDTO.getBlackoutWindowEnd(), DateUtil.DATE_FORMAT);
-                        String blackoutWindowEndText = DateUtil.format(blackoutWindowEndDate, DateUtil.DATE_FORMAT_2);
-                        params.put("blackoutWindowEnd", blackoutWindowEndText);
-                    }
+                    // 格式化BlackoutWindowDate
+                    doFormatDate(apiRequestDTO, params);
                     params.put("cancelReason", apiRequestDTO.getCancleReason());
                     params.put("eventUid", apiRequestDTO.getEventUid());
-
                     clpApiHistoryDTO.setApiMediaType(MediaType.APPLICATION_JSON_VALUE);
                     break;
                 case "serviceFailureEventAPIRequest":
                     params.put("severity", apiRequestDTO.getSeverity());
                     params.put("failure", apiRequestDTO.getFailure());
                     params.put("servicesAffected", apiRequestDTO.getServicesAffected());
-                    if (StringUtils.isNotBlank(apiRequestDTO.getTimeStampEvent())) {
-                        Date timeStampEventDate = DateUtil.parse(apiRequestDTO.getTimeStampEvent(), DateUtil.DATE_FORMAT);
-                        String timeStampEventDateText = DateUtil.format(timeStampEventDate, DateUtil.DATE_FORMAT_2);
-                        params.put("timeStampEvent", timeStampEventDateText);
-                    }
+                    // 格式化timeStampEvent
+                    doFormatDate(apiRequestDTO, params);
                     clpApiHistoryDTO.setApiMediaType(MediaType.APPLICATION_JSON_VALUE);
                     break;
                 case "securityEventAPIRequest":
@@ -233,13 +190,10 @@ public class CLPApiHistoryServiceImpl implements CLPApiHistoryService {
                         userId = user.getUserId();
                     }
                     params.put("securityAlertId", apiRequestDTO.getTimeStampSent() + userId);
+                    apiRequestDTO.setSecurityAlertId(apiRequestDTO.getTimeStampSent() + userId);
                     params.put("servicesAffected", apiRequestDTO.getServicesAffected());
-                    if (StringUtils.isNotBlank(apiRequestDTO.getTimeStampEvent())) {
-                        Date timeStampEventDate = DateUtil.parse(apiRequestDTO.getTimeStampEvent(), DateUtil.DATE_FORMAT);
-                        String timeStampEventDateText = DateUtil.format(timeStampEventDate, DateUtil.DATE_FORMAT_2);
-                        params.put("timeStampEvent", timeStampEventDateText);
-                    }
-
+                    // 格式化timeStampEvent
+                    doFormatDate(apiRequestDTO, params);
                     clpApiHistoryDTO.setApiMediaType(MediaType.APPLICATION_JSON_VALUE);
                     break;
                 case "renewCert":
@@ -278,6 +232,7 @@ public class CLPApiHistoryServiceImpl implements CLPApiHistoryService {
                 clpApiHistoryDTO.setApiResponseValues(jsonValue);
                 clpApiHistoryDTO.setApiResponseStatus("404");
             }
+            clpApiHistoryDTO.setApiRequestParams(apiRequestDTO.getRequestInputParams());
             // 保存歷史記錄
             doSave(clpApiHistoryDTO);
         }
@@ -296,5 +251,29 @@ public class CLPApiHistoryServiceImpl implements CLPApiHistoryService {
         return clpApiHistoryMapper.getSystemParamSelectPage(keyword, pageSize, pageNumber);
     }
 
+
+    // 格式化BlackoutWindowDate 和 timeStampEvent
+    private void doFormatDate(APIRequestDTO apiRequestDTO, Map<String, String> params) {
+        if (StringUtils.isNotBlank(apiRequestDTO.getBlackoutWindowBegin())) {
+            Date blackoutWindowBeginDate = DateUtil.parse(apiRequestDTO.getBlackoutWindowBegin(), DateUtil.DATE_FORMAT);
+            String blackoutWindowBeginText = DateUtil.format(blackoutWindowBeginDate, DateUtil.DATE_FORMAT_2);
+            params.put("blackoutWindowBegin", blackoutWindowBeginText);
+            apiRequestDTO.setBlackoutWindowBegin(blackoutWindowBeginText);
+        }
+
+        if (StringUtils.isNotBlank(apiRequestDTO.getBlackoutWindowEnd())) {
+            Date blackoutWindowEndDate = DateUtil.parse(apiRequestDTO.getBlackoutWindowEnd(), DateUtil.DATE_FORMAT);
+            String blackoutWindowEndText = DateUtil.format(blackoutWindowEndDate, DateUtil.DATE_FORMAT_2);
+            params.put("blackoutWindowEnd", blackoutWindowEndText);
+            apiRequestDTO.setBlackoutWindowEnd(blackoutWindowEndText);
+        }
+
+        if (StringUtils.isNotBlank(apiRequestDTO.getTimeStampEvent())) {
+            Date timeStampEventDate = DateUtil.parse(apiRequestDTO.getTimeStampEvent(), DateUtil.DATE_FORMAT);
+            String timeStampEventDateText = DateUtil.format(timeStampEventDate, DateUtil.DATE_FORMAT_2);
+            params.put("timeStampEvent", timeStampEventDateText);
+            apiRequestDTO.setTimeStampEvent(timeStampEventDateText);
+        }
+    }
 
 }
